@@ -1,0 +1,62 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
+    <title>챗봇</title>
+</head>
+<body>
+    <div id="wrap" class="wrap">
+        <div class="chatBox" id="chatbox">
+            <div class="header">
+                <div class="title-wrap">
+                    <h1 class="title">SOTA 챗봇</h1>
+                </div>
+            </div>
+            <!-- 챗봇 -->
+            <div class="chat-bot">
+                <div class="bot-profile">
+                    <!-- 챗봇 이미지 -->
+                    <div class="img" style="background: none;">
+                        <img src="https://openclipart.org/image/800px/262355" alt="챗봇">
+                    </div>
+                    <!-- 챗봇 이름 -->
+                    <div class="name">
+                        챗봇
+                    </div>
+                </div>
+                <div class="bot-talk">
+                    <!-- 챗봇 말 -->
+                    <div class="txt">
+                        <div>안녕하세용</div>
+                    </div>
+                    <!-- 챗봇 말한시간 -->
+                    <div class="time">
+                        <div>오후5:10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chatfooter">
+        <table>
+            <tr>
+                <td width="90%" style="display: table-cell;vertical-align: middle;width: auto;padding: 9px 8px 9px 13pt;position: relative;">
+                    <input id="chattext" placeholder="챗봇에게 물어보세요" style="background-color: rgb(243, 244, 246);border: 0px;height: 28px;">
+                </td>
+                <td width="10%">
+                    <button id="sendbtn">SEND</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

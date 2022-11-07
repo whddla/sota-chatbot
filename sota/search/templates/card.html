@@ -1,0 +1,41 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+<section class="contents">
+    <h2 class="tit-dep1">체크카드</h2>
+</section>
+<section class="contents">
+    <div class="card-box">
+        <div class="card-box__item">
+            <!-- 앞 -->
+            <div class="card-box__before">
+                <a href="" class="linkDetail">
+                    <h3 class="tit-dep4">노리2 체크카드</h3>
+                    <p class="badge--txt pl0">국민 대표 체크카드 시즌2 개막</p>
+                    <p class="c-blue txt-ss mt8"></p>
+                    <div class="card-box__card row">
+                        <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/07964_img.png" alt="">
+                    </div>
+                </a>
+            </div>
+            <!-- 뒤 -->
+            <div class="card-box__after">
+                <a href="" class="linkDetail">
+                    <h3 class="tit-dep4">노리2 체크카드</h3>
+                    <p class="badge--txt pl0">국민 대표 체크카드 시즌2 개막</p>
+                </a>
+                <p class="c-blue txt-ss mt8"></p>
+                <div class="card-box__btn-wrap">
+                    <span class="bold-m">연회비 없음</span>
+                </div>
+                <div class="btn-wrap">
+                    <button class="btn btn--primary">
+                        카드신청
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endblock%}

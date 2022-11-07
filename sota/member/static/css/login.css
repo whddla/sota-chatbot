@@ -1,0 +1,101 @@
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+label{
+    font-size: 13px;
+}
+/* 전체 */
+div.somelogin_box{
+    text-align: -webkit-center;
+    margin-top: 150px;
+    margin-bottom: 300px;
+}
+a.main_icon{
+    display: flex;
+    justify-content: center;
+}
+
+/* 로그인화면 */
+div.somelogin{
+    margin-top: 30px;
+    width: 380px;
+    height: 300px;
+}
+div.somelogin_pw_box label{
+    width: 85px;
+    height: 40px;
+    font-size: 13px;
+    line-height: 55px;
+}
+div.somelogin_id_box label{
+    width: 85px;
+    height: 40px;
+    font-size: 13px;
+    line-height: 55px;
+}
+
+/* 로그인 아이디 아이디박스 */
+div.somelogin_id_box{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 로그인화면 아이디 박스 */
+div.somelogin_id_input input{
+    width: 280px;
+    height: 40px;
+    line-height: 1.2;
+    font-size:13px;
+    padding: 6px 12px;
+    background-color:#f9f9f9;
+    border: 1px solid #f9f9f9;
+}
+div.somelogin_id_input input:focus{
+    outline: none;
+    background-color: white;
+    border: 1px solid #d2d2d2;
+}
+
+/* 로그인 비밀번호 비밀번호 박스 */
+div.somelogin_pw_box{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+/*로그인화면 비밀번호 박스 */
+div.somelogin_pw_input input{
+    width: 280px;
+    height: 40px;
+    line-height: 1.2;
+    font-size:13px;
+    padding: 6px 12px;
+    background-color:#f9f9f9 ;
+    border: 1px solid #f9f9f9;
+
+}
+div.somelogin_pw_input input:focus{
+    outline: none;
+    background-color: white;
+    border: 1px solid #d2d2d2;
+}
+
+/* 로그인 미입력 오류메세지 */
+p.error-msg{
+    margin-top: 10px;
+    font-size: 13px;
+    color: #fd5d5f;
+    /* display: none; */
+}
+
+/* 로그인버튼 */
+button{
+    width: 335px;
+    height: 46px;
+    color: #fff;
+    background-color: black;
+    font-weight: 600;
+    margin-top: 50px;
+    cursor: pointer;
+}
+

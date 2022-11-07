@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+}
+#wrap {
+    overflow-y: hidden;
+    height: 100%;
+    position: relative;
+}
+.header {
+    background-color: beige;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #333;
+}
+.title-wrap{
+    height: 50px;
+}
+.title{
+    text-align: center;
+}
+h1 {
+    margin: 0;
+}
+
+.bot-profile{
+    margin-top: 20px;
+    margin-left: 65px;
+}
+
+.img {
+    float: left;
+    width: 58px;
+    border: 1px solid #333;
+    border-radius: 56px;
+    height: 58px;
+    margin-left: -50px;
+    text-indent: -9999px;
+    background: url(https://openclipart.org/image/800px/262355);
+}
+
+
+.img img {
+    display: block;
+    margin-top: 15px;
+    max-width: 100%;
+}
+
+.name {
+    padding-top: 11px;
+    font-size: 16.5pt;
+    margin-left: 21px;
+}
+
+.txt {
+    clear: both;
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 12px 13px 12px 13px;
+    line-height: 1.4;
+    word-break: normal;
+    word-wrap: break-word;
+    background: #F3F4F6;
+    color: #333656;
+    font-size: 16pt;
+    float: left;
+    max-width: 226px;
+    border-radius: 8px;
+}
+
+.time {
+    clear: both;
+    padding-top: 3px;
+    font-size: 15px;
+    padding-left: 0;
+    margin-left: 20px;
+}
+
+.customer-wrap .txt {
+    margin-right: 10px;
+    float: right;
+    max-width: 75%;
+    border-radius: 8px;
+    font-size: 16pt;
+    padding: 10px 14px 10px 14px;
+    line-height: 14pt;
+    letter-spacing: 0.5px;
+}
+
+.customer-wrap .time{
+    padding-right: 14px;
+    text-align: right;
+    clear: both;
+    padding-top: 3px;
+    font-size: 15px;
+}
+
+#chattext {
+    display: block;
+    width: 100%;
+    max-height: 88px;
+    min-height: 28px;
+    height: 28px;
+    padding: 2px 2px 3px 1px;
+    font-family: 'Malgun Gothic', sans-serif;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    line-height: 20px;
+    border: 1px solid #fff;
+    outline: 0;
+    resize: none;
+    word-break: normal;
+}
+
+.chatfooter {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding:10px 0;
+    background-color: #FFF;
+    color: #000;
+    text-align: center;
+}
+
+.chatfooter table{
+    width: 100%;
+    height: 60pt; 
+    background-color: rgb(243, 244, 246);
+    position: relative;
+    padding-left: 4px;
+    z-index: 10;
+    border-top: 1px solid #e5e6e7;
+}
+

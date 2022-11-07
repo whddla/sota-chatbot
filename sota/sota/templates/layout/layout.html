@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="headArea">
+            <a href="#" id="topTotalMenu" class="menu"></a>
+            <div class="headLogo">
+                <a href="/">
+                    <img src="/static/img/logo.PNG" alt="">
+                </a>
+            </div>
+            <div class="dropmenu">
+                <ul>
+                    <li><a href="#" id="current">상품</a>
+                        <ul>
+                            <li><a href="/search/card">카드상품</a></li>
+                            <li><a href="/search/deposit">적금상품</a></li>
+                            <li><a href="/search/loans">대출상품</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">서비스</a>
+                        <ul style="margin-left: -96px;">
+                            <li><a href="#">계좌조회</a></li>
+                            <li><a href="#">계좌이체</a></li>
+                            <li><a href="#">대출상환</a></li>
+                            <li><a href="#">적금납부</a></li>
+                            <li><a href="#">분실신고</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="rightMenu">
+                <a href="/member/login" class="login">로그인</a>
+                <a href="#" class="signup">회원가입</a>
+            </div>
+        </div>
+    </header>
+    {%block content%}
+    {%endblock%}
+    <div id="footer" class="footer">
+        <div class="footArea">
+            <div class="inner">
+                <span>코리아 IT 아카데미</span><br>
+                <span>팀 이름: SOTA (state of the art)</span><br>
+                <span>프로젝트 명: SOTB (state of the bank)</span><br>
+                <span>팀원: 이관호, 이종임, 김찬희, 용태현, 김혜지, 위효정 </span>
+            </div>
+        </div>
+    </div>
+    <input class="channel-talk-button" onclick="showPopup();" readonly/>
+</body>
+<script type="text/javascript">
+    function showPopup() { window.open("/chatbot", "a", "width=600, height=800, left=1500, top=100"); }
+</script>
+</html>

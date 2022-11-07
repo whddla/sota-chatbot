@@ -1,0 +1,157 @@
+
+/* banner */
+section.container {
+    border-radius: 24px;
+    position: relative;
+    max-height: 399px;
+    width: 1080px;
+    overflow: hidden;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+div.banner {
+    width: 540vw;
+    /* transform: translate(-90vw); */
+    transition: transform 0.5s;
+}
+
+div.img {
+    width: 90vw;
+    float: left;
+}
+
+div.img img {
+    width: 100%;
+    display: block;
+}
+
+div.arrow {
+    position: absolute;
+    font-size: 2rem;
+    z-index: 1;
+    width: 35px;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    line-height: 40vh;
+    color: #00000070;
+}
+
+div.next {
+    right: 0;
+}
+
+div.btns {
+    position: absolute;
+    bottom: 5px;
+    width: 1080px;
+    text-align: center;
+}
+
+
+.article {
+    position: relative;
+    width: 1080px;
+    margin: 40px auto 0 !important;
+}
+
+.quick-menu{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 1080px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.quick-menu > a {
+    display: block;
+    flex: 1;
+    padding-top: 58px;
+    line-height: 20px;
+    letter-spacing: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.quick-menu__item01{
+    background: url(https://img1.kbcard.com/home_re/pc/ico/48/ico-write.png) no-repeat center top;
+}
+
+.quick-menu__item02 {
+    background: url(https://img1.kbcard.com/home_re/pc/ico/48/ico-eshopping.png) no-repeat center top;
+}
+
+.quick-menu__item03 {
+    background: url(https://img1.kbcard.com/home_re/pc/ico/48/ico-coin-48.png) no-repeat center top;
+}
+
+.quick-menu__item04 {
+    background: url(https://img1.kbcard.com/home_re/pc/ico/48/ico-checkpaper.png) no-repeat center top;
+}
+
+.quick-menu__item05 {
+    background: url(https://img1.kbcard.com/home_re/pc/ico/48/ico-call-48.png) no-repeat center top;
+}
+
+
+.recom-card {
+    width: 1080px;
+    position: relative;
+    height: 394px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 16%);
+}
+
+.article.full {
+    width: 100%;
+    padding: 0 0 40px;
+    background: linear-gradient(to bottom, #f9fafc, rgba(239, 242, 247, 0.87) 100%);
+}
+
+.recom-card .card-head {
+    z-index: 1;
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    border: 0;
+}
+
+.recom-card__box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 394px;
+}
+
+.recom-card__item {
+    display: block;
+    position: relative;
+    width: calc(100% / 3);
+    padding: 0 20px 32px;
+    text-align: center;
+}
+
+.recom-card__item .img-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 202px;
+    height: 202px;
+    margin: 0 auto;
+}
+
+.recom-card__item .img-box.row img {
+    transform: rotate(90deg);
+}
+
+.recom-card__item .img-box img {
+    max-width: 202px;
+    max-height: 202px;
+}

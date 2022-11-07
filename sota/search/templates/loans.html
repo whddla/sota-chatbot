@@ -1,0 +1,40 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/loans.css' %}">
+<div class="contentWrap">
+    <div class="lp">
+        <h2 class="l-title">대출</h2>
+        <ul class="l-menu">
+            <li class="on">신용대출</li>
+            <li>담보대출</li>
+            <li>전월세/봔환보증</li>
+            <li>자동차대출</li>
+            <li>집단중도금대출</li>
+            <li>주택도시기금대출</li>
+        </ul>
+    </div>
+    <div class="cp">
+        <div class="toparea">
+            <h1 class="h1_title">신용대출</h1>
+        </div>
+        <div class="main_content">
+            <h2 class="tit_dep2 total_num">
+                상품목록 <strong>62</strong>건
+            </h2>
+            <ul class="list-product1">
+                <li>
+                    <div class="area1">
+                        <a href="#" class="title"><strong>직장인 든든 신용대출</strong></a>
+                        <span class="msg">직장인</span>
+                        <div class="info-data2 t1">
+                            최고 <strong>3억원</strong>
+                        </div>
+                    </div>
+                    <div class="area2"><a href="" class="btn-com c1">신청하기</a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{%endblock%}

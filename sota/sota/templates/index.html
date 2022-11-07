@@ -1,0 +1,61 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <section class="container">
+        <div class="arrow prev">&lt;</div>
+        <div class="banner">
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-checkcard-bg.png"></div>
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-LiivNext-bg.png"></div>
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-checkcard-bg.png"></div>
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-LiivNext-bg.png"></div>
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-checkcard-bg.png"></div>
+            <div class="img"><img src="https://img1.kbcard.com/home_re/pc/img/main/pc-LiivNext-bg.png"></div>
+        </div>
+        <div class="arrow next">&gt;</div>
+        <div class="btns">
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+        </div>
+    </section>
+    <section class="article full">
+        <div class="quick-menu">
+            <a href="" class="quick-menu__item01">전체계좌조회</a>
+            <a href="" class="quick-menu__item02">입출금내역</a>
+            <a href="" class="quick-menu__item03">계좌이체</a>
+            <a href="" class="quick-menu__item04">상환 및 납입</a>
+            <a href="" class="quick-menu__item05">분실신고</a>
+        </div>
+        <div class="recom-card">
+            <div class="card-head">카드추천</div>
+            <div class="recom-card__box">
+                <a href="" class="recom-card__item">
+                    <span class="img-box row">
+                        <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09206_img.png" alt="">
+                    </span>
+                    <h3>톡톡 my point카드</h3>
+                    <p>언제 어디서나 쉽게 쌓이는 포인트!</p>
+                </a>
+                <a href="" class="recom-card__item">
+                    <span class="img-box row">
+                        <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09288_img.png" alt="">
+                    </span>
+                    <h3>톡톡 D카드</h3>
+                    <p>배달앱 결제시 50% 할인</p>
+                </a>
+                <a href="" class="recom-card__item">
+                    <span class="img-box">
+                        <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09174_img.png" alt="">
+                    </span>
+                    <h3>톡톡 my point카드</h3>
+                    <p>언제 어디서나 쉽게 쌓이는 포인트!</p>
+                </a>
+            </div>
+        </div>
+    </section>
+<script src="{%static 'js/index.js'%}" type="text/javascript"></script>
+{%endblock%}

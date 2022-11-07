@@ -1,0 +1,208 @@
+section {
+    margin-top: 24px;
+}
+
+.contents {
+    position: relative;
+    width: 1200px;
+    padding: 0 60px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.card-box {
+    overflow: hidden;
+}
+
+.tit-dep4 {
+    margin: 80px 0 24px;
+    font-size: 1.5rem;
+}
+
+img {
+    max-width: 100%;
+    border: 0;
+    vertical-align: middle;
+}
+
+.tit-dep1 {
+    margin: 52px 0 0;
+    padding-bottom: 40px;
+    font-weight: 600;
+    line-height: 1.3;
+    font-size: 2rem;
+}
+
+.card-box__before .tit-dep4 {
+    margin-bottom: 10px;
+}
+
+.card-box__item {
+    position: relative;
+    float: left;
+    width: 344px;
+    margin-right: 24px;
+}
+
+.tit-dep4:first-child {
+    margin-top: 0;
+}
+
+.badge--txt {
+    padding: 0 8px;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+h3, p {
+    margin: 0;
+}
+.pl0 {
+    padding-left: 0px !important;
+}
+
+.c-blue, .colPoint2 {
+    color: #0066ff !important;
+}
+
+.mt8 {
+    margin-top: 8px !important;
+}
+
+.card-box__before .card-box__card.row {
+    transform: rotate(90deg);
+}
+.card-box__before .card-box__card {
+    position: absolute;
+    left: 50%;
+    top: 242px;
+    width: 202px;
+    height: 128px;
+    margin-left: -101px;
+    z-index: 1;
+}
+
+.card-box__before:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 56px;
+    width: 202px;
+    height: 202px;
+    margin-left: -101px;
+    border-radius: 100%;
+    background-color: #fff;
+}
+
+.card-box__item .card-box__before, .card-box__item .card-box__after {
+    transition: all .2s;
+}
+
+.card-box__before {
+    position: relative;
+    z-index: 5;
+    height: 418px;
+    padding: 24px;
+    background-color: #f1f4f8;
+    border-radius: 12px;
+}
+
+
+.card-box__before .card-box__card img{
+    max-width: 202px;
+    max-height: 202px;
+}
+
+
+/* 뒤 */
+.card-box__after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    float: left;
+    width: 294px;
+    height: 344px;
+    padding: 24px 24px 96px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    transform: rotateY(180deg);
+    opacity: 0;
+}
+
+.bold-m {
+    font-weight: 400 !important;
+}
+
+/* 뒤집기 */
+.card-box__item:hover .card-box__after{
+    z-index: 10;
+    transform: rotateY(360deg);
+    transition: all .4s;
+    opacity: 1;
+}
+
+.card-box__item:hover .card-box__before{
+    transform: rotateY(180deg);
+    transition: all .4s;
+    opacity: 0;
+}
+
+
+/* 카드신청 버튼 */
+.btn-wrap {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 48px;
+}
+
+.card-box__after .btn-wrap {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    width: 100%;
+}
+
+.card-box .btn-wrap {
+    clear: both;
+}
+
+.card-box__item .btn {
+    min-width: 136px;
+}
+
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    min-width: 160px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 16px;
+    font-weight: 500;
+    color: #000;
+    background: #ffcc00;
+    border-radius: 4px;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.btn--primary {
+    background: #ffcc00;
+}
+
+button, input {
+    border-radius: 0;
+    border: 0;
+}
+
+button {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.card-box + .card-box {
+    margin-top: 40px;
+}

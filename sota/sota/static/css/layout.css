@@ -1,0 +1,252 @@
+.channel-talk-button {
+    cursor: pointer;
+    position: fixed;
+    border-style: none;
+    width: 60px;
+    height: 60px;
+    bottom: 71px;
+    right: 28px;
+    font-size: 23px;
+    text-align: center;
+    background: url("https://openclipart.org/image/800px/262355") 30%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1000;
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    border-radius: 50%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+header {
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
+}
+
+.headArea {
+    position: relative;
+    margin: 0 auto;
+    min-height: 60px;
+    width: 1080px;
+    text-align: left;
+    z-index: 101;
+}
+
+.menu {
+    position: absolute;
+    top: 12px;
+    width: 39px;
+    height: 33px;
+    background: #fff url("https://img1.kbcard.com/LT/images_r/common/ico_gnb_menu.png") no-repeat center center !important;
+}
+.headLogo {
+    position: absolute;
+    z-index: 15;
+    top: 5px;
+    left: 37px;
+    width: 180px;
+    height: 45px;
+    text-indent: -9999px;
+} 
+.headLogo a img{
+    overflow: hidden;
+    display: block;
+    width: 180px;
+    height: 45px;
+    text-indent: -9999px;
+}
+
+
+.rightMenu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    font-size: 0;
+    text-align: right;
+}
+
+.rightMenu a {
+    display: inline-block;
+    position: relative;
+    margin: 0 0 0 10px;
+    padding: 20px 0 20px 11px;
+    width: auto;
+    height: auto;
+    background: #fff;
+    color: #666;
+    line-height: 20px;
+    text-indent: 0;
+    font-size: 17px;
+}
+
+
+
+
+#footer.footer {
+    position: relative;
+    padding: 51px 0 0;
+    background: none;
+    text-align: left;
+}
+
+.footer {
+    position: relative;
+    height: auto;
+    border-top: 1px solid #c2c2c2;
+    background: #fff;
+}
+
+#footer {
+    min-width: 1200px;
+}
+
+.inner {
+    position: relative;
+    margin: 0 auto;
+    padding: 20px 0 40px 0;
+    width: 1080px;
+}
+
+.inner span{
+    padding: 0;
+    font-size: 14px !important;
+    line-height: 20px;
+}
+.footer footMenu li{
+    display: block;
+    padding: 0;
+    color: #444;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.footMenu li:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -6px;
+    width: 1px;
+    height: 14px;
+    background: #c2c2c2;
+}
+
+
+/* 상품, 서비스 베너 */
+.headArea .globalMenu {
+    position: absolute;
+    top: 16px;
+    left: 228px;
+    height: 45px;
+    display: inline-block;
+    z-index: 100;
+}
+
+.globalMenu a {
+    margin-left: 26px;
+    font-size: 20px;
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cate{
+    float: left;
+}
+
+
+.dropmenu{
+    position: absolute;
+    top: 16px;
+    left: 228px;
+    font-size: 22px;
+    height: 45px;
+    line-height: 1.3;
+    display: inline-block;
+    z-index: 100;
+}
+    
+.dropmenu ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+    
+.dropmenu li{
+    float:left;
+    padding:0px;
+    height: 44px;
+}
+    
+.dropmenu li a{
+    display:block;
+    margin:0px;
+    padding:0px 25px;
+    text-align:center;
+    text-decoration:none;
+}
+    
+.dropmenu li a:hover, .dropmenu ul li:hover a{
+    text-decoration:none;
+}
+    
+.dropmenu li ul{
+    display:none; 
+    height: 41px;
+    border: 0px;
+    top: 44px;
+    line-height: 1.8;
+    position: absolute;
+    width: 800px;
+    z-index: 200;
+}
+    
+.dropmenu li:hover ul{
+    display:block;
+}
+    
+.dropmenu li li {
+    display: inline-block;
+    float: none;
+    margin: 0px;
+    padding: 0px;
+}
+    
+.dropmenu li:hover li a{
+    background:none;
+}
+    
+.dropmenu li ul a{
+    width: 89px;
+    height: 100%;
+    border-radius: 14px;
+}
+    
+.dropmenu li ul a:hover, .dropmenu li ul li:hover a{
+    background: rgb(134, 166, 215);
+    border:0px;
+    color:#ffffff;
+    text-decoration:none;
+}
+    
+.dropmenu p{
+    clear:left;
+}
