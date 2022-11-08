@@ -1,0 +1,115 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/deposit.css' %}">
+<div class="contentWrap">
+    <div class="lp">
+        <h2 class="l-title">적금납부</h2>
+        <ul class="l-menu">
+            <li class="on">조회/확인</li>
+        </ul>
+    </div>
+    <div class="cp">
+        <div class="toparea">
+            <h1 class="h1_title">적금조회</h1>
+        </div>
+        <div class="main_content">
+            <table>
+                <tr>
+                    <td>
+                        적금계좌번호
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">선택</option>
+                            <option value="">204202-04-360469</option>
+                        </select>
+                        <button>확인</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="toparea2">
+            <h1 class="h1_title">적금납부</h1>
+        </div>
+        <div class="main_content">
+            <table>
+                <tr>
+                    <td>
+                        적금종류
+                    </td>
+                    <td>
+                        청년희망파괴적금
+                    </td>
+                    <td>
+                        적금계좌번호
+                    </td>
+                    <td>
+                        000-0000-00-0000
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        신규일
+                    </td>
+                    <td>
+                        2022.02.23
+                    </td>
+                    <td>
+                        만기일
+                    </td>
+                    <td>
+                        2024.02.23
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이율
+                    </td>
+                    <td>
+                        5.0%
+                    </td>
+                    <td>
+                        납입 금액
+                    </td>
+                    <td>
+                        500,000원
+                    </td>
+                </tr>
+            </table>
+            <div class="confirm">
+                <table>
+                    <tr>
+                        <td>
+                            출금계좌번호
+                        </td>
+                        <td>
+                            <select name="" id="">
+                                <option value="">선택</option>
+                                <option value="">2022222222</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            계좌비밀번호
+                        </td>
+                        <td>
+                            <input type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            출금금액
+                        </td>
+                        <td>
+                            500,000원
+                        </td>
+                    </tr>
+                </table>
+                <button>납입</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

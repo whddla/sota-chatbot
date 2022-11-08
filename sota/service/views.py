@@ -7,3 +7,5 @@ def send(request):
     return render(request, 'send.html')
 def loans(request):
     return render(request, 'loans.html')
+def deposit(request):
+    return render(request, 'deposit.html')
