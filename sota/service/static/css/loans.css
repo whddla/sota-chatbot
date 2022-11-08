@@ -4,6 +4,7 @@
     z-index: 1;
     padding-bottom: 130px !important;
     display: table;
+    min-height: 500px;
 }
 
 .lp {

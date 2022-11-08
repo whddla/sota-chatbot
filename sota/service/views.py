@@ -9,3 +9,5 @@ def loans(request):
     return render(request, 'loans.html')
 def deposit(request):
     return render(request, 'deposit.html')
+def loss(request):
+    return render(request, 'loss.html')

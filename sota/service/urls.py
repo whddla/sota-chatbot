@@ -7,4 +7,5 @@ urlpatterns = [
     path('send/', views.send),
     path('loans/', views.loans),
     path('deposit/', views.deposit),
+    path('loss/', views.loss),
 ]
