@@ -6,7 +6,11 @@ class User(models.Model):
     pw = models.CharField(max_length=50)
     name = models.CharField(max_length=30)
     addr = models.CharField(max_length=50)
-    p_pw = models.IntegerField
+    p_pw = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'user'
 
 class Transation(models.Model):
     idx = models.AutoField(primary_key=True)
@@ -16,7 +20,7 @@ class Transation(models.Model):
     remain = models.IntegerField(blank=True, null=True)
     details = models.CharField(max_length=50)
     date = models.DateField(blank=True, null=True)
-    user_idx = models.ForeignKey('User', models.DO_NOTHING, db_column='user_idx')
+    user_idx = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_idx')
 
     class Meta:
         managed = False
@@ -29,7 +33,7 @@ class LProduct(models.Model):
     time = models.CharField(max_length=10)
     rate = models.CharField(max_length=10)
     kind = models.CharField(max_length=20)
-    user_idx = models.ForeignKey('User', models.DO_NOTHING, db_column='user_idx')
+    user_idx = models.ForeignKey('User', models.DO_NOTHING, db_column='user_idx', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -39,6 +43,7 @@ class LProduct(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
 
 
 class DProduct(models.Model):
@@ -55,7 +60,7 @@ class DProduct(models.Model):
 
 class Card(models.Model):
     idx = models.AutoField(primary_key=True)
-    user_idx = models.ForeignKey('User', models.DO_NOTHING, db_column='user_idx')
+    user_idx = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_idx',default=0)
     card_num = models.CharField(max_length=30)
     account = models.CharField(max_length=30)
     card_pw = models.IntegerField()
@@ -68,6 +73,8 @@ class Card(models.Model):
 class CProduct(models.Model):
     idx = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
+    benefit = models.IntegerField()
+    card_idx = models.ForeignKey('Card', on_delete=models.CASCADE, db_column='card_idx', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -77,6 +84,7 @@ class Deposit(models.Model):
     idx = models.AutoField(primary_key=True)
     deposit_num = models.CharField(max_length=30)
     d_product_idx = models.ForeignKey(DProduct, models.DO_NOTHING, db_column='d_product_idx')
+    user_idx = models.ForeignKey('User', models.DO_NOTHING, db_column='user_idx', blank=True, null=True)
 
     class Meta:
         managed = False

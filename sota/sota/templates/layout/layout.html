@@ -38,8 +38,19 @@
                 </ul>
             </div>
             <div class="rightMenu">
-                <a href="/member/login" class="login">로그인</a>
+                {% if request.session.login == None %}
+                <a href="/member/login" class="login">
+                    로그인
+                </a>
                 <a href="#" class="signup">회원가입</a>
+                {%else%}
+                <a href="/member/logout" class="login">
+                    로그아웃
+                </a>
+                <a href="/member/mypage" class="signup">
+                    마이페이지
+                </a>
+                {%endif%}
             </div>
         </div>
     </header>
