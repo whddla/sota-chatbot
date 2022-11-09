@@ -1,9 +1,20 @@
 from django.shortcuts import render, redirect
-# from ddm.models import Member
+from sota.models import Deposit,DProduct,Card, CProduct, LProduct
 
 def card(request):
     return render(request, 'product/card.html')
+
 def deposit(request):
-    return render(request, 'product/deposit.html')
+    dp = DProduct.objects.all()
+    context = {
+        'dp':dp
+    }
+    return render(request, 'product/deposit.html',context)
+
 def loans(request):
-    return render(request, 'product/loans.html')
+    lp = LProduct.objects.all()
+    
+    context = {
+        'lp':lp
+    }
+    return render(request, 'product/loans.html', context)
