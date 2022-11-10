@@ -20,11 +20,13 @@
                         대출계좌번호
                     </td>
                     <td>
-                        <select name="" id="">
+                        <select name="" id="account" onchange="ChangeValue()">
                             <option value="">선택</option>
-                            <option value="">204202-04-360469</option>
+                            {%for i in loans%}
+                            <option value="{{i.account}}">{{i.account}}</option>
+                            {%endfor%}
                         </select>
-                        <button>확인</button>
+                        <button name="myLoans">확인</button>
                     </td>
                 </tr>
             </table>
@@ -36,44 +38,44 @@
             <table>
                 <tr>
                     <td>
-                        대출종류
+                        대출이름
                     </td>
                     <td>
-                        주택담보대출
+                        <input type="text" name="name">
                     </td>
                     <td>
                         대출계좌번호
                     </td>
                     <td>
-                        000-0000-00-0000
+                        <input type="text" name="account">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        이자납입기일
+                        대출상환기간
                     </td>
                     <td>
-                        2016-07-15
+                        <input type="text" name="time">
                     </td>
+                    <td>
+                        만기일
+                    </td>
+                    <td>
+                        <input type="text" name="date">
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         납입 원리금합계(원)
                     </td>
                     <td>
-                        10,000,000원
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        계산시작일
+                        <input type="text" name="limited">
                     </td>
                     <td>
-                        2016-01-01
+                        남은 금액
                     </td>
                     <td>
-                        계산종료일
-                    </td>
-                    <td>
-                        2016-07-15
+                        <input type="text" name="remain">
                     </td>
                 </tr>
                 <tr>
@@ -81,42 +83,130 @@
                         약정이율(%)
                     </td>
                     <td>
-                        99%
+                        <input type="text" name="rate">
                     </td>
                     <td>
-                        연체(기타)이율(%)
+                        대출대상
                     </td>
                     <td>
-                        0%
+                        <input type="text" name="kind">
                     </td>
                 </tr>
             </table>
+            <div class="toparea">
+                <h1 class="h1_title">납입정보</h1>
+            </div>
+            <div class="main_content">
+                <table>
+                    <tr>
+                        <td>
+                            출금계좌번호
+                        </td>
+                        <td>
+                            <select name="account1" id="account1" onchange="Change()">
+                                <option value="none">선택</option>
+                                {%for i in card%}
+                                <option value="{{i.account}}">{{i.account}}</option>
+                                {%endfor%}
+                            </select>
+                            <button name="checkMoney">출금가능금액</button>
+                        </td>
+                    </tr>
+                        <tr>
+                            <form action="/service/sendLoans" method="POST">
+                                {% csrf_token %}
+                            <td>
+                                카드비밀번호
+                            </td>
+                            <td>
+                                <input type="password" name="outPw">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                이체금액
+                            </td>
+                            <td>
+                                <input type="text" name="inter">원
+                                <p></p>
+                            </td>
+                        </tr>
+                </table>
+            </div>
             <div class="confirm">
                 <table cellpadding="10px">
                     <thead>
                         <tr>
-                            <th rowspan="3">원금</th>
-                            <th colspan="2">이자</th>
-                            <th rowspan="2">합계</th>
-                        </tr>
-                        <tr>
-                            <th rowspan="2">약정이자</th>
-                            <th rowspan="2">연체이자</th>
+                            <th>원금</th>
+                            <th>납입이자</th>
                         </tr>
                     </thead>
-            
                     <tbody>
                         <tr>
-                            <td rowspan="2">10,000,000</td>
-                            <td rowspan="2">9,900,000</td>
-                            <td rowspan="2">0</td>
-                            <td>9,900,000원</td>
+                            <td><input type="text" name="limited"></td>
+                            <td><input type="text" name="inter"></td>
                         </tr>
                     </tbody>
                 </table>
-                <button>납입</button>
+                    <input style="display: none;" id="out" name="my_num">
+                    <input style="display: none;" id="out" name="l_num">
+                    <input type="submit" value="확인">
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function ChangeValue(){
+        var account = document.getElementById('account');
+        var value = (account.options[account.selectedIndex].value);
+        $("button[name='myLoans']").click(function(){
+        $.ajax({
+            type: "GET",
+            url: "/service/checkLoans",
+            data: {
+                'account':value
+            },
+            dataType: 'json',
+            success: function(response){
+                console.log(response.account)
+                $('input[name=name]').attr('value',response.name);
+                $('input[name=account]').attr('value',response.account);
+                $('input[name=rate]').attr('value',response.rate);
+                $('input[name=time]').attr('value',response.time);
+                $('input[name=kind]').attr('value',response.kind);
+                $('input[name=date]').attr('value',response.date);
+                $('input[name=remain]').attr('value',response.remain);
+                $('input[name=limited]').attr('value',response.limited);
+                $('input[name=inter]').attr('value',response.inter);
+                $('input[name=l_num]').attr('value',response.account);
+            }
+        });
+        });
+    }
+
+    function Change(){
+    var account1 = document.getElementById('account1');
+    var value = (account1.options[account1.selectedIndex].value);
+        $("button[name='checkMoney']").click(function(){
+            $.ajax({
+            type: "GET",
+            url: "/service/checkMoney",
+            data: {
+                'account':value
+            },
+        dataType: 'json',
+            success: function(response){
+                alert("남은 잔액은 " + response.result+'원 입니다.');
+                $("#out").html(value);
+                $('input[name=my_num]').attr('value',value);
+                if(response.error){
+                    alert(response.error);
+                }
+            }
+        });
+    });
+    }
+</script>
 {%endblock%}

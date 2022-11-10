@@ -26,17 +26,14 @@
                             <option value="{{i.account}}">{{i.account}}</option>
                             {%endfor%}
                         </select>
-                        <button name="checkMoney" onclick="">출금가능금액</button>
+                        <button name="checkMoney">출금가능금액</button>
                     </td>
                 </tr>
-                <form action="/service/send" method="POST">
-                    {% csrf_token %}
                     <tr>
                         <td>
                             카드비밀번호
                         </td>
                         <td>
-                            <input style="display: none;" id="out" name="my_num">
                             <input type="password" name="outPw">
                         </td>
                     </tr>
@@ -61,28 +58,32 @@
                     </td>
                     <td>
                         <input type="text" name="num">
-                        <button>송금하기</button>
+                        <button name="check" onclick="check()">송금하기</button>
                     </td>
                 </tr>
-            </form>
             </table>
+            <div>{{error}}</div>
             <div class="confirm">
-                <table>
-                    <tr>
-                        <td>입금계좌번호 : </td>
-                        <td>204202-04-360469</td>
-                    </tr>
-                    <tr>
-                        <td>받는이 : </td>
-                        <td>이종임</td>
-                    </tr>
-                    <tr>
-                        <td>보내는 금액 : </td>
-                        <td>100,000</td>
-                    </tr>
-                </table>
-                <button>확인</button>
-                <button>취소</button>
+                <form action="/service/sendMoney" method="post">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>입금계좌번호 : </td>
+                            <td><input id="num" name="num"></td>
+                        </tr>
+                        <tr>
+                            <td>받는이 : </td>
+                            <td><input id="name" name="name"></td>
+                        </tr>
+                        <tr>
+                            <td>보내는 금액 : </td>
+                            <td><input id="money" name="money"></td>
+                        </tr>
+                    </table>
+                    <input style="display: none;" id="out" name="my_num">
+                    <input type="submit" value="확인">
+                    <button>취소</button>
+                </form>
             </div>
         </div>
     </div>
@@ -93,8 +94,6 @@ function ChangeValue(){
     var account = document.getElementById('account');
     var value = (account.options[account.selectedIndex].value);
     $("button[name='checkMoney']").click(function(){
-        console.log(value)
-        console.log('들어옴')
         $.ajax({
         type: "GET",
         url: "/service/checkMoney",
@@ -103,12 +102,32 @@ function ChangeValue(){
         },
         dataType: 'json',
         success: function(response){
-            console.log(response.result)
             alert("남은 잔액은 " + response.result+'원 입니다.');
-            $("#out").html(value).html() ;
+            $("#out").html(value);
+            $('input[name=my_num]').attr('value',value);
         }
     });
-        
+});
+}
+function check(){
+    $.ajax({
+    type: "GET",
+    url: "/service/check",
+    data: {
+        'outPw':$("input[name='outPw']").val(),
+        'myMoney':$("input[name='myMoney']").val(),
+        'num':$("input[name='num']").val(),
+        'my_num':document.getElementById('out').innerText,
+    },
+        dataType: 'json',
+        success: function(response){
+            $('input[name=name]').attr('value',response.name);
+            $('input[name=num]').attr('value',response.num);
+            $('input[name=money]').attr('value',response.money);
+            $("#name").html('<span>'+response.name+'</span>');
+            $("#num").html('<span>'+response.num+'</span>');
+            $("#money").html('<span>'+response.money+'</span>');
+        }
     });
 }
 </script>
