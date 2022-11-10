@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sota','member','service','search'
+    ,'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

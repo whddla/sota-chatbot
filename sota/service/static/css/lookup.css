@@ -49,6 +49,7 @@ body{
     border-right: 1px solid #ddd;
 }
 
+
 .list td:nth-child(4){
     float: right;
     padding-right: 23px;
@@ -61,6 +62,61 @@ body{
 .list tr{
     text-align: center;
 }
+
+.list1, list1 th, list1 td{
+    border: 0;
+}
+
+.list1 a {
+    color:#383838;
+    text-decoration: none;
+}
+
+.list1 {
+    border-spacing: inherit;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    color:#666;
+    font-size: 16px;
+    table-layout: fixed;
+}
+
+.list1 caption{
+    display: none;
+}
+.list1 td:nth-child(5){
+    float: right;
+    padding-right: 23px;
+}
+.list1 th{
+    padding:5px 0 6px;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #b2b2b2;
+    background-color: #f1f1f4;
+    color: #333;
+    font-weight: bold;
+    line-height: 40px;
+    vertical-align: top;
+}
+
+
+.list1 td{
+    padding:0;
+    line-height: 45px;
+    border-right: 1px solid #ddd;
+}
+
+
+
+.list1 td:last-child{
+    border-right: none;
+}
+
+.list1 tr{
+    text-align: center;
+}
+
+
 
 section {
     margin-top: 24px;

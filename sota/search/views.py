@@ -13,8 +13,13 @@ def deposit(request):
 
 def loans(request):
     lp = LProduct.objects.all()
-    
+    list = []
+    for i in lp:
+        if i.user_idx is not None:
+            pass
+        else:
+            list.append(i)
     context = {
-        'lp':lp
+        'p':list
     }
     return render(request, 'product/loans.html', context)

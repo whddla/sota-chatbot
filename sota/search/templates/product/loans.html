@@ -20,16 +20,16 @@
         </div>
         <div class="main_content">
             <h2 class="tit_dep2 total_num">
-                상품목록 <strong>{{lp.count}}</strong>건
+                상품목록 <strong style="color: mediumblue;">{{lp.count}}</strong>건
             </h2>
-            {%for i in lp%}
+            {%for i in p%}
             <ul class="list-product1">
                 <li>
                     <div class="area1">
-                        <a href="#" class="title"><strong>{{lp.name}}</strong></a>
-                        <span class="msg">{{lp.kind}}</span>
+                        <a href="#" class="title"><strong>{{i.name}}</strong></a>
+                        <span class="msg">{{i.kind}}</span>
                         <div class="info-data2 t1">
-                            최고 <strong>{{lp.limited}}</strong>
+                            최고 <strong style="font-size: 18px;color: mediumblue;">{{i.limited}}</strong>
                         </div>
                     </div>
                     <div class="area2"><a href="" class="btn-com c1">신청하기</a></div>

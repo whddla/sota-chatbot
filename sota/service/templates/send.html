@@ -20,29 +20,34 @@
                         출금계좌번호
                     </td>
                     <td>
-                        <select name="" id="">
-                            <option value="">선택</option>
-                            <option value="">204202-04-360469</option>
+                        <select name="account" id="account" onchange="ChangeValue()">
+                            <option value="none">선택</option>
+                            {%for i in card%}
+                            <option value="{{i.account}}">{{i.account}}</option>
+                            {%endfor%}
                         </select>
-                        <button>출금가능금액</button>
+                        <button name="checkMoney" onclick="">출금가능금액</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        출금계좌비밀번호
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        이체금액
-                    </td>
-                    <td>
-                        <input type="text">원
-                    </td>
-                </tr>
+                <form action="/service/send" method="POST">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            카드비밀번호
+                        </td>
+                        <td>
+                            <input style="display: none;" id="out" name="my_num">
+                            <input type="password" name="outPw">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            이체금액
+                        </td>
+                        <td>
+                            <input type="text" name="myMoney">원
+                        </td>
+                    </tr>
             </table>
         </div>
         <div class="toparea2">
@@ -55,27 +60,11 @@
                         입금계좌번호
                     </td>
                     <td>
-                        <input type="text">
-                        <button>내계좌</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        출금계좌비밀번호
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        이체금액
-                    </td>
-                    <td>
-                        <input type="text">원
+                        <input type="text" name="num">
                         <button>송금하기</button>
                     </td>
                 </tr>
+            </form>
             </table>
             <div class="confirm">
                 <table>
@@ -98,4 +87,29 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function ChangeValue(){
+    var account = document.getElementById('account');
+    var value = (account.options[account.selectedIndex].value);
+    $("button[name='checkMoney']").click(function(){
+        console.log(value)
+        console.log('들어옴')
+        $.ajax({
+        type: "GET",
+        url: "/service/checkMoney",
+        data: {
+            'account':value
+        },
+        dataType: 'json',
+        success: function(response){
+            console.log(response.result)
+            alert("남은 잔액은 " + response.result+'원 입니다.');
+            $("#out").html(value).html() ;
+        }
+    });
+        
+    });
+}
+</script>
 {%endblock%}
