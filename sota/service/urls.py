@@ -9,6 +9,8 @@ urlpatterns = [
     path('loans/', views.loans),
     path('deposit/', views.deposit),
     path('loss/', views.loss),
+    path('loss_detail/', views.loss_detail),
+    path('loss_suc/', views.loss_suc),
     path('checkMoney', views.checkMoney),
     path('check', views.check),
     path('sendMoney', views.sendMoney),

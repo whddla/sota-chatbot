@@ -1,0 +1,33 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{% block script %}
+<script type="text/javascript">
+    alert('제발요');
+</script>
+{% endblock %}
+
+
+
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/loss.css' %}">
+<div>
+    <div class="contentWrap">
+        <div class="lp">
+            <h2 class="l-title">분실신고</h2>
+            <ul class="l-menu">
+                <li class="on">카드목록</li>
+            </ul>
+        </div>
+        <div class="cp">
+            <div class="toparea">
+                <h1 class="h1_title">분실신고</h1>
+            </div>
+            <div class="toparea">
+                <img style="width: 100%; height: 100px;" src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/07964_img.png" alt="">
+                <h3>분실 신고가 완료되었습니다</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

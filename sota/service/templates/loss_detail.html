@@ -1,0 +1,74 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{% block script %}
+<script type="text/javascript">
+    function loss_suc(){
+        alert('{{suc}}');
+        // location.href = '{{ url }}'
+        window.location.href = "/service/loss_suc/";
+    }
+</script>
+{% endblock %}
+
+{%block content%}
+
+{{card.idx}}
+<link rel="stylesheet" href="{% static 'css/loss.css' %}">
+<div>
+    <div class="contentWrap">
+        <div class="lp">
+            <h2 class="l-title">분실신고</h2>
+            <ul class="l-menu">
+                <li class="on">카드목록</li>
+            </ul>
+        </div>
+        <div class="cp">
+            <div class="toparea">
+                <h1 class="h1_title">분실신고</h1>
+            </div>
+            <div class="toparea">
+                <h3>분실 정보 입력</h3>
+            </div>
+            <div class="main_content">
+                <table style="width: 100%;text-align: center;">
+                    <thead>
+                        <tr>
+                            <td>이미지</td>
+                            <td>카드명</td>
+                            <td>카드번호</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form action = "/service/loss_suc/" method="get" name = "loss_p">
+                        <input type="hidden" name="loss_p" value="{{card_pct.idx}}">
+                        <input type="hidden" name="loss_c" value="{{card.idx}}">
+                        <tr>
+                            <td style="width: 170px;"><img style="width: 100%; height: 100px;" src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/07964_img.png" alt=""></td>
+                            <td>{{card_pct.name}}</td>
+                            <td>{{card.card_num}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label for="loss_date">분실 일시 : </label>
+                                <input type="date" id="loss_date" placeholder="분실 일시를 입력하세요." min="1900-01-01" max="2022-11-11">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label for="loss_loca">분실 장소 : </label>
+                                <!-- <input type="text" id="loss_loca"> -->
+                                <textarea name="d" cols="40" rows="3" id="loss_loca" placeholder="분실 일시를 입력하세요."></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center;">
+                    <input type="submit" value="분실신고" onclick="loss_suc()">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

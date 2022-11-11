@@ -4,6 +4,8 @@ from sota.models import User,Deposit,DProduct,Card, CProduct, LProduct,Transatio
 import simplejson as json
 import datetime as dt
 
+
+
 def lookup(request):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -46,6 +48,9 @@ def lookup(request):
 
     return render(request, 'lookup.html',context)
 
+
+
+
 def looking(request):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -57,6 +62,9 @@ def looking(request):
 
     return render(request, 'looking.html')
     
+
+
+
 
 def checkMoney(request:HttpRequest):
     try: 
@@ -84,6 +92,10 @@ def send(request:HttpRequest):
         'card':card
     }
     return render(request, 'send.html',context)
+
+
+
+
 
 def check(request:HttpRequest):
     try: 
@@ -121,6 +133,12 @@ def check(request:HttpRequest):
                 'money':mysm,
             }   
             return HttpResponse(json.dumps(context), content_type="application/json") 
+
+
+
+
+
+
 
 def sendMoney(request:HttpRequest):
     try: 
@@ -165,6 +183,11 @@ def sendMoney(request:HttpRequest):
         # 받는이----------------------
     return render(request, 'send.html')
 
+
+
+
+
+
 def checkLoans(request:HttpRequest):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -199,6 +222,9 @@ def checkLoans(request:HttpRequest):
     return HttpResponse(json.dumps(context), content_type="application/json") 
 
 
+
+
+
 def loans(request):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -212,6 +238,10 @@ def loans(request):
         'loans':loans
     }
     return render(request, 'loans.html',context)
+
+
+
+
 
 def sendLoans(request:HttpRequest):
     try: 
@@ -251,6 +281,10 @@ def sendLoans(request:HttpRequest):
             Transation.objects.create(kind=1,account=l_ac,amount=int(inter),remain=l_remain,details=loan_name.name,date=dt.datetime.now().date(),user_idx=user)
         return redirect('/') 
 
+
+
+
+
 def deposit(request):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -265,6 +299,12 @@ def deposit(request):
     }
 
     return render(request, 'deposit.html',context)
+
+
+
+
+
+
 
 def depositCheck(request:HttpRequest):
     print('------------등장--------------')
@@ -299,6 +339,10 @@ def depositCheck(request:HttpRequest):
     }
     return HttpResponse(json.dumps(context), content_type="application/json") 
 
+
+
+
+
 def sendDeposit(request:HttpRequest):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
@@ -320,22 +364,87 @@ def sendDeposit(request:HttpRequest):
         deposit = Deposit.objects.get(deposit_num=d_ac)
         d_remain = deposit.remain + int(inter)
         c_remain = myAc.remain - int(inter)
-        # if c_remain < 0:
-        #     error = '잔액이 부족합니다.'
-        #     context = {
-        #         'error':error
-        #     }
-        #     return HttpResponse(json.dumps(context), content_type="application/json") 
-        # else:
+        if c_remain < 0:
+            error = '잔액이 부족합니다.'
+            context = {
+                'error':error
+            }
+            return HttpResponse(json.dumps(context), content_type="application/json") 
+        else:
             # 납입자
-        Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
-        card_name=CProduct.objects.get(card_idx=myAc.idx)
-        Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
-        # 적금납입
-        Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain)
-        dpo=DProduct.objects.get(idx=deposit.d_product_idx.idx)
-        Transation.objects.create(kind=1,account=d_ac,amount=int(inter),remain=d_remain,details=dpo.name,date=dt.datetime.now().date(),user_idx=user)
+            Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
+            card_name=CProduct.objects.get(card_idx=myAc.idx)
+            Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
+            # 적금납입
+            Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain)
+            dpo=DProduct.objects.get(idx=deposit.d_product_idx.idx)
+            Transation.objects.create(kind=1,account=d_ac,amount=int(inter),remain=d_remain,details=dpo.name,date=dt.datetime.now().date(),user_idx=user)
         return redirect('/') 
 
-def loss(request):
-    return render(request, 'loss.html')
+
+def loss(request:HttpRequest):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+
+    idx = user.idx
+    card = Card.objects.filter(user_idx=idx)  # 보유 카드(여러개 가능)
+    card_pct = CProduct.objects.all()
+
+    context = {
+        'id' : id,
+        'card': card,
+        'card_pct': card_pct,
+    }
+        
+    return render(request, 'loss.html', context)
+
+
+
+def loss_detail(request:HttpRequest):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+
+    idx = request.GET.get('loss')  # 선택한 카드의 idx
+    card = Card.objects.get(idx=idx) # 선택한 카드의 카드정보
+    card_pct = CProduct.objects.get(card_idx=idx)  # 선택한 카드의 카드상품정보
+
+
+    context = {
+        'idx': idx,
+        'card': card,
+        'card_pct': card_pct,
+    }
+    return render(request, 'loss_detail.html', context)
+
+
+def loss_suc(request:HttpRequest):
+    idx_c = request.GET.get('loss_c') # 선택한 카드 idx
+    idx_p = request.GET.get('loss_p') # 선택한 카드상품의 idx
+    card_pct = CProduct.objects.get(idx=idx_p)
+    loss_no = 1
+
+    try: 
+        Card.objects.filter(idx=idx_c).update(loss = loss_no)
+        suc = "분실 신고가 완료 되었습니다."
+        url = '/'
+    except:
+        suc = "오류가 발생했습니다. 다시 시도해주십시오."
+        url = '/loss_detail/'
+
+
+
+
+    context = {
+        'idx_c': idx_c,
+        'idx_p': idx_p,
+        'card_pct': card_pct,
+        'suc': suc,
+        'url': url,
+    }
+
+    return render(request, 'loss_suc.html', context)
+    

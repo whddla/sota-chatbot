@@ -1,5 +1,6 @@
 {% extends 'layout/layout.html' %}
 {%load static%}
+
 {%block content%}
 <link rel="stylesheet" href="{% static 'css/loss.css' %}">
 <div>
@@ -14,6 +15,9 @@
             <div class="toparea">
                 <h1 class="h1_title">분실신고</h1>
             </div>
+            <div class="toparea">
+                <h3>내가 가진 카드목록</h3>
+            </div>
             <div class="main_content">
                 <table style="width: 100%;text-align: center;">
                     <thead>
@@ -25,18 +29,33 @@
                             <td>선택</td>
                         </tr>
                     </thead>
+                    {% for i in card %}
                     <tbody>
                         <tr>
                             <td style="width: 170px;"><img style="width: 100%; height: 100px;" src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/07964_img.png" alt=""></td>
-                            <td>노리2 체크카드</td>
-                            <td>5412-1234-5423-2342</td>
-                            <td>정상</td>
-                            <td><input class="int" type="checkbox"></td>
+                            <td>
+                                <form action = "/service/loss_detail" method="get" name = "loss">
+                                {% for j in card_pct %}
+                                    {% if i.idx == j.card_idx.idx %}
+                                        {{j.name}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{i.card_num}}</td>
+                            <td>{% if i.loss %}
+                                    분실
+                                {% else %}
+                                    정상
+                            </td>
+                            <td><input class="cint" type="checkbox" name="loss" value="{{i.idx}}"></td>
+                            {% endif %}
                         </tr>
                     </tbody>
+                    {% endfor %}
                 </table>
                 <div style="text-align: center;">
-                    <button style="width: 150px; height:50px;">분실신고</button>
+                    <input type="submit" value="분실신고">
+                </form>
                 </div>
             </div>
         </div>
