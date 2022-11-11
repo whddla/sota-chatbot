@@ -46,6 +46,17 @@ def lookup(request):
 
     return render(request, 'lookup.html',context)
 
+def looking(request):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    ac = request.GET.get('account')
+    Transation.objects.filter(account=ac).all()
+    
+
+    return render(request, 'looking.html')
+    
 
 def checkMoney(request:HttpRequest):
     try: 

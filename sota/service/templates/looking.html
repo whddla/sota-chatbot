@@ -1,0 +1,61 @@
+{% extends 'layout/layout.html' %}
+{%load static%}{% load humanize %}
+{%block content%}
+<link rel="stylesheet" href="{%static 'css/looking.css' %}">
+<section class="contents" style="margin-bottom: 25px; font-size: 20px;">
+    <h2 class="tit">조회</h2>
+    <strong style="margin-left: 34px;">총잔액 : </strong>
+    <span>{{remain|intcomma}} 원</span>
+</section>
+<section class="contents" style="min-height: 159px;">
+    <table class="list1">
+        <thead>
+            <tr>
+                <th scope="col">거래일시</th>
+                <th scope="col">계좌번호</th>
+                <th scope="col">보낸분</th>
+                <th scope="col">받는분</th>
+                <th scope="col">출금액(원)</th>
+                <th scope="col">입출액(원)</th>
+                <th scope="col">잔액(원)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in pro%}
+            <tr>
+                {%for j in cpro%}
+                {%if j.card_idx.idx == i.idx%}
+                <td class="title">{{j.name}}</td>
+                <td class="account">{{i.card_num}}</td>
+                <td class="account">{{i.account}}</td>
+                <td class="last-day">{{i.last_date}}</td>
+                <td class="remain">{{i.remain|intcomma}} 원</td>
+                </td>
+                {%endif%}
+                {%endfor%}
+            </tr>
+            {%endfor%}
+            {%for i in dep %}
+            <tr>
+                {%for j in dep_name%}
+                {%if j.idx == i.d_product_idx.idx%}
+                <td class="title">{{j.name}}</td>
+                <td class="account">없음</td>
+                <td class="account">{{i.deposit_num}}</td>
+                <td class="last-day">{{i.limit_date}}</td>
+                <td class="remain">{{i.remain|intcomma}} 원</td>
+                <td class="btn">
+                    <a href="">조회</a>
+                    <a href="">계좌관리</a>
+                </td>
+                {%endif%}
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</section>
+<script>
+    
+</script>
+{%endblock%}

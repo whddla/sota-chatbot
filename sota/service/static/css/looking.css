@@ -1,0 +1,178 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.tit{
+    width: 103px;
+    display: contents;
+    margin-right: 0px;
+}
+
+.list, list th, list td{
+    border: 0;
+}
+
+.list a {
+    color:#383838;
+    text-decoration: none;
+}
+
+.list {
+    border-spacing: inherit;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    color:#666;
+    font-size: 16px;
+    table-layout: fixed;
+}
+
+.list caption{
+    display: none;
+}
+
+.list th{
+    padding:5px 0 6px;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #b2b2b2;
+    background-color: #f1f1f4;
+    color: #333;
+    font-weight: bold;
+    line-height: 40px;
+    vertical-align: top;
+}
+
+
+.list td{
+    padding:0;
+    line-height: 45px;
+    border-right: 1px solid #ddd;
+}
+
+
+.list td:nth-child(4){
+    float: right;
+    padding-right: 23px;
+}
+
+.list td:last-child{
+    border-right: none;
+}
+
+.list tr{
+    text-align: center;
+}
+
+.list1, list1 th, list1 td{
+    border: 0;
+}
+
+.list1 a {
+    color:#383838;
+    text-decoration: none;
+}
+
+.list1 {
+    border-spacing: inherit;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    color:#666;
+    font-size: 16px;
+    table-layout: fixed;
+}
+
+.list1 caption{
+    display: none;
+}
+.list1 td:nth-child(5){
+    float: right;
+    padding-right: 23px;
+}
+.list1 th{
+    padding:5px 0 6px;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #b2b2b2;
+    background-color: #f1f1f4;
+    color: #333;
+    font-weight: bold;
+    line-height: 40px;
+    vertical-align: top;
+}
+
+
+.list1 td{
+    padding:0;
+    line-height: 45px;
+    border-right: 1px solid #ddd;
+}
+
+
+
+.list1 td:last-child{
+    border-right: none;
+}
+
+.list1 tr{
+    text-align: center;
+}
+
+
+
+section {
+    margin-top: 24px;
+}
+
+.contents {
+    position: relative;
+    width: 1200px;
+    padding: 0 60px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.contentWrap {
+    width: 980px;
+    margin: 0 auto;
+    z-index: 1;
+    padding-bottom: 130px !important;
+    display: table;
+    min-height: 500px;
+}
+
+.lp {
+    width: 205px !important;
+    float: left;
+    position: relative;
+    z-index: 99;
+}
+
+.l-title {
+    margin: 0 !important;
+    padding: 0 0 15px;
+    font-size: 24px;
+    border-bottom: 1px solid;
+    line-height: 28px;
+    border-color: #b0aba6;
+    font-weight: bold;
+}
+
+.l-menu {
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    box-shadow: none;
+    background: none;
+    filter: none;
+}
+
+.l-menu{
+    margin: 0;
+    padding: 15px 0;
+}
+
+.l-menu li{
+    line-height: 28px;
+    padding: 7px 14px;
+    height: 26px;
+}

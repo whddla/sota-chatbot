@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('lookup/', views.lookup),
+    path('looking',views.looking),
     path('send', views.send),
     path('loans/', views.loans),
     path('deposit/', views.deposit),
