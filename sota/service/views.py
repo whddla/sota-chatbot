@@ -84,7 +84,6 @@ def check(request:HttpRequest):
         mypw = request.GET.get('outPw')
         mysm = request.GET.get('myMoney')
         num = request.GET.get('num')
-        print('-------------등장--------------')
         try: 
             take = Card.objects.get(account=num)
         except:
@@ -165,8 +164,6 @@ def checkLoans(request:HttpRequest):
         my = LProduct.objects.get(user_idx=user.idx,account=ac)
         rate = my.rate
         limit = my.limited
-        print(limit[-2])
-        print(limit[-3::-1])
         only_num = limit[-3::-1]
         if limit[-2] == '만':
             limit = only_num + '000000'
@@ -236,16 +233,98 @@ def sendLoans(request:HttpRequest):
             # 납입자
             Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
             card_name=CProduct.objects.get(card_idx=myAc.idx)
-            Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name,date=dt.datetime.now().date(),user_idx=user.idx)
+            Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
             # 대출납입
             LProduct.objects.filter(account=l_ac,user_idx=user.idx).update(remain=l_remain)
             loan_name=LProduct.objects.get(account=l_ac,user_idx=user.idx)
-            Transation.objects.create(kind=1,account=l_ac,amount=int(inter),remain=l_remain,details=loan_name,date=dt.datetime.now().date(),user_idx=user.idx)
+            Transation.objects.create(kind=1,account=l_ac,amount=int(inter),remain=l_remain,details=loan_name.name,date=dt.datetime.now().date(),user_idx=user)
         return redirect('/') 
 
 def deposit(request):
-    return render(request, 'deposit.html')
-
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
     
+    deposit = Deposit.objects.filter(user_idx=user.idx).all()
+    card = Card.objects.filter(user_idx=user.idx)
+    context = {
+        'card':card,
+        'dpo':deposit
+    }
+
+    return render(request, 'deposit.html',context)
+
+def depositCheck(request:HttpRequest):
+    print('------------등장--------------')
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    if request.method == 'GET':
+        ac = request.GET.get('account')
+        my = Deposit.objects.get(user_idx=user.idx,deposit_num=ac)
+        my_dpo = DProduct.objects.get(idx=my.d_product_idx.idx)
+        limit = my_dpo.limited
+        only_num = limit[-3::-1]
+        if limit[-2] == '만':
+            limit = only_num + '000000'
+        else:
+            pass
+        inter = int(limit)
+
+    context = {
+        'account' : ac,
+        'dpo_num' : my.deposit_num,
+        'kind' : my_dpo.kind,
+        'name' : my_dpo.name,
+        'time' : my_dpo.time,
+        'rate' : my_dpo.rate,
+        'limited' : my_dpo.limited,
+        'remain' : my.remain,
+        'date' : str(my.date),
+        'limit_date' : str(my.limit_date),
+        'inter' : inter,
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json") 
+
+def sendDeposit(request:HttpRequest):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    if request.method =='POST':
+        ac = request.POST.get('my_num')
+        d_ac = request.POST.get('d_num')
+        pw = request.POST.get('outPw')
+        inter = request.POST.get('inter')
+        try:
+            myAc = Card.objects.get(account=ac, card_pw=pw)
+        except:
+            error = '출금 정보가 일치하지 않습니다.'
+            context ={
+                'error':error
+            }
+            return HttpResponse(json.dumps(context), content_type="application/json") 
+        deposit = Deposit.objects.get(deposit_num=d_ac)
+        d_remain = deposit.remain + int(inter)
+        c_remain = myAc.remain - int(inter)
+        # if c_remain < 0:
+        #     error = '잔액이 부족합니다.'
+        #     context = {
+        #         'error':error
+        #     }
+        #     return HttpResponse(json.dumps(context), content_type="application/json") 
+        # else:
+            # 납입자
+        Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
+        card_name=CProduct.objects.get(card_idx=myAc.idx)
+        Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
+        # 적금납입
+        Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain)
+        dpo=DProduct.objects.get(idx=deposit.d_product_idx.idx)
+        Transation.objects.create(kind=1,account=d_ac,amount=int(inter),remain=d_remain,details=dpo.name,date=dt.datetime.now().date(),user_idx=user)
+        return redirect('/') 
+
 def loss(request):
     return render(request, 'loss.html')

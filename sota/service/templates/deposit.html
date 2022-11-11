@@ -20,11 +20,13 @@
                         적금계좌번호
                     </td>
                     <td>
-                        <select name="" id="">
+                        <select name="account" id="account" onchange="ChangeValue()">
                             <option value="">선택</option>
-                            <option value="">204202-04-360469</option>
+                            {%for i in dpo%}
+                            <option value="{{i.deposit_num}}">{{i.deposit_num}}</option>
+                            {%endfor%}
                         </select>
-                        <button>확인</button>
+                        <button name="myDeposit">확인</button>
                     </td>
                 </tr>
             </table>
@@ -36,16 +38,16 @@
             <table>
                 <tr>
                     <td>
-                        적금종류
+                        적금이름
                     </td>
                     <td>
-                        청년희망파괴적금
+                        <input type="text" name="name">
                     </td>
                     <td>
                         적금계좌번호
                     </td>
                     <td>
-                        000-0000-00-0000
+                        <input type="text" name="dpo_num" id="">
                     </td>
                 </tr>
                 <tr>
@@ -53,13 +55,13 @@
                         신규일
                     </td>
                     <td>
-                        2022.02.23
+                        <input type="text" name="date" id="">
                     </td>
                     <td>
                         만기일
                     </td>
                     <td>
-                        2024.02.23
+                        <input type="text" name="limit_date">
                     </td>
                 </tr>
                 <tr>
@@ -67,49 +69,127 @@
                         이율
                     </td>
                     <td>
-                        5.0%
+                        <input type="text" name="rate" id="">
                     </td>
                     <td>
                         납입 금액
                     </td>
                     <td>
-                        500,000원
+                        <input type="text" name="limited" id="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        적금한 금액 
+                    </td>
+                    <td>
+                        <input type="text" name="remain" id="">
+                    </td>
+                    <td>
+                        적금 대상 
+                    </td>
+                    <td>
+                        <input type="text" name="kind" id="">
                     </td>
                 </tr>
             </table>
-            <div class="confirm">
+            <div class="main_content">
                 <table>
                     <tr>
                         <td>
                             출금계좌번호
                         </td>
                         <td>
-                            <select name="" id="">
-                                <option value="">선택</option>
-                                <option value="">2022222222</option>
+                            <select name="account1" id="account1" onchange="Change()">
+                                <option value="none">선택</option>
+                                {%for i in card%}
+                                <option value="{{i.account}}">{{i.account}}</option>
+                                {%endfor%}
                             </select>
+                            <button name="checkMoney">출금가능금액</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            계좌비밀번호
-                        </td>
-                        <td>
-                            <input type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            출금금액
-                        </td>
-                        <td>
-                            500,000원
-                        </td>
-                    </tr>
+                        <tr>
+                            <form action="/service/sendDeposit" method="POST">
+                                {% csrf_token %}
+                            <td>
+                                카드비밀번호
+                            </td>
+                            <td>
+                                <input type="password" name="outPw">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                이체금액
+                            </td>
+                            <td>
+                                <input type="text" name="inter">원
+                                <p></p>
+                            </td>
+                        </tr>
                 </table>
-                <button>납입</button>
+            </div>
+            <div class="confirm">
+                    <input style="display: none;" id="out" name="my_num">
+                    <input style="display: none;" id="out" name="d_num">
+                    <input type="submit" value="확인">
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function ChangeValue(){
+        var account = document.getElementById('account');
+        var value = (account.options[account.selectedIndex].value);
+        $("button[name='myDeposit']").click(function(){
+        $.ajax({
+            type: "GET",
+            url: "/service/depositCheck",
+            data: {
+                'account':value
+            },
+            dataType: 'json',
+            success: function(response){
+                console.log(response.account)
+                $('input[name=name]').attr('value',response.name);
+                $('input[name=dpo_num]').attr('value',response.dpo_num);
+                $('input[name=kind]').attr('value',response.kind);
+                $('input[name=date]').attr('value',response.date);
+                $('input[name=remain]').attr('value',response.remain);
+                $('input[name=time]').attr('value',response.time);
+                $('input[name=rate]').attr('value',response.rate);
+                $('input[name=limited]').attr('value',response.limited);
+                $('input[name=limit_date]').attr('value',response.limit_date);
+                $('input[name=d_num]').attr('value',response.account);
+            }
+        });
+        });
+    }
+
+    function Change(){
+    var account1 = document.getElementById('account1');
+    var value = (account1.options[account1.selectedIndex].value);
+        $("button[name='checkMoney']").click(function(){
+            $.ajax({
+            type: "GET",
+            url: "/service/checkMoney",
+            data: {
+                'account':value
+            },
+        dataType: 'json',
+            success: function(response){
+                alert("남은 잔액은 " + response.result+'원 입니다.');
+                $("#out").html(value);
+                $('input[name=my_num]').attr('value',value);
+                if(response.error){
+                    alert(response.error);
+                }
+            }
+        });
+    });
+    }
+</script>
 {%endblock%}
