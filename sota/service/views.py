@@ -57,10 +57,12 @@ def looking(request):
     except:
         return redirect('/member/login')
     ac = request.GET.get('account')
-    Transation.objects.filter(account=ac).all()
-    
+    trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
+    context={
+        'trans':trans
+    }
 
-    return render(request, 'looking.html')
+    return render(request, 'looking.html',context)
     
 
 

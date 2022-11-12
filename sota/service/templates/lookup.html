@@ -25,12 +25,12 @@
                 {%for j in cpro%}
                 {%if j.card_idx.idx == i.idx%}
                 <td class="title">{{j.name}}</td>
-                <td class="account">{{i.card_num}}</td>
-                <td class="account">{{i.account}}</td>
+                <td class="remain">{{i.card_num}}</td>
+                <td class="account" id="account">{{i.account}}</td>
                 <td class="last-day">{{i.last_date}}</td>
                 <td class="remain">{{i.remain|intcomma}} 원</td>
                 <td class="btn">
-                    <a href="">조회</a>
+                    <a href="" id="test_obj" onclick="test()">조회</a>
                     <a href="">계좌관리</a>
                 </td>
                 {%endif%}
@@ -42,7 +42,7 @@
                 {%for j in dep_name%}
                 {%if j.idx == i.d_product_idx.idx%}
                 <td class="title">{{j.name}}</td>
-                <td class="account">없음</td>
+                <td class="last-day">없음</td>
                 <td class="account">{{i.deposit_num}}</td>
                 <td class="last-day">{{i.limit_date}}</td>
                 <td class="remain">{{i.remain|intcomma}} 원</td>
@@ -92,4 +92,10 @@
         {%endfor%}
     </table>
 </section>
+<script>
+    function test() {
+        document.getElementById("test_obj").href = "/service/looking?account="+document.getElementById('account').innerText;
+        // console.log(document.getElementById('account').innerText)
+    }
+</script>
 {%endblock%}
