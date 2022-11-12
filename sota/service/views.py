@@ -58,8 +58,12 @@ def looking(request):
         return redirect('/member/login')
     ac = request.GET.get('account')
     trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
+    for i in trans:
+        remain = i
     context={
-        'trans':trans
+        'trans':trans,
+        'user':user,
+        'remain':remain
     }
 
     return render(request, 'looking.html',context)
@@ -164,8 +168,6 @@ def sendMoney(request:HttpRequest):
         # 보내고 남은금액 업데이트
         Card.objects.filter(idx=mycard.idx).update(remain= remain)
         # 출금 0
-        # 보낸이 출금기록
-        Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
         # 보내는이----------------------
 
         # 받는이----------------------
@@ -179,9 +181,13 @@ def sendMoney(request:HttpRequest):
         takeUser= User.objects.get(idx=take.user_idx.idx)
         # 받는 사람 카드 이름
         take_card_name = CProduct.objects.get(card_idx = takeIdx)
-        # 받는사람 입금 1
+        # 받는사람 입금 1   
         Card.objects.filter(idx=takeIdx).update(remain= takeM)
+        # user_idx = 보낸사람
         Transation.objects.create(kind=1,account=num,amount=mysm,remain=takeM,details=take_card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
+        # 출금 0
+        # 보낸이 출금기록  user_idx = 받는사람
+        Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
         # 받는이----------------------
     return render(request, 'send.html')
 

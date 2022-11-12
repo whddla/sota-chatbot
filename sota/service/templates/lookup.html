@@ -24,14 +24,13 @@
             <tr>
                 {%for j in cpro%}
                 {%if j.card_idx.idx == i.idx%}
-                <td class="title">{{j.name}}</td>
-                <td class="remain">{{i.card_num}}</td>
-                <td class="account" id="account">{{i.account}}</td>
-                <td class="last-day">{{i.last_date}}</td>
-                <td class="remain">{{i.remain|intcomma}} 원</td>
+                <td>{{j.name}}</td>
+                <td>{{i.card_num}}</td>
+                <td id="card">{{i.account}}</td>
+                <td>{{i.last_date}}</td>
+                <td>{{i.remain|intcomma}} 원</td>
                 <td class="btn">
-                    <a href="" id="test_obj" onclick="test()">조회</a>
-                    <a href="">계좌관리</a>
+                    <a href="" id="card_a" onclick="card()">조회</a>
                 </td>
                 {%endif%}
                 {%endfor%}
@@ -41,14 +40,13 @@
             <tr>
                 {%for j in dep_name%}
                 {%if j.idx == i.d_product_idx.idx%}
-                <td class="title">{{j.name}}</td>
-                <td class="last-day">없음</td>
-                <td class="account">{{i.deposit_num}}</td>
-                <td class="last-day">{{i.limit_date}}</td>
-                <td class="remain">{{i.remain|intcomma}} 원</td>
-                <td class="btn">
-                    <a href="">조회</a>
-                    <a href="">계좌관리</a>
+                <td>{{j.name}}</td>
+                <td>없음</td>
+                <td id="deposit">{{i.deposit_num}}</td>
+                <td>{{i.limit_date}}</td>
+                <td>{{i.remain|intcomma}} 원</td>
+                <td>
+                    <a href="" id="deposit_a" onclick="deposit()">조회</a>
                 </td>
                 {%endif%}
                 {%endfor%}
@@ -76,16 +74,15 @@
         {%for i in loans%}
         <tbody>
             <tr>
-                <td class="title">{{i.name}}</td>
-                <td class="account">{{i.account}}</td>
-                <td class="last-day">{{i.date}}</td>
+                <td>{{i.name}}</td>
+                <td id="loans">{{i.account}}</td>
+                <td>{{i.date}}</td>
                 <td class="remain" style="color: red; font-family: bold;text-align: right;">
                     {{i.remain|intcomma}} 원
                     <span style="font-size: 14px;display: block; color: #333;">(대출한도 : {{i.remain}} 원)</span>
                 </td>
-                <td class="btn">
-                    <a href="">조회</a>
-                    <a href="">계좌관리</a>
+                <td>
+                    <a href="" id="loans_a" onclick="loans()">조회</a>
                 </td>
             </tr>
         </tbody>
@@ -93,8 +90,16 @@
     </table>
 </section>
 <script>
-    function test() {
-        document.getElementById("test_obj").href = "/service/looking?account="+document.getElementById('account').innerText;
+    function card() {
+        document.getElementById("card_a").href = "/service/looking?account="+document.getElementById('card').innerText;
+        // console.log(document.getElementById('account').innerText)
+    }
+    function deposit() {
+        document.getElementById("deposit_a").href = "/service/looking?account="+document.getElementById('deposit').innerText;
+        // console.log(document.getElementById('account').innerText)
+    }
+    function loans() {
+        document.getElementById("loans_a").href = "/service/looking?account="+document.getElementById('loans').innerText;
         // console.log(document.getElementById('account').innerText)
     }
 </script>

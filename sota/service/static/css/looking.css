@@ -50,9 +50,9 @@ body{
 }
 
 
-.list td:nth-child(4){
-    float: right;
-    padding-right: 23px;
+.list1 td:nth-child(5),.list1 td:nth-child(6), .list1 td:nth-child(7){
+    text-align: end;
+    padding-right: 10px;
 }
 
 .list td:last-child{
@@ -83,10 +83,6 @@ body{
 
 .list1 caption{
     display: none;
-}
-.list1 td:nth-child(5){
-    float: right;
-    padding-right: 23px;
 }
 .list1 th{
     padding:5px 0 6px;
