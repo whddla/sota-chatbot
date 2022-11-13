@@ -9,16 +9,16 @@ from config.DatabaseConfig import *
 from utils.Database import Database
 from utils.BotServer import BotServer
 from utils.Preprocess import Preprocess
-from models.intent.intentModel1 import IntentModel
+from models.intent.IntentModel import IntentModel
 from models.ner.NerModel import NerModel
 from utils.FindAnswer import FindAnswer
 
 # 전처리 객체 생성
-p = Preprocess(word2index_dic='/chatbot_dic.bin',
-               userdic='chatbot project/transaction/intent/dict/user_dic.tsv')
+p = Preprocess(word2index_dic='train_tools/dict/chatbot_dic.bin',
+               userdic='utils/user_dic.tsv')
 
 # 의도 파악 모델
-intent = IntentModel(model_name='chatbot project/transaction/intent/intent_model.h5', preprocess=p)
+intent = IntentModel(model_name='models/intent/intent_model.h5', preprocess=p)
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_model.h5', preprocess=p)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     print("DB 접속")
 
     # ① 챗봇 소켓 서버 생성
-    port = 8000     # 서버의 통신포트
+    port = 5050   # 서버의 통신포트
     listen = 100    # 최대 클라이언트 연결수
 
     # 봇 서버 동작

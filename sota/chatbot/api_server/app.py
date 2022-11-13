@@ -44,12 +44,12 @@ def get_answer_from_engine(bottype, query):
 #     return('hello')
 
 # 챗봇 엔진 query 전송 API
-@app.route('/query/<bot_type>', methods=["POST"])
+@app.route('/chatbot/<bot_type>', methods=["POST"])
 def query(bot_type):
     
     body = request.get_json()
     ret = {}
-    
+    bot_type='SOTA'
     try:
         if bot_type == 'SOTA':
             # TODO : 챗봇엔진에 소켓통신하여 query 를 보내고 답을 받아오기
