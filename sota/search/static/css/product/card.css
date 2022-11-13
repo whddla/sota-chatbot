@@ -10,6 +10,7 @@ section {
     box-sizing: border-box;
 }
 .card-box {
+    margin-bottom: 30px;
     overflow: hidden;
 }
 

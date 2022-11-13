@@ -6,13 +6,12 @@ import datetime as dt
 
 
 
-def lookup(request):
+def lookup(request:HttpRequest):
     try: 
         user = User.objects.get(idx= int(request.session['login']))
     except:
         return redirect('/member/login')
     user_idx = user.idx
-
 
     trans = Transation.objects.select_related('user_idx').filter(user_idx=user_idx).order_by('-date')
     pro = Card.objects.filter(user_idx=user_idx)
@@ -35,7 +34,6 @@ def lookup(request):
 
 
     context = {
-        # 'card_name': card_name,
         'cpro':cpro,
         'pro': pro,
         'loans':loans,
