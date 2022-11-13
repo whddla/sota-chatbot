@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, abort
 import socket
 import json
-
 # 챗봇 엔진 서버 접속 정보
 # 이전에 만든 챗봇 엔진 서버에서 설정한 포트를 사용해야 한다
 host = "127.0.0.1"  # 챗봇 엔진 서버 IP 주소
@@ -39,19 +38,23 @@ def get_answer_from_engine(bottype, query):
     
 
 
-# @app.route('/', methods=['GET'])
+# @app.route('/', methods=['GET','POST'])
 # def index():
-#     return('hello')
+#     return ('hello')
+# @app.route('/service/lookup', methods=['GET','POST'])
+# def show():
+
+
 
 # 챗봇 엔진 query 전송 API
-@app.route('/chatbot/<bot_type>', methods=["POST"])
+@app.route('/chatbot/<bot_type>', methods=["GET","POST"])
 def query(bot_type):
-    
+    print('등장')
     body = request.get_json()
     ret = {}
-    bot_type='SOTA'
+    
     try:
-        if bot_type == 'SOTA':
+        if bot_type == 'TEST':
             # TODO : 챗봇엔진에 소켓통신하여 query 를 보내고 답을 받아오기
             ret = get_answer_from_engine(bottype=bot_type, query=body['query'])
             return jsonify(ret)
@@ -72,5 +75,5 @@ def query(bot_type):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True)
+    app.run(host='127.0.0.10', port=8000, debug=True)
     

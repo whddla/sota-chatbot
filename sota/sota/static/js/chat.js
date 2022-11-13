@@ -33,23 +33,25 @@ function send_message(){
         query: chattext,
         bottype: "WebClient",
     };
-
+    console.log(jsonData)
     $.ajax({
-        url: 'http://127.0.0.10:8000/chatbot/',
+        url: 'http://127.0.0.10:8000/chatbot/TEST',
         type: "POST",
         data: JSON.stringify(jsonData),
         dataType: "JSON",  // 응답받을 데이터 타입
         contentType: "application/json; charset=utf-8",  
         crossDomain: true,
         success: function(response){
+            console.log(response)
             // response.Answer 에 챗봇의 응답메세지가 담겨 있다
             $chatbox = $("#chatbox");
-
             // 답변 출력
 
             bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
             $chatbox.append(bottext);
+            if(response.Intent=='인사'){
 
+            }
             // 스크롤 조정하기
             $chatbox.animate({scrollTop: $chatbox.prop('scrollHeight')});
 
@@ -58,5 +60,4 @@ function send_message(){
             $("#chattext").focus();
         },
     });
-
 } // end 

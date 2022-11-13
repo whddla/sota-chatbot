@@ -1,7 +1,14 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from sota.models import User,Deposit,DProduct,Card, CProduct, LProduct,Transation
 def index(request):
     return render(request, 'index.html')
 
 def chatbot(request):
-    return render(request,'chatbot.html')
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    context = {
+        'user':user,
+    }
+    return render(request,'chatbot.html',context)
