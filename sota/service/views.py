@@ -58,8 +58,10 @@ def looking(request):
         return redirect('/member/login')
     ac = request.GET.get('account')
     trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
+
     for i in trans:
         remain = i
+        
     context={
         'trans':trans,
         'user':user,
@@ -67,6 +69,24 @@ def looking(request):
     }
 
     return render(request, 'looking.html',context)
+
+def loans_detail(request):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    ac = request.GET.get('account')
+    trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
+    # 만기일
+    date = LProduct.objects.get(account=ac)
+
+    context={
+        'trans':trans,
+        'user':user,
+        'date':date.date
+    }
+
+    return render(request, 'loans_detail.html',context)
     
 
 

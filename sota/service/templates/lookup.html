@@ -26,11 +26,11 @@
                 {%if j.card_idx.idx == i.idx%}
                 <td>{{j.name}}</td>
                 <td>{{i.card_num}}</td>
-                <td id="card">{{i.account}}</td>
+                <td id="card" class="card"><span>{{i.account}}</span></td>
                 <td>{{i.last_date}}</td>
                 <td>{{i.remain|intcomma}} 원</td>
                 <td class="btn">
-                    <a href="" id="card_a" onclick="card()">조회</a>
+                    <a class="card" href="" id="card_a">조회</a>
                 </td>
                 {%endif%}
                 {%endfor%}
@@ -42,11 +42,11 @@
                 {%if j.idx == i.d_product_idx.idx%}
                 <td>{{j.name}}</td>
                 <td>없음</td>
-                <td id="deposit">{{i.deposit_num}}</td>
+                <td>{{i.deposit_num}}</td>
                 <td>{{i.limit_date}}</td>
                 <td>{{i.remain|intcomma}} 원</td>
                 <td>
-                    <a href="" id="deposit_a" onclick="deposit()">조회</a>
+                    <a href="" class="deposit"">조회</a>
                 </td>
                 {%endif%}
                 {%endfor%}
@@ -82,25 +82,40 @@
                     <span style="font-size: 14px;display: block; color: #333;">(대출한도 : {{i.remain}} 원)</span>
                 </td>
                 <td>
-                    <a href="" id="loans_a" onclick="loans()">조회</a>
+                    <a href="" class="loans">조회</a>
                 </td>
             </tr>
         </tbody>
         {%endfor%}
     </table>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function card() {
-        document.getElementById("card_a").href = "/service/looking?account="+document.getElementById('card').innerText;
-        // console.log(document.getElementById('account').innerText)
-    }
-    function deposit() {
-        document.getElementById("deposit_a").href = "/service/looking?account="+document.getElementById('deposit').innerText;
-        // console.log(document.getElementById('account').innerText)
-    }
-    function loans() {
-        document.getElementById("loans_a").href = "/service/looking?account="+document.getElementById('loans').innerText;
-        // console.log(document.getElementById('account').innerText)
-    }
+    $('.card').on('click', function(){ 
+        // 클릭 된 tr을 가져옴
+        var thisRow = $(this).closest('tr');
+        // account가 담긴 3번째 text를 가져옴 
+        var addr = thisRow.find('td:eq(2)').text();
+        // a태그의 href에 account값을 담아서 보내줌
+        thisRow.find('a').attr('href','/service/looking?account='+addr)
+    })
+
+    $('.deposit').on('click', function(){ 
+        // 클릭 된 tr을 가져옴
+        var thisRow = $(this).closest('tr');
+        // account가 담긴 3번째 text를 가져옴 
+        var addr = thisRow.find('td:eq(2)').text();
+        // a태그의 href에 account값을 담아서 보내줌
+        thisRow.find('a').attr('href','/service/looking?account='+addr)
+    })
+
+    $('.loans').on('click', function(){ 
+        // 클릭 된 tr을 가져옴
+        var thisRow = $(this).closest('tr');
+        // account가 담긴 2번째 text를 가져옴 
+        var addr = thisRow.find('td:eq(1)').text();
+        // a태그의 href에 account값을 담아서 보내줌
+        thisRow.find('a').attr('href','/service/loans_detail?account='+addr)
+    })
 </script>
 {%endblock%}
