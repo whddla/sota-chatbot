@@ -46,11 +46,12 @@ body{
 .list td{
     padding:0;
     line-height: 45px;
+    border-bottom: 1px solid #ab9c9c;
     border-right: 1px solid #ddd;
 }
 
 
-.list1 td:nth-child(5),.list1 td:nth-child(6), .list1 td:nth-child(7){
+.list1 td:nth-child(8),.list1 td:nth-child(6), .list1 td:nth-child(7){
     text-align: end;
     padding-right: 10px;
 }
@@ -75,7 +76,6 @@ body{
 .list1 {
     border-spacing: inherit;
     width: 100%;
-    border-bottom: 1px solid #999;
     color:#666;
     font-size: 16px;
     table-layout: fixed;
@@ -99,6 +99,7 @@ body{
 .list1 td{
     padding:0;
     line-height: 45px;
+    border-bottom: 1px solid #ab9c9c;
     border-right: 1px solid #ddd;
 }
 

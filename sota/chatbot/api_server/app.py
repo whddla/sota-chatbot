@@ -39,9 +39,9 @@ def get_answer_from_engine(bottype, query):
     
 
 
-@app.route('/', methods=['GET'])
-def index():
-    return('hello')
+# @app.route('/', methods=['GET'])
+# def index():
+#     return('hello')
 
 # 챗봇 엔진 query 전송 API
 @app.route('/query/<bot_type>', methods=["POST"])
@@ -51,7 +51,7 @@ def query(bot_type):
     ret = {}
     
     try:
-        if bot_type == 'TEST':
+        if bot_type == 'SOTA':
             # TODO : 챗봇엔진에 소켓통신하여 query 를 보내고 답을 받아오기
             ret = get_answer_from_engine(bottype=bot_type, query=body['query'])
             return jsonify(ret)
@@ -72,5 +72,5 @@ def query(bot_type):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.10', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=8000, debug=True)
     

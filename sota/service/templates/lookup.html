@@ -67,7 +67,7 @@
                 <th scope="col">대출명</th>
                 <th scope="col">계좌번호</th>
                 <th scope="col">만기일</th>
-                <th scope="col">계좌잔액(원)</th>
+                <th scope="col">대출잔액(원)</th>
                 <th scope="col">바로가기</th>
             </tr>
         </thead>
@@ -75,9 +75,9 @@
         <tbody>
             <tr>
                 <td>{{i.name}}</td>
-                <td id="loans">{{i.account}}</td>
+                <td>{{i.account}}</td>
                 <td>{{i.date}}</td>
-                <td class="remain" style="color: red; font-family: bold;text-align: right;">
+                <td style="color: red; font-family: bold;text-align: right;">
                     {{i.remain|intcomma}} 원
                     <span style="font-size: 14px;display: block; color: #333;">(대출한도 : {{i.remain}} 원)</span>
                 </td>
