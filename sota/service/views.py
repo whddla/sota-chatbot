@@ -81,21 +81,82 @@ def filter(request:HttpRequest):
         # 입금/출금
         inp = request.GET.get('inp')
         # 시작일
-        sday = request.GET.get('startday') 
+        sday = request.GET.get('startday')
         # 마지막일
-        lday = request.GET.get('lastday') 
-        trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp),date__range=[sday, lday])
+        lday = request.GET.get('lastday')
 
+        # 입/출금이 없다면
+        if inp == '':
+            sday = request.GET.get('startday') 
+            # 마지막일
+            lday = request.GET.get('lastday') 
+            trans = Transation.objects.filter(account=ac,user_idx=user.idx,date__range=[sday, lday])
+            # 예금계좌라면
+            try:
+                remain = Card.objects.filter(account=ac, user_idx=user.idx)
+            # 예금이 아니면 적금계좌
+            except:
+                remain = Deposit.objects.get(deposit_num=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+                return render(request, 'looking.html',context)
+            else:
+                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                print(remain)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+                return render(request, 'looking.html',context)
+        elif sday == '' or lday =='':
+            trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp))
+            try:
+                Card.objects.filter(account=ac, user_idx=user.idx)
+            except:
+                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
 
-        remain = Card.objects.get(account=ac, user_idx=user.idx)
-        print(remain.remain)
-        context={
-            'trans':trans,
-            'user':user,
-            'remain':remain
-        }
+                return render(request, 'looking.html',context)
+            else:
+                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
 
-        return render(request, 'looking.html',context)
+                return render(request, 'looking.html',context)
+        else:
+            trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp),date__range=[sday, lday])
+
+            try:
+                Card.objects.filter(account=ac, user_idx=user.idx)
+            except:
+                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+
+                return render(request, 'looking.html',context)
+            else:
+                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+
+                return render(request, 'looking.html',context)
 
 def loans_detail(request):
     try: 

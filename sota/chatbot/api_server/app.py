@@ -47,7 +47,7 @@ def get_answer_from_engine(bottype, query):
 
 
 # 챗봇 엔진 query 전송 API
-@app.route('/chatbot/<bot_type>', methods=["GET","POST"])
+@app.route('/<bot_type>', methods=["GET","POST"])
 def query(bot_type):
     print('등장')
     body = request.get_json()
