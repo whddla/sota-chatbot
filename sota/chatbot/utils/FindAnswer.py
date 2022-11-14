@@ -5,9 +5,9 @@ class FindAnswer:
         self.db = db
         
     # 답변 검색
-    def search(self, intent_name, ner_tags):
+    def search(self, intent_name, second_intent_name,ner_tags):
         # 의도명, 개체명으로 답변 검색
-        sql = self._make_query(intent_name, ner_tags)
+        sql = self._make_query(intent_name,second_intent_name, ner_tags)
         answer = self.db.select_one(sql)
 
         # 검색되는 답변이 없으면 의도명만 검색
@@ -19,13 +19,13 @@ class FindAnswer:
         
     
     # 검색 쿼리 생성
-    def _make_query(self, intent_name, ner_tags):
+    def _make_query(self, intent_name, second_intent_name,ner_tags):
         sql = "select * from chatbot_train_data"
         
         # intent_name 만 주어진 경우
         if intent_name != None and ner_tags == None:
             sql = sql + " where intent='{}' ".format(intent_name)
-
+            sql=sql+ " and ner='{}' ".format(second_intent_name)
         # intent_name 과 개체명도 주어진 경우
         elif intent_name != None and ner_tags != None:
             where = ' where intent="%s" ' % intent_name
@@ -37,7 +37,8 @@ class FindAnswer:
             sql = sql + where
 
         # 동일한 답변이 2개 이상인 경우, 랜덤으로 선택
-        sql = sql + " order by rand() limit 1"
+        #sql = sql + " order by rand() limit 1"
+        print(sql)
         return sql        
     
     # NER 태그를 실제 입력된 단어로 변환

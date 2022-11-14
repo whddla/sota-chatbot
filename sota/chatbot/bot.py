@@ -22,7 +22,7 @@ p = Preprocess(word2index_dic='train_tools/dict/chatbot_dict.bin',
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
-payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
+#payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_model.h5', preprocess=p)
@@ -52,23 +52,29 @@ def to_client(conn, addr, params):
         # 전체 의도 파악
         all_intent_predict = allIntent.predict_class(query)
         all_intent_name = allIntent.labels[all_intent_predict]
-        
+        print(all_intent_name)
         # 상품조회 의도 파악
         pro_intent_predict = proIntent.predict_class(query)
         pro_intent_name = proIntent.labels[pro_intent_predict]
         
         # 상환 및 납부 의도 파악
-        pay_intent_predict = payIntent.predict_class(query)
-        pay_intent_name = payIntent.labels[pay_intent_predict]
+        #pay_intent_predict = payIntent.predict_class(query)
+        #pay_intent_name = payIntent.labels[pay_intent_predict]
 
         # 개체명 파악
-        ner_predicts = ner.predict(query)
-        ner_tags = ner.predict_tags(query)
+        #ner_predicts = ner.predict(query)
+        #ner_tags = ner.predict_tags(query)
+        ner_tags=''
+        ner_predicts=''
+        
+        second_intent_name=''
+        if all_intent_name=='상품':
+            second_intent_name=proIntent.predict_class(query)
         
         # 답변 검색
         try:
             f = FindAnswer(db)
-            answer_text, answer_image = f.search(intent_name, ner_tags)
+            answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
             answer = f.tag_to_word(ner_predicts, answer_text)            
         except:
             answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
@@ -78,7 +84,8 @@ def to_client(conn, addr, params):
             "Query" : query,
             "Answer": answer,
             "AnswerImageUrl" : answer_image,
-            "Intent": intent_name,
+            "Intent": all_intent_name,
+            "Intent2":second_intent_name,
             "NER": str(ner_predicts)            
         }
         
