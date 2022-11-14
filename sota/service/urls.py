@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('lookup/', views.lookup),
     path('looking',views.looking),
+    path('looking/filter',views.filter),
     path('loans_detail',views.loans_detail),
     path('send', views.send),
     path('loans/', views.loans),

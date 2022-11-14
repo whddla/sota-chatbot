@@ -35,7 +35,7 @@ function send_message(){
     };
     console.log(jsonData)
     $.ajax({
-        url: 'http://127.0.0.10:8000/chatbot/TEST',
+        url: 'http://127.0.0.1:5000/chatbot/TEST',
         type: "POST",
         data: JSON.stringify(jsonData),
         dataType: "JSON",  // 응답받을 데이터 타입

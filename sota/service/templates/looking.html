@@ -6,6 +6,22 @@
     <h2 class="tit">조회</h2>
     <strong style="margin-left: 34px;">총잔액 : </strong>
     <span>{{remain.remain|intcomma}} 원</span>
+    <div>필터
+        <form action="/service/looking/filter" method="GET" name="filter">
+            <input type="text" style="display: none;" name="account" id="account" value="{{remain.account}}">
+            <select name="inp" id="">
+                <option value="">입/출금</option>
+                <option value="1">입금</option>
+                <option value="0">출금</option>
+            </select>
+            <input type="date" id="start" name="startday"
+            min="2022-01-01" max="2022-12-31">
+            <input type="date" id="start" name="lastday"
+            value="2018-07-22"
+            min="2022-01-01" max="2022-12-31">
+            <button type="submit">적용</button>
+        </form>
+    </div>
 </section>
 <section class="contents" style="min-height: 159px;">
     <table class="list1">
@@ -58,7 +74,4 @@
         </tbody>
     </table>
 </section>
-<script>
-    
-</script>
 {%endblock%}

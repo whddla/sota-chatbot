@@ -14,12 +14,12 @@ def lookup(request:HttpRequest):
     user_idx = user.idx
 
     trans = Transation.objects.select_related('user_idx').filter(user_idx=user_idx).order_by('-date')
-    pro = Card.objects.filter(user_idx=user_idx)
+    card = Card.objects.filter(user_idx=user_idx)
     cpro = CProduct.objects.all()
 
     # 내가 가진 입출금, 적금 총액
     total = 0
-    for i in pro:
+    for i in card:
         total += i.remain
 
     loans = LProduct.objects.select_related('user_idx').filter(user_idx=user_idx) 
@@ -35,7 +35,7 @@ def lookup(request:HttpRequest):
 
     context = {
         'cpro':cpro,
-        'pro': pro,
+        'pro': card,
         'loans':loans,
         'dep':deposit,
         'dep_name':deposit_name,
@@ -67,6 +67,35 @@ def looking(request):
     }
 
     return render(request, 'looking.html',context)
+
+
+def filter(request:HttpRequest):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
+    if request.method=='GET':
+        ac = request.GET.get('account')
+        print(ac)
+        # 필터를 적용했을때 거래내역
+        # 입금/출금
+        inp = request.GET.get('inp')
+        # 시작일
+        sday = request.GET.get('startday') 
+        # 마지막일
+        lday = request.GET.get('lastday') 
+        trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp),date__range=[sday, lday])
+
+
+        remain = Card.objects.get(account=ac, user_idx=user.idx)
+        print(remain.remain)
+        context={
+            'trans':trans,
+            'user':user,
+            'remain':remain
+        }
+
+        return render(request, 'looking.html',context)
 
 def loans_detail(request):
     try: 
