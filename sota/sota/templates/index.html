@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <div style="width: 1500px; margin: 0 auto;">
     <div style="display: inline-flex; place-content: center;padding: 0px 74px;">
-        <div style="width: 760px; height: 750px; border: 1px solid #333; margin-right: 30px;">
+        <div id='show' style="width: 760px; height: 750px; border: 1px solid #333; margin-right: 30px;">
         </div>
         <!-- 챗봇 -->
         <div class="main_wrap">
@@ -79,7 +79,7 @@ $("#chattext").keyup(function(event){
 
 function send_message(){
 const chattext = $("#chattext").val().trim();
-
+const show=$("#show")
 // 입력한 메세지가 없으면 리턴
 if(chattext == ""){
     $("#chattext").focus();
@@ -113,17 +113,80 @@ $.ajax({
         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
         $chatbox.append(bottext);
         if(response.Intent=='인사'){
+            $show=$("#show")
+            $show.append(response.Intent)
+            bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ddd;border-radius:10px;color:#424242;display:inline-block'><b>" + "<br>질문 의도를 선택해주세요" + "</b></span></div>";
+                $chatbox.append(bottext)
+                intent_list=['계좌조회','상품조회','이체','상환및납부','분실신고']
+                button_str = "<div id='buttons'>"
+                let i = 0
+                for(inte of intent_list){
+                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                    i += 1;
+                }
+                button_str += "</div>"
+                $chatbox.append(button_str)
+                $("#0").click(function(){
+                    const jsonData = {
+                        query: '죽을래',
+                        bottype: "WebClient",
+                    };
+                    $.ajax({
+                        
+                            // url: 'http://127.0.0.1:8000/service/lookup',
+                            // type:"GET",
+                            // cache: false,
+                            // success: function(data,status){
+                            //     if(status == 'success') 
+                            //     data.parseXML
+                            // }
+                           
+                                url: 'http://127.0.0.1:5000/chatbot/TEST',
+                                type: "POST",
+                                data: JSON.stringify(jsonData),
+                                dataType: "JSON",  // 응답받을 데이터 타입
+                                contentType: "application/json; charset=utf-8",  
+                                crossDomain: true,
+                                success: function(response){
+                                    
+                                    // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                                    $chatbox = $("#chatbox");
+                                    // 답변 출력
+                        
+                                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
+                                    $chatbox.append(bottext);
+                                    
+                       
+                                }
+                   
+                 });
+                })
+                 $("#1").click(function(){
+                    console.log('didi')
+                 });
+                 $("#2").click(function(){
+                    console.log('didi')
+                 });
+                 $("#3").click(function(){
+                    console.log('didi')
+                 });
+                // $chatbox.attr('src', 'http://127.0.0.1:5000/chatbot/TEST')
+            }
+            
+            else if(response.Intent =='욕설'){
+                    console.log('shit');
+                }
 
         }
+    })
         // 스크롤 조정하기
         $chatbox.animate({scrollTop: $chatbox.prop('scrollHeight')});
 
         // 먼저 입력했던 내용은 지우기
         $("#chattext").val("");
         $("#chattext").focus();
-    },
-});
-} // end 
+    }
+ // end 
 </script>
 <!-- <script src="{%static 'js/index.js'%}" type="text/javascript"></script> -->
 {%endblock%}
