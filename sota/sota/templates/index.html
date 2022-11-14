@@ -18,7 +18,7 @@
                     <div class="chat-bot">
                         <div class="bot-profile">
                             <!-- 챗봇 이미지 -->
-                            <div class="img" style="background: none;">
+                            <div class="img" style="background-image: none;">
                                 <img src="https://openclipart.org/image/800px/262355" alt="챗봇">
                             </div>
                             <!-- 챗봇 이름 -->
@@ -110,7 +110,7 @@ $.ajax({
         $chatbox = $("#chatbox");
         // 답변 출력
 
-        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
+        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
         $chatbox.append(bottext);
         if(response.Intent=='인사'){
 

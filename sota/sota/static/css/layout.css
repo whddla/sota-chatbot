@@ -33,7 +33,7 @@ header {
     width: 100%;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .headArea {
@@ -210,7 +210,7 @@ ul, li{
     
 .dropmenu li ul{
     display:none; 
-    height: 41px;
+    height: 40px;
     border: 0px;
     top: 44px;
     line-height: 1.8;
