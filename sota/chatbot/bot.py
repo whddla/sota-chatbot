@@ -9,7 +9,9 @@ from config.DatabaseConfig import *
 from utils.Database import Database
 from utils.BotServer import BotServer
 from utils.Preprocess import Preprocess
-from models.intent.IntentModel import IntentModel
+from models.intent.ProintentModel import ProintentModel
+from models.intent.AllintentModel import AllintentModel
+from models.intent.PayintentModel import PayintentModel
 from models.ner.NerModel import NerModel
 from utils.FindAnswer import FindAnswer
 
@@ -18,7 +20,9 @@ p = Preprocess(word2index_dic='train_tools/dict/chatbot_dict.bin',
                userdic='utils/user_dic.tsv')
 
 # 의도 파악 모델
-intent = IntentModel(model_name='models/intent/intent_model.h5', preprocess=p)
+allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
+proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
+payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_model.h5', preprocess=p)
@@ -45,9 +49,17 @@ def to_client(conn, addr, params):
         print("데이터 수신 : ", recv_json_data)
         query = recv_json_data['Query']  # 클라이언트로부터 전송된 질의어
         
-        # 의도 파악
-        intent_predict = intent.predict_class(query)
-        intent_name = intent.labels[intent_predict]
+        # 전체 의도 파악
+        all_intent_predict = allIntent.predict_class(query)
+        all_intent_name = allIntent.labels[all_intent_predict]
+        
+        # 상품조회 의도 파악
+        pro_intent_predict = proIntent.predict_class(query)
+        pro_intent_name = proIntent.labels[pro_intent_predict]
+        
+        # 상환 및 납부 의도 파악
+        pay_intent_predict = payIntent.predict_class(query)
+        pay_intent_name = payIntent.labels[pay_intent_predict]
 
         # 개체명 파악
         ner_predicts = ner.predict(query)
