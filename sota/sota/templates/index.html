@@ -180,11 +180,11 @@ $.ajax({
         }
     })
         // 스크롤 조정하기
-        $chatbox.animate({scrollTop: $chatbox.prop('scrollHeight')});
-
-        // 먼저 입력했던 내용은 지우기
-        $("#chattext").val("");
-        $("#chattext").focus();
+    $("#wrap").animate({scrollTop: $("#wrap").prop('scrollHeight')});
+    
+    // 먼저 입력했던 내용은 지우기
+    $("#chattext").val("");
+    $("#chattext").focus();
     }
  // end 
 </script>
