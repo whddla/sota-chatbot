@@ -16,9 +16,9 @@ from models.ner.NerModel import NerModel
 from utils.FindAnswer import FindAnswer
 
 # 전처리 객체 생성
-p = Preprocess(word2index_dic='train_tools/dict/chatbot_dict.bin',
+p = Preprocess(word2index_dic='train_tools/dict/sota2.bin',
                userdic='utils/ner.tsv')
-
+print('❤️‍🔥')
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
