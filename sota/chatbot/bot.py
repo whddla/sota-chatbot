@@ -68,7 +68,7 @@ def to_client(conn, addr, params):
         ner_tags=''
         ner_predicts=''
         
-        second_intent_name=''
+        second_intent_name=None
         if all_intent_name=='상품':
             second_intent_name=proIntent.predict_class(query)
         
@@ -76,7 +76,7 @@ def to_client(conn, addr, params):
         try:
             f = FindAnswer(db)
             answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
-            answer = f.tag_to_word(ner_predicts, answer_text)            
+            answer = answer_text#f.tag_to_word(ner_predicts, answer_text)            
         except:
             answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
             answer_image = None

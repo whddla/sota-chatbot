@@ -9,7 +9,7 @@ class FindAnswer:
         # 의도명, 개체명으로 답변 검색
         sql = self._make_query(intent_name,second_intent_name, ner_tags)
         answer = self.db.select_one(sql)
-
+        print(answer)
         # 검색되는 답변이 없으면 의도명만 검색
         if answer is None:
             sql = self._make_query(intent_name, None)
@@ -25,8 +25,10 @@ class FindAnswer:
         # intent_name 만 주어진 경우
         if intent_name != None and second_intent_name == None:
             sql = sql + " where intent='{}' ".format(intent_name)
+            print(1)
         elif intent_name!= None and second_intent_name !=None:
-            sql=sql+ " where intent='{}' "+ " and ner='{}' ".format(intent_name,second_intent_name)
+            sql=sql+ " where intent='{}'".format(intent_name) + " and ner='{}' ".format(second_intent_name)
+            print(2)
         # intent_name 과 개체명도 주어진 경우
         elif intent_name != None and ner_tags != None:
             where = ' where intent="%s" ' % intent_name
