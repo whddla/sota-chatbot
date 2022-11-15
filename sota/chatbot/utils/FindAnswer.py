@@ -23,9 +23,10 @@ class FindAnswer:
         sql = "select * from chatbot_train_data"
         
         # intent_name 만 주어진 경우
-        if intent_name != None and ner_tags == None:
+        if intent_name != None and second_intent_name == None:
             sql = sql + " where intent='{}' ".format(intent_name)
-            sql=sql+ " and ner='{}' ".format(second_intent_name)
+        elif intent_name!= None and second_intent_name !=None:
+            sql=sql+ " where intent='{}' "+ " and ner='{}' ".format(intent_name,second_intent_name)
         # intent_name 과 개체명도 주어진 경우
         elif intent_name != None and ner_tags != None:
             where = ' where intent="%s" ' % intent_name

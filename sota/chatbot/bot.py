@@ -17,7 +17,7 @@ from utils.FindAnswer import FindAnswer
 
 # 전처리 객체 생성
 p = Preprocess(word2index_dic='train_tools/dict/chatbot_dict.bin',
-               userdic='utils/user_dic.tsv')
+               userdic='utils/ner.tsv')
 
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
@@ -52,6 +52,7 @@ def to_client(conn, addr, params):
         # 전체 의도 파악
         all_intent_predict = allIntent.predict_class(query)
         all_intent_name = allIntent.labels[all_intent_predict]
+        print(all_intent_predict)
         print(all_intent_name)
         # 상품조회 의도 파악
         pro_intent_predict = proIntent.predict_class(query)
