@@ -9,8 +9,7 @@ class NerModel:
     def __init__(self, model_name, preprocess):
 
         # BIO 태그 클래스 별 레이블
-        self.index_to_ner = {1: 'O', 2: 'B_DT', 3: 'B_FOOD', 4: 'I', 5: 'B_OG', 6: 'B_PS', 7: 'B_LC', 8: 'NNP', 9: 'B_TI', 0: 'PAD'}
-
+        self.index_to_ner = {1: 'OOV', 2: 'o', 3: 'b_st', 4: 'b_end', 0: 'PAD'}
         # 의도 분류 모델 불러오기
         self.model = load_model(model_name)
 
@@ -28,7 +27,7 @@ class NerModel:
         sequences = [self.p.get_wordidx_sequence(keywords)]
 
         # 패딩처리
-        max_len = 40
+        max_len = 25
         padded_seqs = preprocessing.sequence.pad_sequences(sequences, padding="post", value=0, maxlen=max_len)
 
         predict = self.model.predict(np.array([padded_seqs[0]]))
@@ -46,7 +45,7 @@ class NerModel:
         sequences = [self.p.get_wordidx_sequence(keywords)]
 
         # 패딩처리
-        max_len = 40
+        max_len = 25
         padded_seqs = preprocessing.sequence.pad_sequences(sequences, padding="post", value=0, maxlen=max_len)
 
         predict = self.model.predict(np.array([padded_seqs[0]]))

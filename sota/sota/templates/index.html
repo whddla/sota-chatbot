@@ -128,7 +128,7 @@ $.ajax({
                 $chatbox.append(button_str)
                 $("#0").click(function(){
                     const jsonData = {
-                        query: '죽을래',
+                        query: '카드',
                         bottype: "WebClient",
                     };
                     $.ajax({
@@ -173,9 +173,12 @@ $.ajax({
                 // $chatbox.attr('src', 'http://127.0.0.1:5000/chatbot/TEST')
             }
             
-            else if(response.Intent =='욕설'){
-                    console.log('shit');
-                }
+            else if(response.Intent =='상품'){
+                if(response.Intent2='대출')
+                        $show=$("#show")
+                        $show.append(response.Intent)
+            }
+
 
         }
     })

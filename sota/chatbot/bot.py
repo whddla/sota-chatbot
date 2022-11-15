@@ -18,6 +18,7 @@ from utils.FindAnswer import FindAnswer
 # 전처리 객체 생성
 p = Preprocess(word2index_dic='train_tools/dict/sota2.bin',
                userdic='utils/ner.tsv')
+p1=Preprocess(word2index_dic='train_tools/dict/sota3.bin',userdic='utils/ner.tsv')
 
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
@@ -25,7 +26,7 @@ proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', p
 #payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
 
 # 개체명 인식 모델
-ner = NerModel(model_name='models/ner/ner_model.h5', preprocess=p)
+ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p1)
 
 # 클라리언트 요청을 수행하는 쓰레드 (에 담을) 함수
 def to_client(conn, addr, params):
@@ -63,32 +64,76 @@ def to_client(conn, addr, params):
         #pay_intent_name = payIntent.labels[pay_intent_predict]
 
         # 개체명 파악
-        #ner_predicts = ner.predict(query)
+        ner_predicts = ner.predict(query)
         #ner_tags = ner.predict_tags(query)
-        ner_tags=''
-        ner_predicts=''
-        
+       #ner_predicts=None
+        ner_tags=None
         second_intent_name=None
         if all_intent_name=='상품':
-            second_intent_name=proIntent.predict_class(query)
-        
-        # 답변 검색
-        try:
-            f = FindAnswer(db)
-            answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
-            answer = answer_text#f.tag_to_word(ner_predicts, answer_text)            
-        except:
-            answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
-            answer_image = None
+            sp=proIntent.predict_class(query)
+            second_intent_name=proIntent.labels[sp]
+            try:
             
+                f = FindAnswer(db)
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word(ner_predicts, answer_text)            
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
+            
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "AnswerImageUrl" : answer_image,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "NER": str(ner_predicts)            
+        }
+
+        elif all_intent_name=='조회':
+            print(3)
+            ner_predicts = ner.predict(query)
+            ner_tags = ner.predict_tags(query)
+            print(ner_tags)
+            print(ner_predicts)
+            try:
+            
+                f = FindAnswer(db)
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word(ner_predicts, answer_text) 
+                print(4)           
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
+        print(5)
+        print(ner_predicts)
         sent_json_data_str = {    # response 할 JSON 객체 준비
             "Query" : query,
             "Answer": answer,
-            "AnswerImageUrl" : answer_image,
+            "AnswerImageUrl": answer_image,
             "Intent": all_intent_name,
             "Intent2":second_intent_name,
-            "NER": str(ner_predicts)            
-        }
+            "NER": ner_predicts          
+                            }
+
+        # 답변 검색
+        # try:
+            
+        #     f = FindAnswer(db)
+        #     answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+        #     answer = f.tag_to_word(ner_predicts, answer_text)            
+        # except:
+        #     answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+        #     answer_image = None
+            
+        # sent_json_data_str = {    # response 할 JSON 객체 준비
+        #     "Query" : query,
+        #     "Answer": answer,
+        #     "AnswerImageUrl" : answer_image,
+        #     "Intent": all_intent_name,
+        #     "Intent2":second_intent_name,
+        #     "NER": str(ner_predicts)            
+        # }
         
         message = json.dumps(sent_json_data_str)
         conn.send(message.encode())  # responses
