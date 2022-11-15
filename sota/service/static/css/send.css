@@ -57,6 +57,7 @@ h1_title{
     line-height: 27px;
 }
 .toparea2{
+    border-top: 1px solid;
     margin-top: 50px;
     padding: 15px 0;
     font-size: 16px;
@@ -87,4 +88,31 @@ h1_title{
 .confirm {
     /* display: none; */
     margin-top: 30px;
+}
+
+/* css 작업 */
+
+tr td:first-child{
+    font-size: 20px;
+    text-align: center;
+}
+
+#account{
+    width: 175px;
+    height: 35px;
+}
+
+tr td:input, td:select{
+    width: 175px;
+    height: 35px;
+}
+input {
+    width: 167px;
+    height: 27px;
+}
+
+button{
+    height: 33px;
+    margin: 0;
+    padding: 0;
 }

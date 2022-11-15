@@ -26,7 +26,7 @@
                             <option value="{{i.account}}">{{i.account}}</option>
                             {%endfor%}
                         </select>
-                        <button name="checkMoney">출금가능금액</button>
+                        <button name="checkMoney">금액확인</button>
                     </td>
                 </tr>
                     <tr>
@@ -58,7 +58,7 @@
                     </td>
                     <td>
                         <input type="text" name="num">
-                        <button name="check" onclick="check()">송금하기</button>
+                        <button name="check" onclick="check()">송금</button>
                     </td>
                 </tr>
             </table>
@@ -68,15 +68,15 @@
                     {% csrf_token %}
                     <table>
                         <tr>
-                            <td>입금계좌번호 : </td>
+                            <td>입금계좌번호</td>
                             <td><input id="num" name="num"></td>
                         </tr>
                         <tr>
-                            <td>받는이 : </td>
+                            <td>받는이</td>
                             <td><input id="name" name="name"></td>
                         </tr>
                         <tr>
-                            <td>보내는 금액 : </td>
+                            <td>보내는 금액</td>
                             <td><input id="money" name="money"></td>
                         </tr>
                     </table>

@@ -43,11 +43,13 @@
                 </a>
                 <a href="#" class="signup">회원가입</a>
                 {%else%}
+                <a class="signup">
+                    {{user.name}} 님 어서오세요.
+                </a>
+                <input style="display: none;" type="text" name="name" value="{{user.name}}">
+                <input style="display: none;" type="text" name="idx" value="{{user.idx}}">
                 <a href="/member/logout" class="login">
                     로그아웃
-                </a>
-                <a href="/member/mypage" class="signup">
-                    마이페이지
                 </a>
                 {%endif%}
             </div>
