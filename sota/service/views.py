@@ -329,7 +329,7 @@ def checkLoans(request:HttpRequest):
         inter = int(limit)
         rate = int(rate[:-1])
         # 납입할이자
-        inter = inter*(rate/100)
+        inter = (inter*(rate/100))/12
 
     context = {
         'account' : my.account,

@@ -14,19 +14,19 @@
             <h1 class="h1_title">적금조회</h1>
         </div>
         <div class="main_content">
-            <table>
+            <table border="1" class="board">
                 <tr>
                     <td>
                         적금계좌번호
                     </td>
                     <td>
-                        <select name="account" id="account" onchange="ChangeValue()">
+                        <select name="account" id="account" onchange="ChangeValue()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
                             <option value="">선택</option>
                             {%for i in dpo%}
                             <option value="{{i.deposit_num}}">{{i.deposit_num}}</option>
                             {%endfor%}
                         </select>
-                        <button name="myDeposit">확인</button>
+                        <button name="myDeposit" style="float: right;margin-right: 10px;height: 30px;">확인</button>
                     </td>
                 </tr>
             </table>
@@ -35,19 +35,19 @@
             <h1 class="h1_title">적금납부</h1>
         </div>
         <div class="main_content">
-            <table>
+            <table border="1" class="board">
                 <tr>
                     <td>
                         적금이름
                     </td>
                     <td>
-                        <input type="text" name="name">
+                        <input class="input_style" type="text" name="name" readonly>
                     </td>
                     <td>
                         적금계좌번호
                     </td>
                     <td>
-                        <input type="text" name="dpo_num" id="">
+                        <input class="input_style" type="text" name="dpo_num" id="" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -55,13 +55,13 @@
                         신규일
                     </td>
                     <td>
-                        <input type="text" name="date" id="">
+                        <input class="input_style" type="text" name="date" id="" readonly>
                     </td>
                     <td>
                         만기일
                     </td>
                     <td>
-                        <input type="text" name="limit_date">
+                        <input class="input_style" type="text" name="limit_date" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -69,13 +69,13 @@
                         이율
                     </td>
                     <td>
-                        <input type="text" name="rate" id="">
+                        <input class="input_style" type="text" name="rate" id="" readonly>
                     </td>
                     <td>
                         납입 금액
                     </td>
                     <td>
-                        <input type="text" name="limited" id="">
+                        <input class="input_style" type="text" name="limited" id="" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -83,30 +83,30 @@
                         적금한 금액 
                     </td>
                     <td>
-                        <input type="text" name="remain" id="">
+                        <input class="input_style" type="text" name="remain" id="" readonly>
                     </td>
                     <td>
                         적금 대상 
                     </td>
                     <td>
-                        <input type="text" name="kind" id="">
+                        <input class="input_style" type="text" name="kind" id="" readonly>
                     </td>
                 </tr>
             </table>
             <div class="main_content">
-                <table>
+                <table border="1" class="board">
                     <tr>
                         <td>
                             출금계좌번호
                         </td>
                         <td>
-                            <select name="account1" id="account1" onchange="Change()">
+                            <select name="account1" id="account1" onchange="Change()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
                                 <option value="none">선택</option>
                                 {%for i in card%}
                                 <option value="{{i.account}}">{{i.account}}</option>
                                 {%endfor%}
                             </select>
-                            <button name="checkMoney">출금가능금액</button>
+                            <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
                         </td>
                     </tr>
                         <tr>
@@ -116,7 +116,7 @@
                                 카드비밀번호
                             </td>
                             <td>
-                                <input type="password" name="outPw">
+                                <input class="input_style" type="password" name="outPw">
                             </td>
                         </tr>
                         <tr>
@@ -124,18 +124,16 @@
                                 이체금액
                             </td>
                             <td>
-                                <input type="text" name="inter">원
+                                <input class="input_style" type="text" name="inter">원
                                 <p></p>
                             </td>
                         </tr>
                 </table>
+                <input style="display: none;" id="out" name="my_num">
+                <input style="display: none;" id="out" name="d_num">
+                <input type="submit" value="확인" style="float: right;margin-right: 10px;height: 30px;">
             </div>
-            <div class="confirm">
-                    <input style="display: none;" id="out" name="my_num">
-                    <input style="display: none;" id="out" name="d_num">
-                    <input type="submit" value="확인">
-                </form>
-            </div>
+            </form>
         </div>
     </div>
 </div>
