@@ -14,19 +14,19 @@
             <h1 class="h1_title">출금정보</h1>
         </div>
         <div class="main_content">
-            <table>
+            <table class="board" border="1">
                 <tr>
                     <td>
                         출금계좌번호
                     </td>
                     <td>
-                        <select name="account" id="account" onchange="ChangeValue()">
+                        <select name="account" id="account" onchange="ChangeValue()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
                             <option value="none">선택</option>
                             {%for i in card%}
                             <option value="{{i.account}}">{{i.account}}</option>
                             {%endfor%}
                         </select>
-                        <button name="checkMoney">금액확인</button>
+                        <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
                     </td>
                 </tr>
                     <tr>
@@ -34,7 +34,7 @@
                             카드비밀번호
                         </td>
                         <td>
-                            <input type="password" name="outPw">
+                            <input type="password" name="outPw" class="input_style" placeholder="비밀번호를 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
@@ -42,7 +42,7 @@
                             이체금액
                         </td>
                         <td>
-                            <input type="text" name="myMoney">원
+                            <input type="text" class="input_style" name="myMoney" placeholder="금액을 입력해주세요.">
                         </td>
                     </tr>
             </table>
@@ -50,39 +50,41 @@
         <div class="toparea2">
             <h1 class="h1_title">입금정보</h1>
         </div>
-        <div class="main_content">
-            <table>
+        <div style="height:65px;">
+            <table class="board" border="1">
                 <tr>
                     <td>
                         입금계좌번호
                     </td>
                     <td>
-                        <input type="text" name="num">
-                        <button name="check" onclick="check()">송금</button>
+                        <input type="text" name="num" class="input_style" style="width: 70%;" placeholder="이체하실 계좌번호를 입력해주세요.">
+                        <button name="check" onclick="check()" style="float: right;">확인하기</button>
                     </td>
                 </tr>
             </table>
             <div>{{error}}</div>
             <div class="confirm">
-                <form action="/service/sendMoney" method="post">
+                <form action="/service/sendMoney" method="post" width="100%">
                     {% csrf_token %}
-                    <table>
+                    <table border="1" class="board" style="width: 403px;text-align: center;margin: 0 auto;">
                         <tr>
                             <td>입금계좌번호</td>
-                            <td><input id="num" name="num"></td>
+                            <td><input class="input_style" id="num" name="num" readonly></td>
                         </tr>
                         <tr>
-                            <td>받는이</td>
-                            <td><input id="name" name="name"></td>
+                            <td>받는이 </td>
+                            <td><input class="input_style" id="name" name="name" readonly></td>
                         </tr>
                         <tr>
                             <td>보내는 금액</td>
-                            <td><input id="money" name="money"></td>
+                            <td><input class="input_style" id="money" name="money" readonly></td>
                         </tr>
                     </table>
+                    <div class="btn-style">
+                        <input type="submit" value="이체">
+                        <button>취소</button>
+                    </div>
                     <input style="display: none;" id="out" name="my_num">
-                    <input type="submit" value="확인">
-                    <button>취소</button>
                 </form>
             </div>
         </div>

@@ -283,6 +283,7 @@ def sendMoney(request:HttpRequest):
         take = Card.objects.get(account=num)
         # 받는 사람 카드idx
         takeIdx = take.idx
+        print(takeIdx)
         # 받는 사람 받고 남은금액
         takeM = take.remain+int(mysm)
         # 받는 사람 
@@ -297,8 +298,14 @@ def sendMoney(request:HttpRequest):
         # 보낸이 출금기록  user_idx = 받는사람
         Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
         # 받는이----------------------
-    return render(request, 'send.html')
-
+        context={
+            'user':user,
+            'name':takeUser.name,
+            'mycard':mycard,
+            'card_name':card_name,
+            'money':mysm
+        }
+    return render(request, 'send_suc.html',context)
 
 
 

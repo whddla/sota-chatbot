@@ -1,0 +1,35 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/send.css' %}">
+<div  class="suc">
+    <strong>{{name}}</strong> 님께 송금이 완료되었습니다!!!
+    <div>
+        <div>
+            <h4>내 정보</h4>
+        </div>
+        <table border="1" width="100%" style="border: thick;">
+            <thead>
+                <tr>
+                    <td>카드명</td>
+                    <td>계좌번호</td>
+                    <td>보낸금액</td>
+                    <td>남은금액</td>
+                    <td>보내는이</td>
+                    <td>받는이</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{card_name.name}}</td>
+                    <td>{{mycard.account}}</td>
+                    <td>{{money}}</td>
+                    <td>{{mycard.remain}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}
