@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from sota.models import User,Deposit,DProduct,Card, CProduct, LProduct,Transation
+from sota.models import User
 def index(request):
     try: 
         user = User.objects.get(idx= int(request.session['login']))

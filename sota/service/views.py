@@ -303,7 +303,8 @@ def sendMoney(request:HttpRequest):
             'name':takeUser.name,
             'mycard':mycard,
             'card_name':card_name,
-            'money':mysm
+            'money':mysm,
+            'mymoney':remain
         }
     return render(request, 'send_suc.html',context)
 
