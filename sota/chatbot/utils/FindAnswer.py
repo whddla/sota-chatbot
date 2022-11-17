@@ -12,7 +12,7 @@ class FindAnswer:
         print(answer)
         # 검색되는 답변이 없으면 의도명만 검색
         if answer is None:
-            sql = self._make_query(intent_name, None,None)
+            sql = self._make_query(intent_name,second_intent_name=None,ner_tags=None)
             answer = self.db.select_one(sql)
 
         return (answer['answer'], answer['answer_image'])
@@ -59,3 +59,24 @@ class FindAnswer:
         answer = answer.replace('{', '')
         answer = answer.replace('}', '')
         return answer
+
+    def findtran(self,day,user_idx):
+        sql = "select * from sota.transation"+" where date='2022-11-{}'".format(day)+ " and user_idx={}".format(user_idx)
+        print(sql)
+        return sql
+
+    def tran(self,day,user_idx):
+        sql = self.findtran(day,user_idx)
+        print(sql)
+        answer = self.db.select_all(sql)
+        an=[]
+        am=[]
+        re=[]
+        de=[]
+        for a in answer:
+            an.append(a['account'])
+            am.append(a['amount'])
+            re.append(a['remain'])
+            de.append(a['details'])
+
+        return (an,am,re,de)
