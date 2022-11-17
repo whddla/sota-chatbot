@@ -73,13 +73,11 @@ def to_client(conn, addr, params):
         ner_predicts=None
         ner_tags=None
         second_intent_name=None
+        
         if all_intent_name=='상품':
             sp=proIntent.predict_class(query)
             second_intent_name=proIntent.labels[sp]
-            
-            
             try:
-            
                 f = FindAnswer(db)
                 answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
                 answer = f.tag_to_word(ner_predicts, answer_text)            
@@ -94,7 +92,9 @@ def to_client(conn, addr, params):
                 "Intent": all_intent_name,
                 "Intent2":second_intent_name,
                 "NER": ner_predicts            
-        }
+            }
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
 
         elif all_intent_name=='조회':
             print('여긴 조회야')
@@ -106,37 +106,31 @@ def to_client(conn, addr, params):
             print(ner_tags)
             print(ner_predicts)
             result=''
+            print(5)
+            # 답변 검색
+            try:
+                f = FindAnswer(db)
+                day=ner_predicts[0][0][:2]
+                result=f.tran(day,1)
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word(ner_predicts, answer_text)            
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
+                
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "AnswerImageUrl" : answer_image,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "old":old,
+                "NER": ner_predicts ,
+                'result':result
+            }
             
-        print(5)
-        
-        # 답변 검색
-        try:
-            
-            f = FindAnswer(db)
-            day=ner_predicts[0][0][:2]
-            result=f.tran(day,1)
-            
-
-
-            answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
-            answer = f.tag_to_word(ner_predicts, answer_text)            
-        except:
-            answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
-            answer_image = None
-            
-        sent_json_data_str = {    # response 할 JSON 객체 준비
-            "Query" : query,
-            "Answer": answer,
-            "AnswerImageUrl" : answer_image,
-            "Intent": all_intent_name,
-            "Intent2":second_intent_name,
-            "old":old,
-            "NER": ner_predicts ,
-            'result':result
-        }
-        
-        message = json.dumps(sent_json_data_str)
-        conn.send(message.encode())  # responses
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
         
     except Exception as ex:
         print(ex)
