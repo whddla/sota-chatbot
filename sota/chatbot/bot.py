@@ -129,9 +129,33 @@ def to_client(conn, addr, params):
                 "NER": ner_predicts ,
                 'result':result
             }
+        elif all_intent_name=='이체':
+            print('여긴 이체')
+            recv_json_data['old']=all_intent_name
+            old=recv_json_data['old']
+            try:
+                f = FindAnswer(db)
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word(ner_predicts, answer_text)            
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
             
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "AnswerImageUrl" : answer_image,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "old":old,
+                "NER": ner_predicts            
+            }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
+
+
+            
+            
         
     except Exception as ex:
         print(ex)
