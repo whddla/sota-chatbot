@@ -50,15 +50,14 @@ def to_client(conn, addr, params):
         print("데이터 수신 : ", recv_json_data)
         query = recv_json_data['Query']  # 클라이언트로부터 전송된 질의어
         old=recv_json_data['old']
-        
+        if old=='None':
         # 전체 의도 파악
-        all_intent_predict = allIntent.predict_class(query)
-        all_intent_name = allIntent.labels[all_intent_predict]
-        print(all_intent_predict)
-        print(all_intent_name)
-        print(old)
-        if old=='조회':
-            print('시발 해낸다')
+            all_intent_predict = allIntent.predict_class(query)
+            all_intent_name = allIntent.labels[all_intent_predict]
+            print(all_intent_predict)
+            print(all_intent_name)
+            print(old)
+        
         
         # 상품조회 의도 파악
         #pro_intent_predict = proIntent.predict_class(query)
@@ -73,7 +72,9 @@ def to_client(conn, addr, params):
         ner_predicts=None
         ner_tags=None
         second_intent_name=None
-        
+        if old!='None':
+            all_intent_name=old
+
         if all_intent_name=='상품':
             sp=proIntent.predict_class(query)
             second_intent_name=proIntent.labels[sp]
