@@ -86,3 +86,20 @@ class FindAnswer:
             
 
         return (ki,an,am,re,de)
+
+    def findcard(self,user_idx):
+        sql="select *from sota.card" + "where user_idx={}".format(user_idx) 
+        return sql
+    
+    def card(self,user_idx):
+        sql=self.findcard(self,user_idx)
+        answer=self.db.select_all(sql)
+
+        myac=[]
+        for a in answer:
+            myac.append(a['account'])
+        return myac
+
+    def substract(self,money,account,user_idx):
+        sql = "select * from sota.transation"+" where user_idx={}".format(user_idx)+" ORDER BY ROWID DESC LIMIT 1"
+

@@ -50,6 +50,18 @@ def to_client(conn, addr, params):
         print("데이터 수신 : ", recv_json_data)
         query = recv_json_data['Query']  # 클라이언트로부터 전송된 질의어
         old=recv_json_data['old']
+        if query=='처음으로':
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : '안녕하세요',
+                "Answer": '처음으로 가즈아',
+                
+                # "Intent": all_intent_name,
+                # "Intent2":second_intent_name,
+                # "NER": ner_predicts            
+            }
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
+
         if old=='None':
         # 전체 의도 파악
             all_intent_predict = allIntent.predict_class(query)
@@ -102,12 +114,30 @@ def to_client(conn, addr, params):
             recv_json_data['old']=all_intent_name
             old=recv_json_data['old']
             
+            
             ner_predicts = ner.predict(query)
             ner_tags = ner.predict_tags(query)
             print(ner_tags)
             print(ner_predicts)
             result=''
             print(5)
+            for ne in ner_predicts:
+                if(ne[2]=='o'):
+                    f = FindAnswer(db)  
+                    answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                    answer = f.tag_to_word(ner_predicts, answer_text) 
+                        
+                    sent_json_data_str = {    # response 할 JSON 객체 준비
+                        "Query" : query,
+                        "Answer": answer,
+                        "Intent": all_intent_name,
+                        "Intent2":second_intent_name,
+                        "old":old,
+                        "NER": ner_predicts,
+                        'result':result
+                    }
+                    message = json.dumps(sent_json_data_str)
+                    conn.send(message.encode())  # resp
             # 답변 검색
             try:
                 f = FindAnswer(db)
@@ -122,19 +152,26 @@ def to_client(conn, addr, params):
             sent_json_data_str = {    # response 할 JSON 객체 준비
                 "Query" : query,
                 "Answer": answer,
-                "AnswerImageUrl" : answer_image,
                 "Intent": all_intent_name,
                 "Intent2":second_intent_name,
                 "old":old,
-                "NER": ner_predicts ,
+                "NER": ner_predicts,
                 'result':result
             }
-        elif all_intent_name=='이체':
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
+
+        elif all_intent_name=='이체':# 이체 할래/ 얼마 이체할래 
             print('여긴 이체')
             recv_json_data['old']=all_intent_name
             old=recv_json_data['old']
+            
             try:
+                money=3000
+                account='1122123'
                 f = FindAnswer(db)
+                card=f.card(1)
+                
                 answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
                 answer = f.tag_to_word(ner_predicts, answer_text)            
             except:
@@ -146,14 +183,33 @@ def to_client(conn, addr, params):
                 "Answer": answer,
                 "AnswerImageUrl" : answer_image,
                 "Intent": all_intent_name,
-                "Intent2":second_intent_name,
+                "result":[money,account],
                 "old":old,
                 "NER": ner_predicts            
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
 
-
+        try:
+            f = FindAnswer(db)
+            
+            answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+            answer = f.tag_to_word(ner_predicts, answer_text)            
+        except:
+            answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                           
+        result='' 
+        sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "old":old,
+                "NER": ner_predicts ,
+                'result':result
+            }
+        message = json.dumps(sent_json_data_str)
+        conn.send(message.encode())  # responses
             
             
         

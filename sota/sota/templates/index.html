@@ -86,7 +86,11 @@ const jsonData = {
     old:old1,
     bottype: "WebClient",
 };
-console.log(jsonData)
+if(chattext=='처음으로'){
+    $('input[name=old]').attr('value',"None")
+    
+}
+
 $.ajax({
     url: 'http://127.0.0.1:5000/TEST',
     type: "POST",
@@ -99,6 +103,7 @@ $.ajax({
         // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
         // 답변 출력
+        
 
         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
