@@ -187,7 +187,10 @@ $.ajax({
                         
                         
                         $show=$("#show")
-                        $show.append(response.result[0])
+                        for(i of response.result[0]){
+                            $show.append(i)
+                        }
+                            
 
                         //$show.append(JSON.parse(a))
                         if(response.old='조회'){

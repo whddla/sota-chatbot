@@ -73,10 +73,16 @@ class FindAnswer:
         am=[]
         re=[]
         de=[]
+        ki=[]
         for a in answer:
             an.append(a['account'])
             am.append(a['amount'])
             re.append(a['remain'])
             de.append(a['details'])
+            if a['kind']==0:
+                ki.append('출금')
+            else:
+                ki.append('입금')
+            
 
-        return (an,am,re,de)
+        return (ki,an,am,re,de)
