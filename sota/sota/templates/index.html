@@ -42,7 +42,9 @@
 $(document).ready(function(){    
     document.getElementById('footer').style.display='none'
     $chatbox = $("#chatbox");
+
     bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;margin-top:14px;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+
     $chatbox.append(bottext);
 });
 
@@ -296,7 +298,24 @@ $.ajax({
                                         console.log(response)
                                         text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                         $chatbox.append(text)
-                                        $show.html(response.url)
+                                        console.log(response.url)
+                                        p=response.url
+
+                                        //recommend_music=JSON.parse(response.url)
+                                        recommend_text = `<p style='border-radius:10px;background:#424242;margin-bottom:3%;margin-top:3%;color:white;padding:3%;'></p>
+                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            <tr>
+                                <td style='vertical-align:middle' rowspan=2 colspan=3>${p.name}</td>
+                                <td style='vertical-align:middle' colspan=5>${p.limited}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' colspan=5>${p.time}</td>
+                            </tr>
+                            <tr>
+                               
+                            </tr>
+                        </table>`
+                            $show.append(recommend_text)
 
                             }
 

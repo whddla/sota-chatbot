@@ -14,6 +14,10 @@ from models.intent.AllintentModel import AllintentModel
 from models.intent.PayintentModel import PayintentModel
 from models.ner.NerModel import NerModel
 from utils.FindAnswer import FindAnswer
+from bs4 import BeautifulSoup 
+import requests
+
+
 
 # 전처리 객체 생성
 p = Preprocess(word2index_dic='train_tools/dict/sota2.bin',
@@ -98,12 +102,21 @@ def to_client(conn, addr, params):
             second_intent_name='상품조회'
 
             if recv_json_data['Query']=='대출상품':
-
+                f = FindAnswer(db)
+                result=f.selectdepoist()
+                print(result)
+                #html=requests.get(go).text
+                #soup=BeautifulSoup(html,"lxml")
                 pd=recv_json_data['Query']
+                #soup=soup.find("main_content")
+                
+                
                 sent_json_data_str={
                     'answer': '아~{}을 원해?'.format(pd),
-                    'url':'http://127.0.0.1:8000/search/deposit/'
-
+                    "url":{
+                        "name":result
+                        
+                    }
                     
                 }
                 message = json.dumps(sent_json_data_str)

@@ -107,3 +107,26 @@ class FindAnswer:
     def substract(self,money,account,user_idx):
         sql = "select * from sota.transation"+" where user_idx={}".format(user_idx)+" ORDER BY ROWID DESC LIMIT 1"
 
+    def selectdepoist(self):
+        sql="select * from sota.d_product"
+        answer=self.db.select_one(sql)
+
+        # result={
+        #     "name":answer['name']
+            
+        # }
+        # for a in answer:
+        #     result["name"]=a['name']
+        #     result["limited"]=a['limited']
+        #     result["time"]=a['time']
+        #     result["rate"]=a['rate']
+        #     result["kind"]=a['kind']
+        result=answer['name']
+        print(result)
+        return result
+
+        
+    
+    #def deposit(self):미안해
+
+
