@@ -6,7 +6,7 @@
     <div style="display: inline-flex; place-content: center;padding: 0px 74px;">
         <div id='show' style="width: 760px; height: 750px; border: 1px solid #333; margin-right: 30px;">
         </div>
-        <input id="old" name="old" type="text" value="None">
+        <input id="old" name="old" type="text" value="None" style="display:none;">
         <!-- 챗봇 -->
         <div class="main_wrap">
             <div id="wrap" class="wrap">
@@ -244,7 +244,7 @@ $.ajax({
                             success: function(response){
                                         console.log(response)
                                         text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.myac+"에서"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                        $show.append(text)
+                                        $chatbox.append(text)
                                         
                             }
                             
@@ -259,8 +259,6 @@ $.ajax({
                     });
         }
         else if(response.Intent =='상품'){
-                
-                   print('💜💙💛')
             // === === === 챗봇 동작 === === ===
                 answerText = response.Answer    
                 
