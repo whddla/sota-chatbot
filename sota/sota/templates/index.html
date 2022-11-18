@@ -191,8 +191,8 @@ $.ajax({
 //                         url:'http://127.0.0.1:8000/service/lookup',
 //                         type:"GET",
 //                         dataType:"html",
-//                         // success: function(data,status){
-//                         //     if(status == 'success')
+//                         success: function(data,status){
+//                           if(status == 'success')
                             
 //                         //     $show.append(data)
                        
@@ -200,7 +200,7 @@ $.ajax({
 //                         })   
 //                         .done(function(html) {
                         
-//                         $show.html(html)
+//                         $show.html(html)}
 //                             //html(html.getElementById('card')
                            
 //  }
@@ -219,7 +219,7 @@ $.ajax({
             button_str += "</div>"
             $chatbox.append(button_str)
 
-
+            //url은 무조건 플라스크로 보내는거잔아 그럼 우리 url을 플라스크로 가게 하면 어떤가?
             $("#1").click(function(){
                     $show=$("#show")
                     $b=$(".button")
@@ -243,7 +243,12 @@ $.ajax({
                                         console.log(response)
                                         text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.myac+"에서"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                         $show.append(text)
+                                        
                             }
+                            
+                        
+                                 
+
 
 
                         })
@@ -264,12 +269,40 @@ $.ajax({
                     button_str = "<div id='buttons' > "
                     let i = 0
                     for(inte of intent_list){
-                        button_str += `<button class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                        button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${inte}>${inte}</button>`
                         i += 1;
                     }
                     button_str += "<br>💜💙💛</div>"
                     $chatbox.append(button_str)
                     $("#1").click(function(){
+                        $show=$("#show")
+                        $b=$(".button")
+                        console.log($b.val())
+                        const jsonData = { 
+                                step:2,
+                                query:$b.val(),
+                                old:'상품',
+                                bottype: "WebClient",
+                                    };
+                        $.ajax({
+                           
+                            url: 'http://127.0.0.1:5000/TEST',
+                            type: "POST",
+                            data: JSON.stringify(jsonData),
+                            dataType: "JSON",  // 응답받을 데이터 타입
+                            contentType: "application/json; charset=utf-8",  
+                            crossDomain: true,
+                            success: function(response){
+                                        console.log(response)
+                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        $chatbox.append(text)
+                                        $show.html(response.url)
+
+                            }
+
+
+                        })
+
 
 
                     
