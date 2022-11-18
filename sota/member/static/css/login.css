@@ -93,7 +93,8 @@ button{
     width: 335px;
     height: 46px;
     color: #fff;
-    background-color: black;
+    border: none;
+    background-color: #ce8ff9;
     font-weight: 600;
     margin-top: 50px;
     cursor: pointer;

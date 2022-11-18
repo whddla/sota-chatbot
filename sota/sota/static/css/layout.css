@@ -242,7 +242,7 @@ ul, li{
 }
     
 .dropmenu li ul a:hover, .dropmenu li ul li:hover a{
-    background: rgb(134, 166, 215);
+    background: #866ece;
     border:0px;
     color:#ffffff;
     text-decoration:none;
