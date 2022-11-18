@@ -65,14 +65,11 @@ h1 {
 }
 
 .name {
-    padding-top: 11px;
-    font-size: 16.5pt;
-    margin-left: 21px;
+    display: none;
 }
 
 .txt {
     clear: both;
-    margin-top: 15px;
     margin-left: 20px;
     padding: 12px 13px 12px 13px;
     line-height: 1.4;
@@ -82,7 +79,7 @@ h1 {
     color: #333656;
     font-size: 16pt;
     float: left;
-    max-width: 226px;
+    max-width: 350px;
     border-radius: 8px;
 }
 
@@ -162,4 +159,12 @@ h1 {
     border-radius: 70px;
     background-color: #d2afff;
     box-shadow: 23px 20px 7px -7px rgb(216 186 255 / 53%);
+}
+
+.chat-bot{
+    display: inline-block;
+}
+
+.bot-talk {
+    display: flow-root;
 }
