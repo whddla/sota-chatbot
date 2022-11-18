@@ -74,7 +74,7 @@ class FindAnswer:
         re=[]
         de=[]
         ki=[]
-        for a in answer:
+        for a in answer: 
             an.append(a['account'])
             am.append(a['amount'])
             re.append(a['remain'])
@@ -88,11 +88,15 @@ class FindAnswer:
         return (ki,an,am,re,de)
 
     def findcard(self,user_idx):
-        sql="select *from sota.card" + "where user_idx={}".format(user_idx) 
+        print('findcard')
+        sql="select * from sota.card" + " where user_idx={}".format(user_idx) 
+        print(sql)
         return sql
     
     def card(self,user_idx):
-        sql=self.findcard(self,user_idx)
+        print('card접속1')
+        sql=self.findcard(user_idx)
+        print('card접속2')
         answer=self.db.select_all(sql)
 
         myac=[]
