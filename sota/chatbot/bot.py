@@ -88,8 +88,26 @@ def to_client(conn, addr, params):
             all_intent_name=old
 
         if all_intent_name=='상품':
+
+
+
+            
             sp=proIntent.predict_class(query)
             second_intent_name=proIntent.labels[sp]
+            print(second_intent_name)
+            second_intent_name='상품조회'
+
+            if recv_json_data['Query']=='대출상품':
+
+                pd=recv_json_data['Query']
+                sent_json_data_str={
+                    'answer': '아~{}을 원해?'.format(pd),
+                    'url':'http://127.0.0.1:8000/search/deposit/'
+
+                    
+                }
+                message = json.dumps(sent_json_data_str)
+                conn.send(message.encode())  
             try:
                 f = FindAnswer(db)
                 answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
