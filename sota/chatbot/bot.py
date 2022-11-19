@@ -199,26 +199,40 @@ def to_client(conn, addr, params):
             recv_json_data['old']=all_intent_name
             old=recv_json_data['old']
             print('여기까진 된거야')
-            print(len(recv_json_data['Query']))
-            if len(recv_json_data['Query'])==16:
-                myac=recv_json_data['Query']
-                sent_json_data_str = {    # response 할 JSON 객체 준비
+            # print(len(recv_json_data['Query']))
+            # if len(recv_json_data['Query'])==16:
+            #     myac=recv_json_data['Query']
+            #     sent_json_data_str = {    # response 할 JSON 객체 준비
                 
-                "Answer": '얼마를 어디에 보낼래?',
-                "myac":myac,
-                "Intent": all_intent_name,
+            #     "Answer": '얼마를 어디에 보낼래?',
+            #     "myac":myac,
+            #     "Intent": all_intent_name,
             
-                "old":old,
+            #     "old":old,
                 
                          
+            #     }
+            #     print(sent_json_data_str)
+            #     message = json.dumps(sent_json_data_str)
+            #    conn.send(message.encode())  # responses
+            if '3' in recv_json_data['Query']: #ner태그가 아무것도 안걸리면 
+                m=recv_json_data['Query'][1]
+                t=recv_json_data['Query'][2]
+                a=recv_json_data['Query'][3]
+                f=FindAnswer(db)
+                result=f.substract(m,t,a,1)
+                print(result)
+                sent_json_data_str = {  
+                    "answer": '이체 완료',
+                    "url": '확인할 수 있는 창'
                 }
-                print(sent_json_data_str)
+                print('뭐가 문제야 섬띵')
+
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  # responses
-
+                
             try:
-                money=3000
-                account='1122123'
+            
                 f = FindAnswer(db)
                 card=f.card(1)
             
@@ -234,7 +248,7 @@ def to_client(conn, addr, params):
                 "Answer": answer,
                 "AnswerImageUrl" : answer_image,
                 "Intent": all_intent_name,
-                "result":[money,account],
+                #"result":[money,account],
                 "old":old,
                 "NER": ner_predicts,
                 "card":card           

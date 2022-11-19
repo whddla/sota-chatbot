@@ -104,8 +104,36 @@ class FindAnswer:
             myac.append(a['account'])
         return myac
 
-    def substract(self,money,account,user_idx):
-        sql = "select * from sota.transation"+" where user_idx={}".format(user_idx)+" ORDER BY ROWID DESC LIMIT 1"
+    def substract(self,m,t,a,user_idx):
+        
+        t=str(t)
+        a=str(a)
+        m=int(m)
+        sql = "select * from sota.transation"+" where user_idx={}".format(user_idx)+" and account='{}'".format(a)+" ORDER BY idx DESC LIMIT 1"
+        answer=self.db.select_one(sql)
+        
+        
+        print(answer['remain'])
+        balance=int(answer['remain'])-m
+        sql= "select * from sota.transation"+" where account='{}'".format(t)+" ORDER BY idx DESC LIMIT 1"
+        answer1=self.db.select_one(sql)
+        print(answer1,answer)
+        t_idx=answer1['user_idx']
+        earn=answer1['remain']+m
+        print(earn)
+        #add1="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values (%d,%s,%d,%d,%s,%s,%d)"
+        add1="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(0,a,m,balance,t,'2022-11-19',user_idx)
+        print(add1)
+        add2="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(1,t,m,earn,a,'2022-11-19',user_idx)
+        #add1_w=(0,a,m,balance,t,'2022-11-19',user_idx)
+        print('여긴되겠지 그럼')
+        ex=self.db.execute(add1)
+        ex=self.db.execute(add2)
+        
+        #ex.execute(add1,add1_w)
+        print('역시 너냐')
+
+        return ex
 
     def selectdepoist(self):
         sql="select * from sota.d_product"
@@ -129,4 +157,6 @@ class FindAnswer:
     
     #def deposit(self):미안해
 
+
+    #def calculate(self,m,t):
 

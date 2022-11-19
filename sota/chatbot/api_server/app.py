@@ -39,13 +39,6 @@ def get_answer_from_engine(bottype, query,old):
     
 
 
-# @app.route('/', methods=['GET','POST'])
-# def index():
-#     return ('hello')
-# @app.route('/service/lookup', methods=['GET','POST'])
-# def show():
-
-
 
 # 챗봇 엔진 query 전송 API
 @app.route('/<bot_type>', methods=["GET","POST"])

@@ -130,15 +130,6 @@ $.ajax({
                         bottype: "WebClient",
                     };
                     $.ajax({
-                        
-                            // url: 'http://127.0.0.1:8000/service/lookup',
-                            // type:"GET",
-                            // cache: false,
-                            // success: function(data,status){
-                            //     if(status == 'success') 
-                            //     data.parseXML
-                            // }
-                           
                                 url: 'http://127.0.0.1:5000/chatbot/TEST',
                                 type: "POST",
                                 data: JSON.stringify(jsonData),
@@ -224,15 +215,23 @@ $.ajax({
             //url은 무조건 플라스크로 보내는거잔아 그럼 우리 url을 플라스크로 가게 하면 어떤가?
             $("#1").click(function(){
                     $show=$("#show")
-                    $b=$(".button")
-                    console.log($b.val())
                     
-                   
+                    a=$("#1").val()
+                    text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                    $chatbox.append(text)
+                    send1="<input id='send1' value=3000> </input>"
+                    send2="<input id='send2' value=123456-00-111111> </input> "
+                    $chatbox.append(send1)
+                    $chatbox.append(send2)
+                    s1=$("#send1")
+                    s2=$("#send2")
+                    console.log(s1.val(),s2.val(),a)
                     const jsonData = { 
-                        query:$b.val(),
+                        query:['3',s1.val(),s2.val(),a],
                         old:'이체',
                         bottype: "WebClient",
                                     };
+                    
                         $.ajax({
                            
                             url: 'http://127.0.0.1:5000/TEST',
@@ -242,9 +241,12 @@ $.ajax({
                             contentType: "application/json; charset=utf-8",  
                             crossDomain: true,
                             success: function(response){
-                                        console.log(response)
-                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.myac+"에서"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                        $chatbox.append(text)
+
+                                $chatbox.append(response.answer)
+                                
+                                        
+                                                
+                                        
                                         
                             }
                             
