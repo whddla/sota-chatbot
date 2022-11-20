@@ -105,7 +105,7 @@ $.ajax({
         // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
         // 답변 출력
-        
+        $("#show").val("");
 
         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
@@ -262,9 +262,87 @@ $.ajax({
         }
         else if(response.Intent =='상품'){
             // === === === 챗봇 동작 === === ===
-                answerText = response.Answer    
+            if (response.Intent2 == '대출상품')   
+                {
+                    $show=$("#show")
+                    text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                    //$chatbox.append(text)
+                    p=response.AnswerImageUrl
+                    console.log(p)
+                    for(i=0;i<p[0].length;i++){
+                            recommend_text = `
+                            <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            <tr>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[2][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[3][i]}</td>
+                            </tr>
+                            </table>`
+                            $show.append(recommend_text) 
+                    }
+
+                            }
+                        
+            else if (response.Intent2 == '적금상품')   
+                {
+                    $show=$("#show")
+                    p=response.AnswerImageUrl
+        
+                    for(i=0;i<p[0].length;i++){
+                            recommend_text = `
+                            <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            <tr>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[2][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[3][i]}</td>
+                            </tr>
+                            </table>`
+                            $show.append(recommend_text) 
+                    }
+
+                            }
+            else if(response.Intent2 == '카드상품'){
+
+                $show=$("#show")
+                p=response.AnswerImageUrl
+        
+                for(i=0;i<p[0].length;i++){
+                            recommend_text = `
+                            <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            <tr>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' ><button>신청하기</button></td>
+                            </tr>
+                           
+                            </table>`
+                            $show.append(recommend_text) 
+                    }
+
+
+
+
+            }      
                 
-            if (response.Intent2 == '상품조회'){
+            else if (response.Intent2 == '상품조회'){
                     intent_list = [ "대출상품", "적금상품", "카드상품"]
                     bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
                        + "<br>" + "</b></span></div>";
@@ -276,13 +354,14 @@ $.ajax({
                     }
                     button_str += "<br>💜💙💛</div>"
                     $chatbox.append(button_str)
-                    $("#1").click(function(){
+                    $("#0").click(function(){
                         $show=$("#show")
-                        $b=$(".button")
-                        console.log($b.val())
+                        b=$("#0").val()
+                        console.log(b)
+                      
                         const jsonData = { 
                                 step:2,
-                                query:$b.val(),
+                                query:b,
                                 old:'상품',
                                 bottype: "WebClient",
                                     };
@@ -300,22 +379,24 @@ $.ajax({
                                         $chatbox.append(text)
                                         console.log(response.url)
                                         p=response.url
-
-                                        //recommend_music=JSON.parse(response.url)
-                                        recommend_text = `<p style='border-radius:10px;background:#424242;margin-bottom:3%;margin-top:3%;color:white;padding:3%;'></p>
+                                     for(i=0;i<p[0].length;i++){
+                                        recommend_text = `
                         <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
                             <tr>
-                                <td style='vertical-align:middle' rowspan=2 colspan=3>${p.name}</td>
-                                <td style='vertical-align:middle' colspan=5>${p.limited}</td>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
                             <tr>
-                                <td style='vertical-align:middle' colspan=5>${p.time}</td>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
                             </tr>
                             <tr>
-                               
+                                <td style='vertical-align:middle' >${p[2][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[3][i]}</td>
                             </tr>
                         </table>`
-                            $show.append(recommend_text)
+                            $show.append(recommend_text) 
+                    }
 
                             }
 
@@ -326,35 +407,73 @@ $.ajax({
 
                     
                  });
+                    $("#1").click(function(){
+                        $show=$("#show")
+                        b=$("#1").val()
+                        console.log(b)
+                      
+                        const jsonData = { 
+                                step:2,
+                                query:b,
+                                old:'상품',
+                                bottype: "WebClient",
+                                    };
+                        $.ajax({
+                           
+                            url: 'http://127.0.0.1:5000/TEST',
+                            type: "POST",
+                            data: JSON.stringify(jsonData),
+                            dataType: "JSON",  // 응답받을 데이터 타입
+                            contentType: "application/json; charset=utf-8",  
+                            crossDomain: true,
+                            success: function(response){
+                                        console.log(response)
+                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        $chatbox.append(text)
+                                        p=response.url
+                                     for(i=0;i<p[0].length;i++){
+                                        recommend_text = `
+                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            <tr>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[2][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[3][i]}</td>
+                            </tr>
+                        </table>`
+                            $show.append(recommend_text) 
+                    }
+                
+
+                
+                }
+             
+
+                    
+             });
+                    
+            })
+         
 
         }
     }
         // 스크롤 조정하기
     $("#wrap").animate({scrollTop: $("#wrap").prop('scrollHeight')});
-    
+    $("#show").animate({scrollTop: $("#wrap").prop('scrollHeight')});
+
     // 먼저 입력했던 내용은 지우기
     $("#chattext").val("");
     $("#chattext").focus();
+    $("#show").val("");
+    $("#show").focus();
     }
 })
-}
-function parseXML(xmlDOM) {
-	
-	const table = [];
-	table.push("<tr><th>호선</th><th>역명</th><th>승차</th><th>하차인원</th></tr>");
-    //table.push("$(xmlDOM).find('list1')")
-	$(xmlDOM).find("list1").each(function(){
-		
-        table.push(`
-            <tr>
-                <td>살려주세요</td>
-            </tr>
-        `);
-
-	});
-   a=xmlDOM.getElementById('info')
-   consol.log(a)
-	return table
 }
  // end 
 </script>

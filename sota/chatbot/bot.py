@@ -99,24 +99,66 @@ def to_client(conn, addr, params):
             sp=proIntent.predict_class(query)
             second_intent_name=proIntent.labels[sp]
             print(second_intent_name)
-            second_intent_name='상품조회'
+            
 
-            if recv_json_data['Query']=='대출상품':
+            if recv_json_data['Query'] =='적금상품':
+                pd=''
                 f = FindAnswer(db)
                 result=f.selectdepoist()
                 print(result)
-                #html=requests.get(go).text
-                #soup=BeautifulSoup(html,"lxml")
-                pd=recv_json_data['Query']
-                #soup=soup.find("main_content")
+                if recv_json_data['Query']=='적금상품':
+                    pd=recv_json_data['Query']
+                elif second_intent_name=='적금상품':
+                    pd=second_intent_name
                 
+
                 
                 sent_json_data_str={
                     'answer': '아~{}을 원해?'.format(pd),
-                    "url":{
-                        "name":result
-                        
-                    }
+                    "url":result,
+                    "old":"{}".format(pd)
+                    
+                }
+                message = json.dumps(sent_json_data_str)
+                conn.send(message.encode())  
+            
+            elif recv_json_data['Query'] == '대출상품':
+                
+                f = FindAnswer(db)
+                result=f.selectloan()
+                print(result)
+                pd=''
+                if recv_json_data['Query']=='대출상품':
+                    pd=recv_json_data['Query']
+                elif second_intent_name=='대출상품':
+                    pd=second_intent_name
+                
+
+                print(pd)
+                sent_json_data_str={
+                    "answer": '아~{}을 원해?'.format(pd),
+                    "url":result,
+                    "old":"{}".format(pd)
+                    
+                }
+                print(sent_json_data_str)
+                message = json.dumps(sent_json_data_str)
+                conn.send(message.encode())  
+            
+            elif recv_json_data['Query'] =='카드상품':
+                
+                f = FindAnswer(db)
+                result=f.selectcard()
+                print(result)
+               
+                pd=recv_json_data['Query']
+                
+
+                
+                sent_json_data_str={
+                    'answer': '아~{}을 원해?'.format(pd),
+                    "url":result,
+                    "old":"{}".format(pd)
                     
                 }
                 message = json.dumps(sent_json_data_str)
@@ -128,7 +170,10 @@ def to_client(conn, addr, params):
             except:
                 answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
                 answer_image = None
-            
+            if second_intent_name =='대출상품':
+                f = FindAnswer(db)
+                result=f.selectloan()
+                answer_image=result
             sent_json_data_str = {    # response 할 JSON 객체 준비
                 "Query" : query,
                 "Answer": answer,

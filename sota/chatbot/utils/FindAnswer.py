@@ -155,8 +155,55 @@ class FindAnswer:
 
         
     
-    #def deposit(self):미안해
+    def selectdepoist(self):
+        sql="select * from sota.d_product"
+        answer=self.db.select_all(sql)
+
+        name=[]
+        limited=[]
+        time=[]
+        rate=[]
+        kind=[]
+        for a in answer:
+            name.append(a['name'])
+            limited.append(a['limited'])
+            time.append(a['time'])
+            rate.append(a['rate'])
+            kind.append(a['kind'])
 
 
-    #def calculate(self,m,t):
+        
+        return (name,limited,time,rate,kind)
 
+        
+    
+    def selectloan(self):
+        sql="select * from sota.l_product"
+        answer=self.db.select_all(sql)
+        name=[]
+        limited=[]
+        time=[]
+        rate=[]
+        kind=[]
+        for a in answer:
+            name.append(a['name'])
+            limited.append(a['limited'])
+            time.append(a['time'])
+            rate.append(a['rate'])
+            kind.append(a['kind'])
+
+
+        
+        return (name,limited,time,rate,kind)
+
+
+    def selectcard(self):
+        sql="select * from sota.c_product"
+        answer=self.db.select_all(sql)
+        name=[]
+        ben=[]
+        for a in answer:
+            name.append(a['name'])
+            ben.append(a['benefit'])
+
+        return (name,ben)
