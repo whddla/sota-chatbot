@@ -462,6 +462,91 @@ $.ajax({
          
 
         }
+        else if(response.Intent =='분실'){
+                console.log(response.Card)
+                $show=$("#show")
+                $("#loss").remove('#loss')
+                $("#loss").remove('#loss')
+                $("#loss").remove('#loss')           
+                if(response.old='분실'){
+                    $('input[name=old]').attr('value',response.old)
+                }
+                for(i=0;i<response.Card[0].length;i++){
+                    if(response.Card[1][i] == "1"){
+                        var loss = "분실"
+                        let boxStart = "<div id='loss'>"
+                        let text = "카드번호 : " + response.Card[0][i] + "<br>" + "이름 : " + document.getElementById('name').value + "<br>"  + "<div>카드 분실 상태</div> : " + "<div name='loss_val'>"+ loss +"</div>"
+                        let boxEnd = "</div>";
+                        let box = boxStart + text +boxEnd 
+                        $show.append(box)
+                    }else{
+                        var loss ="정상"
+                        let boxStart = "<div id='loss' style='width: 340px;margin: 0 auto;'><button style='margin: 0 auto;border: none;background: none;' type='button' id='"+i+"' value='"+response.Card[0][i]+"')><img src='/static/img/sotacardimg.png' style='width: 340px;display: block;margin: 0 auto;margin-top: 15px;'></button><div style=''>"
+                        let text = "<span style='position: absolute;margin-left: 117px;margin-top: -142px;color:white;font-size:20px;'>"+response.Card[0][i] + "</span>" +  "<span style='position: absolute;margin-top: -44px;margin-left: 40px;letter-spacing: 10px;color: white;font-size: 19px;'>"+document.getElementById('name').value + "</span>" + "<div style='position: absolute;margin-left: 400px;font-size:23px;margin-top: -121px;'>" +"상태 :"+ "<input style='background: none;border: none;font-size:23px;' name=" + i + " value='" + loss + "' disabled></div></div>"
+                        let btn = "</div>"
+                        let box = boxStart + text  + btn
+                        $show.append(box)
+                    }
+                }
+                $("#0").click(function(){
+                    console.log($('input[name=0]').val())
+                    if($('input[name=0]').val()=='정상'){
+                        let result = confirm('분실신고하시겠습니까?')
+                        if(result==true){
+                            alert('분실신고되었습니다')
+                            $('input[name=0]').attr('value','분실')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }else if($('input[name=0]').val()=='분실'){
+                        let result2 = confirm('분실신고취소하시겠습니까?')
+                        if(result2==true){
+                            alert('분실신고가 취소됬습니다.')
+                            $('input[name=0]').attr('value','정상')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }
+                });
+                $("#1").click(function(){
+                    if($('input[name=1]').val()=='정상'){
+                        let result = confirm('분실신고하시겠습니까?')
+                        if(result==true){
+                            alert('분실신고되었습니다')
+                            $('input[name=1]').attr('value','분실')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }else if($('input[name=1]').val()=='분실'){
+                        let result2 = confirm('분실신고취소하시겠습니까?')
+                        if(result2==true){
+                            alert('분실신고가 취소됬습니다.')
+                            $('input[name=1]').attr('value','정상')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }
+                });
+                $("#2").click(function(){
+                    if($('input[name=2]').val()=='정상'){
+                        let result = confirm('분실신고하시겠습니까?')
+                        if(result==true){
+                            alert('분실신고되었습니다')
+                            $('input[name=2]').attr('value','분실')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }else if($('input[name=2]').val()=='분실'){
+                        let result2 = confirm('분실신고취소하시겠습니까?')
+                        if(result2==true){
+                            alert('분실신고가 취소됬습니다.')
+                            $('input[name=2]').attr('value','정상')
+                        }else{
+                            alert('취소되었습니다.')
+                        }
+                    }
+                });
+            }
     }
         // 스크롤 조정하기
     $("#wrap").animate({scrollTop: $("#wrap").prop('scrollHeight')});
