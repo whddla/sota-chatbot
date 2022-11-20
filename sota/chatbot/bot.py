@@ -102,17 +102,14 @@ def to_client(conn, addr, params):
             print(second_intent_name)
             
 
-            if recv_json_data['Query'] =='적금상품':
-                pd=''
+            if recv_json_data['Query'] =='적금상품12':
+                
                 f = FindAnswer(db)
                 result=f.selectdepoist()
                 print(result)
-                if recv_json_data['Query']=='적금상품':
-                    pd=recv_json_data['Query']
-                elif second_intent_name=='적금상품':
-                    pd=second_intent_name
+               
+                pd='적금상품'
                 
-
                 
                 sent_json_data_str={
                     'answer': '아~{}을 원해?'.format(pd),
@@ -123,18 +120,15 @@ def to_client(conn, addr, params):
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  
             
-            elif recv_json_data['Query'] == '대출상품':
+            elif recv_json_data['Query'] == '대출상품12':
                 
                 f = FindAnswer(db)
                 result=f.selectloan()
                 print(result)
                 pd=''
-                if recv_json_data['Query']=='대출상품':
-                    pd=recv_json_data['Query']
-                elif second_intent_name=='대출상품':
-                    pd=second_intent_name
                 
-
+                
+                pd='대출상품'
                 print(pd)
                 sent_json_data_str={
                     "answer": '아~{}을 원해?'.format(pd),
@@ -146,13 +140,13 @@ def to_client(conn, addr, params):
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  
             
-            elif recv_json_data['Query'] =='카드상품':
+            elif recv_json_data['Query'] =='카드상품12':
                 
                 f = FindAnswer(db)
                 result=f.selectcard()
                 print(result)
                
-                pd=recv_json_data['Query']
+                pd='카드상품'
                 
 
                 
@@ -174,7 +168,18 @@ def to_client(conn, addr, params):
             if second_intent_name =='대출상품':
                 f = FindAnswer(db)
                 result=f.selectloan()
+                print('대출 상품 내놔')
+                
                 answer_image=result
+            if second_intent_name =='적금상품':
+                f = FindAnswer(db)
+                result=f.selectdepoist()
+                answer_image=result
+            if second_intent_name =='카드상품':
+                f=FindAnswer(db)
+                result=f.selectcard()
+                answer_image=result
+
             sent_json_data_str = {    # response 할 JSON 객체 준비
                 "Query" : query,
                 "Answer": answer,
@@ -301,11 +306,13 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
+
         elif all_intent_name=='분실':
             try:
                 l = LossAnswer(db)
                 card = ''
-                card = l.search(1)   
+                card = l.search(1) 
+                print(card)  
                 f = FindAnswer(db)
                 answer  = f.search(all_intent_name,second_intent_name, ner_tags)
                 
@@ -324,26 +331,27 @@ def to_client(conn, addr, params):
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
             
-        try:
-            f = FindAnswer(db)
+        # try:
+        #     f = FindAnswer(db)
             
-            answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
-            answer = f.tag_to_word(ner_predicts, answer_text)            
-        except:
-            answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+        #     answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+        #     answer = f.tag_to_word(ner_predicts, answer_text)            
+        # except:
+        #     answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
                            
-        result='' 
-        sent_json_data_str = {    # response 할 JSON 객체 준비
-                "Query" : query,
-                "Answer": answer,
-                "Intent": all_intent_name,
-                "Intent2":second_intent_name,
-                "old":old,
-                "NER": ner_predicts ,
-                'result':result
-            }
-        message = json.dumps(sent_json_data_str)
-        conn.send(message.encode())  # responses
+        # result='' 
+        # sent_json_data_str = {    # response 할 JSON 객체 준비
+        #         "Query" : query,
+        #         "Answer": answer,
+        #         "AnswerImageUrl" : answer_image,
+        #         "Intent": all_intent_name,
+        #         "Intent2":second_intent_name,
+        #         "old":old,
+        #         "NER": ner_predicts ,
+        #         'result':result
+        #     }
+        # message = json.dumps(sent_json_data_str)
+        # conn.send(message.encode())  # responses
         
             
         
