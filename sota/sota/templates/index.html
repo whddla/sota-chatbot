@@ -381,7 +381,7 @@ $.ajax({
                                         p=response.url
                                      for(i=0;i<p[0].length;i++){
                                         recommend_text = `
-                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table">
                             <tr>
                                 <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
@@ -433,7 +433,7 @@ $.ajax({
                                         p=response.url
                                      for(i=0;i<p[0].length;i++){
                                         recommend_text = `
-                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;">
                             <tr>
                                 <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
@@ -555,8 +555,8 @@ $.ajax({
     // 먼저 입력했던 내용은 지우기
     $("#chattext").val("");
     $("#chattext").focus();
-    $("#show").val("");
-    $("#show").focus();
+    
+    
     }
 })
 }
