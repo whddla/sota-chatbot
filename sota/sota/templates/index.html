@@ -356,6 +356,7 @@ $.ajax({
                     $chatbox.append(button_str)
                     $("#0").click(function(){
                         $show=$("#show")
+                        $("#show").empty();
                         b=$("#0").val()
                         console.log(b)
                       
@@ -409,6 +410,7 @@ $.ajax({
                  });
                     $("#1").click(function(){
                         $show=$("#show")
+                        $("#show").empty();
                         b=$("#1").val()
                         console.log(b)
                       
@@ -453,12 +455,60 @@ $.ajax({
 
                 
                 }
+                
              
 
                     
              });
                     
             })
+            $("#2").click(function(){
+                        $show=$("#show")
+                        $("#show").empty();
+                        b=$("#2").val()
+                        console.log(b)
+                      
+                        const jsonData = { 
+                                step:2,
+                                query:b,
+                                old:'상품',
+                                bottype: "WebClient",
+                                    };
+                        $.ajax({
+                           
+                            url: 'http://127.0.0.1:5000/TEST',
+                            type: "POST",
+                            data: JSON.stringify(jsonData),
+                            dataType: "JSON",  // 응답받을 데이터 타입
+                            contentType: "application/json; charset=utf-8",  
+                            crossDomain: true,
+                            success: function(response){
+                                        console.log(response)
+                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        $chatbox.append(text)
+                                        p=response.url
+                                     for(i=0;i<p[0].length;i++){
+                                        recommend_text = `
+                        <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;">
+                            <tr>
+                                <td style='vertical-align:middle' >${p[0][i]}</td> 
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' >${p[1][i]}</td>
+                            </tr>
+                            <tr>
+                                <td style='vertical-align:middle' ><button>신청하기</button></td>
+                            </tr>
+                        </table>`
+                            $show.append(recommend_text) 
+                    }
+                
+
+                
+                }
+            })
+        })
+            
          
 
         }
