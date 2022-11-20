@@ -13,7 +13,7 @@
                 <div class="chatBox" id="chatbox" style="padding-bottom: 120px;">
                     <div class="header">
                         <div class="title-wrap">
-                            <h1 class="title">SOTA 챗봇</h1>
+                            <h1 class="title">SOB Chatbot</h1>
                         </div>
                     </div>
                     <div class="chat-bot">
@@ -107,7 +107,7 @@ $.ajax({
         // 답변 출력
         $("#show").empty();
 
-        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
         if(response.Intent=='인사'){
             
@@ -344,7 +344,7 @@ $.ajax({
                     console.log(p)
                     for(i=0;i<p[0].length;i++){
                         recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;background:#424242;text-align:center;height: 150px;width: 265px;">
+                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
                             <tr>
                                 <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
@@ -358,7 +358,7 @@ $.ajax({
                                 <td style='vertical-align:middle' >${p[3][i]}</td>
                             </tr>
                             <tr>
-                                <td style='vertical-align:middle' ><button>신청하기</button></td>
+                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
                             </tr>
                             </table></div>`
                             $show.append(recommend_text) 
