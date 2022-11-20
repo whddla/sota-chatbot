@@ -300,7 +300,29 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
-
+        elif all_intent_name=='분실':
+            try:
+                l = LossAnswer(db)
+                card = ''
+                card = l.search(1)   
+                f = FindAnswer(db)
+                answer  = f.search(all_intent_name,second_intent_name, ner_tags)
+                
+                                    
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
+                
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "Intent": all_intent_name,
+                "Card": card,          
+            }
+            
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
+            
         try:
             f = FindAnswer(db)
             
@@ -321,7 +343,7 @@ def to_client(conn, addr, params):
             }
         message = json.dumps(sent_json_data_str)
         conn.send(message.encode())  # responses
-            
+        
             
         
     except Exception as ex:
