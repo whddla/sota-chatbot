@@ -105,7 +105,7 @@ $.ajax({
         // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
         // 답변 출력
-        $("#show").val("");
+        $("#show").empty();
 
         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
@@ -550,7 +550,7 @@ $.ajax({
     }
         // 스크롤 조정하기
     $("#wrap").animate({scrollTop: $("#wrap").prop('scrollHeight')});
-    $("#show").animate({scrollTop: $("#wrap").prop('scrollHeight')});
+    $("#show").animate({scrollTop: $("#show").prop('scrollHeight')});
 
     // 먼저 입력했던 내용은 지우기
     $("#chattext").val("");
