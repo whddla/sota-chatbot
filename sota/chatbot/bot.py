@@ -29,7 +29,7 @@ p1=Preprocess(word2index_dic='train_tools/dict/sota3.bin',userdic='utils/ner.tsv
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
-payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
+payIntent = PayintentModel(model_name='models/intent/pay_intent_model_.h5', preprocess=p)
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p1)
