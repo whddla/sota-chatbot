@@ -76,18 +76,7 @@ def to_client(conn, addr, params):
             print(all_intent_predict)
             print(all_intent_name)
             print(old)
-        
-        
-        # 상품조회 의도 파악
-        #pro_intent_predict = proIntent.predict_class(query)
-        #pro_intent_name = proIntent.labels[pro_intent_predict]
-        
-        # 상환 및 납부 의도 파악
-        #pay_intent_predict = payIntent.predict_class(query)
-        #pay_intent_name = payIntent.labels[pay_intent_predict]
-
-        # 개체명 파악
-        #ner_tags = ner.predict_tags(query)
+    
         ner_predicts=None
         ner_tags=None
         second_intent_name=None
@@ -97,10 +86,6 @@ def to_client(conn, addr, params):
         
 
         if all_intent_name=='상품':
-
-
-
-            
             sp=proIntent.predict_class(query)
             second_intent_name=proIntent.labels[sp]
             print(second_intent_name)
@@ -194,6 +179,8 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
+
+
         elif all_intent_name=='인사':
             try:
                 f = FindAnswer(db)
@@ -216,6 +203,8 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
+
+
         elif all_intent_name=='예외':
             try:
                 f = FindAnswer(db)
@@ -287,7 +276,7 @@ def to_client(conn, addr, params):
             old=recv_json_data['old']
             print('여기까진 된거야')
             if '3' in recv_json_data['Query']: #ner태그가 아무것도 안걸리면 
-                m=recv_json_data['Query'][1]
+                m=recv_json_data['Query'][1] 
                 t=recv_json_data['Query'][2]
                 a=recv_json_data['Query'][3]
                 f=FindAnswer(db)
@@ -410,28 +399,7 @@ def to_client(conn, addr, params):
             
             message = json.dumps(sent_json_data_str, default=str)
             # message = json.dumps(sent_json_data_str, cls= NumpyEncoder,)  # int64 json 받아들이지 못함
-            conn.send(message.encode())  # responses    
-        # try:
-        #     f = FindAnswer(db)
-            
-        #     answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
-        #     answer = f.tag_to_word(ner_predicts, answer_text)            
-        # except:
-        #     answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
-                           
-        # result='' 
-        # sent_json_data_str = {    # response 할 JSON 객체 준비
-        #         "Query" : query,
-        #         "Answer": answer,
-        #         "AnswerImageUrl" : answer_image,
-        #         "Intent": all_intent_name,
-        #         "Intent2":second_intent_name,
-        #         "old":old,
-        #         "NER": ner_predicts ,
-        #         'result':result
-        #     }
-        # message = json.dumps(sent_json_data_str)
-        # conn.send(message.encode())  # responses
+            conn.send(message.encode())  # responses  
         
             
         
