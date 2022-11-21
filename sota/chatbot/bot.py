@@ -216,7 +216,28 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
-       
+        elif all_intent_name=='예외':
+            try:
+                f = FindAnswer(db)
+            
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word(ner_predicts, answer_text)            
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                           
+            result='' 
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "AnswerImageUrl" : answer_image,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "old":old,
+                "NER": ner_predicts ,
+                'result':result
+            }
+            message = json.dumps(sent_json_data_str)
+            conn.send(message.encode())  # responses
             
 
 
@@ -314,7 +335,7 @@ def to_client(conn, addr, params):
                 print(card)  
                 f = FindAnswer(db)
                 answer  = f.search(all_intent_name,second_intent_name, ner_tags)
-                
+
                                     
             except:
                 answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
