@@ -37,6 +37,7 @@ def deposit(request):
 def loans(request):
     user = User.objects.get(idx= int(request.session['login']))
     lp = LProduct.objects.all()
+    lpCnt = LProduct.objects.filter(user_idx=None)
     list = []
     for i in lp:
         if i.user_idx is not None:
@@ -45,6 +46,7 @@ def loans(request):
             list.append(i)
     context = {
         'lp':lp,
+        'lpCnt':lpCnt,
         'user':user,
         'p':list
     }
