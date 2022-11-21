@@ -32,6 +32,7 @@
             </table>
         </div>
         <div class="toparea2">
+            <p style="text-align: center;color: red;font-size: 20px;">{{error}}</p>
             <h1 class="h1_title">대출상환</h1>
         </div>
         <div class="main_content">
@@ -113,7 +114,7 @@
                         </td>
                     </tr>
                         <tr>
-                            <form action="/service/sendLoans" method="POST">
+                            <form name="frm" action="/service/sendLoans" method="POST">
                                 {% csrf_token %}
                             <td>
                                 카드비밀번호
@@ -134,8 +135,8 @@
                 <input style="display: none;" id="out" name="my_num">
                 <input style="display: none;" id="out" name="l_num">
             </div>
-            <input class="btn-style" type="submit" value="확인">
-            </form>
+        </form>
+        <input onclick="btnClick()" class="btn-style" type="button" value="확인">
         </div>
     </div>
 </div>
@@ -190,6 +191,16 @@
             }
         });
     });
+    }
+
+    function btnClick(){
+        let result = confirm('납입하시겠습니까?')
+        if(result){
+            document.frm.submit();
+        }else{
+            alert('취소되었습니다.')
+            return false
+        }
     }
 </script>
 {%endblock%}

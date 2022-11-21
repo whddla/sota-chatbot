@@ -387,7 +387,7 @@ def sendLoans(request:HttpRequest):
             context ={
                 'error':error
             }
-            return HttpResponse(json.dumps(context), content_type="application/json") 
+            return redirect('/service/loans')
         loans = LProduct.objects.get(account=l_ac)
         l_remain = loans.remain - int(inter)
         c_remain = myAc.remain - int(inter)
@@ -396,7 +396,7 @@ def sendLoans(request:HttpRequest):
             context = {
                 'error':error
             }
-            return HttpResponse(json.dumps(context), content_type="application/json") 
+            return redirect('/service/loans')
         else:
             # 납입자
             Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
