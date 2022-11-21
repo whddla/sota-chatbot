@@ -133,7 +133,7 @@ class FindAnswer:
         #ex.execute(add1,add1_w)
         print('역시 너냐')
 
-        return ex
+        return balance
 
     def selectdepoist(self):
         sql="select * from sota.d_product"
