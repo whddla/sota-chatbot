@@ -15,6 +15,7 @@ from models.intent.PayintentModel import PayintentModel
 from models.ner.NerModel import NerModel
 from utils.FindAnswer import FindAnswer
 from utils.LossAnswer import LossAnswer
+from utils.PayAnswer import PayAnswer
 from bs4 import BeautifulSoup 
 import requests
 
@@ -28,7 +29,7 @@ p1=Preprocess(word2index_dic='train_tools/dict/sota3.bin',userdic='utils/ner.tsv
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
-#payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
+payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=p)
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p1)
@@ -330,7 +331,68 @@ def to_client(conn, addr, params):
             
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
+        if all_intent_name=='납부':   ## 자자자 해지야 내일 여기부터 건드리자!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            # pay_intent_name = 1
+            pay_intent_name=payIntent.predict_class(query)
+            recv_json_data['old'] = all_intent_name
+            old = recv_json_data['old']
+            print("자자 주목! old :", old)
+
+            try:
+                # 대출 / 적금 의도 분류 답변 검색
+                p = PayAnswer(db)
+                answer, answer_image = p.search_ans(all_intent_name, pay_intent_name)
+                if pay_intent_name == 0:
+                    pay_intent = "납부"
+                elif pay_intent_name == 1 or recv_json_data['old2']=='대출':
+                    pay_intent = "대출"
+                elif pay_intent_name == 2 or recv_json_data['old2']=='적금':
+                    pay_intent = "적금"
+
+                
+                
+                l_pro = p.search_loan(1)  #  대출 상품
+                d_pro = p.search_deposit(1) # 적금
+                # a = p.search_deposit_p(2)
+                
+                d_pro_p=[]
+                d_pro_pp={}
+                idx=0
+                d_pro_ppp=0
+                for idx in d_pro[4]:   # foreign key 연결 (tbqkf)
+                    d_pro_p.append(p.search_deposit_p(idx)) #idx에는 상품번호들 리턴값은 상품에 대ㅎ
+                    for a in d_pro_p:
+                        if a[0][0] == idx:
+                            d = a[0][0]
+                            mid = {d:a}
+                            d_pro_pp.update(mid)
+                pro_idx = p.search_deposit(1)[4] # (tlqkf)
+                # user = p.search_user(1)  # 유저
+
+
+            except:
+                answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
+                answer_image = None
+                
+            sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer" : answer,
+                "Intent" : all_intent_name,
+                "Payintent": pay_intent,
+                "old" : old,
+                "l_pro": l_pro,
+                "d_pro": d_pro,
+                "d_pro_p": d_pro_p,
+                "d_pro_pp": d_pro_pp,
+                "d_pro_ppp": d_pro_ppp,
+                "a":a,
+                "pro_idx": pro_idx,
+               # "b":b,
+            }
             
+            message = json.dumps(sent_json_data_str, default=str)
+            # message = json.dumps(sent_json_data_str, cls= NumpyEncoder,)  # int64 json 받아들이지 못함
+            conn.send(message.encode())  # responses    
         # try:
         #     f = FindAnswer(db)
             
