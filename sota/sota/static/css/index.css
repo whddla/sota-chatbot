@@ -245,3 +245,11 @@ h1 {
     height: 40px;
     font-weight: bold;
 }
+
+#sendbtn{
+    width: 78px;
+    border: none;
+    border-radius: 16px;
+    background: darkgray;
+    height: 42px;
+}

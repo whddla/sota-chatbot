@@ -119,16 +119,12 @@ h1_title{
     margin-top: 4px;
     font-size: inherit;
 }
-.on {
-    font-weight: bold;
-    background: #ffcc00 !important;
-}
 
 
 .list-product1 .area2 {
     position: absolute;
     top: 50%;
-    background: mediumblue;
+    background: #a764e5;
     text-align: center;
     width: 77px;
     right: 20px;
@@ -137,7 +133,7 @@ h1_title{
 }
 
 .list-product1 .btn-com.c1 {
-    border-color: mediumblue;
+    border-color: #a764e5;
     /* #e9c4f9;darkviolet; */
 }
 /* strong #2dc4c7 */
@@ -145,8 +141,8 @@ h1_title{
 /* btnfont #208173 */
 
 .btn-com.c1 {
-    background: mediumblue;
-    border-color: mediumblue;
+    background: #a764e5;
+    border-color: #a764e5;
 }
 
 .list-product1 > li {

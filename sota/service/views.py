@@ -191,7 +191,6 @@ def checkMoney(request:HttpRequest):
         ac = request.GET.get('account')
         my = Card.objects.get(user_idx=user.idx,account=ac)
     context = {
-        'user':user,
         'result' : my.remain
     }
     return HttpResponse(json.dumps(context), content_type="application/json")    
@@ -246,7 +245,6 @@ def check(request:HttpRequest):
             user = User.objects.get(idx=takeIdx.idx)
             name=user.name
             context= {
-                'user':user,
                 'num':num,
                 'name':name,
                 'money':mysm,
@@ -304,7 +302,6 @@ def sendMoney(request:HttpRequest):
         Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
         # 받는이----------------------
         context={
-            'user':user,
             'name':takeUser.name,
             'mycard':mycard,
             'card_name':card_name,
@@ -338,7 +335,6 @@ def checkLoans(request:HttpRequest):
         inter = (inter*(rate/100))/12
 
     context = {
-        'user':user,
         'account' : my.account,
         'kind' : my.kind,
         'name' : my.name,
@@ -457,7 +453,6 @@ def depositCheck(request:HttpRequest):
         inter = int(limit)
 
     context = {
-        'user':user,
         'account' : ac,
         'dpo_num' : my.deposit_num,
         'kind' : my_dpo.kind,
@@ -527,7 +522,7 @@ def loss(request:HttpRequest):
 
     context = {
         'user':user,
-        'id' : id,
+        # 'id' : id,
         'card': card,
         'card_pct': card_pct,
     }

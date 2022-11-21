@@ -44,6 +44,7 @@ def loans(request):
         else:
             list.append(i)
     context = {
+        'lp':lp,
         'user':user,
         'p':list
     }
