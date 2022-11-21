@@ -72,6 +72,8 @@ h1 {
 
 
 .img img {
+    width: 45px;
+    margin-left: 11px;
     display: block;
     margin-top: 15px;
     max-width: 100%;
