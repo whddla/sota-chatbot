@@ -84,6 +84,7 @@ h1 {
 .txt {
     clear: both;
     margin-left: 20px;
+    box-shadow: 0px 2px 5px #e0d6ff;
     padding: 12px 13px 12px 13px;
     line-height: 1.4;
     word-break: normal;
@@ -108,6 +109,7 @@ h1 {
     margin-right: 10px;
     float: right;
     max-width: 75%;
+    box-shadow: 0px 2px 5px #e0d6ff;
     border-radius: 8px;
     font-size: 16pt;
     background: white;
