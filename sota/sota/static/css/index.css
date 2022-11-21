@@ -185,3 +185,63 @@ h1 {
 .bot-talk {
     display: flow-root;
 }
+
+/* index show */
+.profile-img{
+    display: inline-block;
+    width: 350px;
+    overflow: hidden;
+    background-color: white;
+    height: 350px;
+    border-radius: 28px;
+    box-shadow: 0px 2px 8px 4px #d0cddd;
+}
+.my-pro{
+    margin-left: 10px;
+    width: 340px;
+}
+.p-wrap{
+    text-align: center;
+    margin-top: 20px;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.my-account{
+    width: 100%;
+    height: 340px;
+    margin-top: 20px;
+}
+.tb-ac{
+    border-spacing: 0;
+    width: 90%;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 42px;
+    box-shadow: 0px 2px 8px 4px #d0cddd;
+    text-align: center;
+    height: 100%;
+    background-color: white;
+}
+.tb-ac thead tr{
+    height: 51px;
+    background: darkgray;
+    font-weight: 900;
+}
+.tb-ac tbody td{
+    border-bottom: 1px solid #ddd;
+}
+
+.my-tb{
+    margin-top: 30px;
+    border-radius: 10px; 
+    background-color: white;
+    box-shadow: 0px 2px 8px 4px #d0cddd;
+    width:100%;
+    text-align: center;
+    height: 100px;
+}
+.my-tb thead td{
+    height: 40px;
+    font-weight: bold;
+}

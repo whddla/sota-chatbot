@@ -5,9 +5,68 @@
 <div style="width: 1500px; margin: 0 auto;">
     <div style="display: inline-flex; place-content: center;padding: 0px 74px;">
         <div id='show' style="width: 760px; height: 750px; margin-right: 30px;overflow: hidden;">
+            <div id='first-show' style="width: 760px; height: 750px; margin-right: 30px;overflow: hidden;">
+                <div class="p-wrap">
+                    <div class="profile-img"><img width="100%" src="/static/img/김찬희.jpg" alt=""></div>
+                    <div class="my-pro">
+                        <h2>내 정보</h2>
+                        <table class="my-tb">
+                            <thead>
+                                <td>이름</td>
+                                <td>나이</td>
+                                <td>직업</td>
+                            </thead>
+                            <tbody>
+                                <td>이종임</td>
+                                <td>만24세</td>
+                                <td>무직</td>
+                            </tbody>
+                        </table>
+                        <div style="width: 100%;margin-top: 30px;font-size: 20px;">
+                            <div style="margin-bottom: 10px;">가입된 카드상품: 2개</div>
+                            <div style="margin-bottom: 10px;">가입된 대출상품: 2개</div>
+                            <div>가입된 적금상품: 2개</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-account">
+                    <table class='tb-ac'>
+                        <thead>
+                            <td>종류</td>
+                            <td>계좌번호</td>
+                            <td>남은잔액</td>
+                            <td>마지막 거래일</td>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>적금</td>
+                                <td>22222-2222</td>
+                                <td>20,000원</td>
+                                <td>2022-08-11</td>
+                            </tr>
+                            <tr>
+                                <td>적금</td>
+                                <td>22222-2222</td>
+                                <td>20,000원</td>
+                                <td>2022-08-11</td>
+                            </tr>
+                            <tr>
+                                <td>대출</td>
+                                <td>22222-2222</td>
+                                <td>20,000원</td>
+                                <td>2022-08-11</td>
+                            </tr>
+                            <tr>
+                                <td>입출금</td>
+                                <td>22222-2222</td>
+                                <td>20,000원</td>
+                                <td>2022-08-11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <!-- <div id='first-show' style="width: 760px; height: 750px; margin-right: 30px;overflow: hidden;">
-        </div> -->
         <input id="old" name="old" type="text" value="None" style="display:none;">
         <!-- 챗봇 -->
         <div class="main_wrap">
@@ -47,8 +106,6 @@ $(document).ready(function(){
     $chatbox = $("#chatbox");
     bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
     $chatbox.append(bottext);
-
-    // $first = $("#first-show");
 });
 
 // 채팅시간
