@@ -43,7 +43,7 @@ $(document).ready(function(){
     document.getElementById('footer').style.display='none'
     $chatbox = $("#chatbox");
 
-    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;margin-top:14px;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
 
     $chatbox.append(bottext);
 });
@@ -107,7 +107,7 @@ $.ajax({
         // 답변 출력
         $("#show").empty();
 
-        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
         if(response.Intent=='인사'){
             
@@ -142,7 +142,7 @@ $.ajax({
                                     $chatbox = $("#chatbox");
                                     // 답변 출력
                         
-                                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                     $chatbox.append(bottext);
                                     
                        
