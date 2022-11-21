@@ -208,12 +208,15 @@ $.ajax({
                     $chatbox.append(text)
                     send1="<input id='send1' value=3000> </input>"
                     send2="<input id='send2' value=123456-00-111111> </input> "
+                    b="<button id='send'> 송금 </button> "
                     $chatbox.append(send1)
                     $chatbox.append(send2)
                     s1=$("#send1")
                     s2=$("#send2")
-                    console.log(s1.val(),s2.val(),a)
-                    const jsonData = { 
+                    $chatbox.append(b)
+                    $("#send").click(function(){
+                        console.log(s1.val(),s2.val(),a)
+                        const jsonData = { 
                         query:['3',s1.val(),s2.val(),a],
                         old:'이체',
                         bottype: "WebClient",
@@ -243,6 +246,9 @@ $.ajax({
 
 
                         })
+
+                    })
+                    
 
             
                     });
