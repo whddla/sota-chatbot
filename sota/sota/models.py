@@ -48,6 +48,7 @@ class Deposit(models.Model):
     date = models.DateField(blank=True, null=True)
     remain = models.IntegerField(blank=True, null=True)
     limit_date = models.DateField(blank=True, null=True)
+    d_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False

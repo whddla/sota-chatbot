@@ -19,7 +19,8 @@ from utils.PayAnswer import PayAnswer
 from bs4 import BeautifulSoup 
 import requests
 
-
+d_pro=''
+d_pro_p=[]
 
 # 전처리 객체 생성
 p = Preprocess(word2index_dic='train_tools/dict/sota2.bin',
@@ -355,7 +356,6 @@ def to_client(conn, addr, params):
                 d_pro = p.search_deposit(1) # 적금
                 # a = p.search_deposit_p(2)
                 
-                d_pro_p=[]
                 d_pro_pp={}
                 idx=0
                 d_pro_ppp=0
