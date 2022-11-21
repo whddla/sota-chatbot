@@ -34,6 +34,7 @@ def lookup(request:HttpRequest):
 
 
     context = {
+        'user':user,
         'cpro':cpro,
         'pro': card,
         'loans':loans,
@@ -169,6 +170,7 @@ def loans_detail(request):
     date = LProduct.objects.get(account=ac)
 
     context={
+        'user':user,
         'trans':trans,
         'user':user,
         'date':date.date
@@ -189,6 +191,7 @@ def checkMoney(request:HttpRequest):
         ac = request.GET.get('account')
         my = Card.objects.get(user_idx=user.idx,account=ac)
     context = {
+        'user':user,
         'result' : my.remain
     }
     return HttpResponse(json.dumps(context), content_type="application/json")    
@@ -203,6 +206,7 @@ def send(request:HttpRequest):
     user_idx = user.idx
     card = Card.objects.filter(user_idx=user_idx)
     context = {
+        'user':user,
         'card':card
     }
     return render(request, 'send.html',context)
@@ -242,6 +246,7 @@ def check(request:HttpRequest):
             user = User.objects.get(idx=takeIdx.idx)
             name=user.name
             context= {
+                'user':user,
                 'num':num,
                 'name':name,
                 'money':mysm,
@@ -333,6 +338,7 @@ def checkLoans(request:HttpRequest):
         inter = (inter*(rate/100))/12
 
     context = {
+        'user':user,
         'account' : my.account,
         'kind' : my.kind,
         'name' : my.name,
@@ -358,6 +364,7 @@ def loans(request):
     loans = LProduct.objects.filter(user_idx=user_idx)
     card = Card.objects.filter(user_idx=user_idx)
     context = {
+        'user':user,
         'card':card,
         'loans':loans
     }
@@ -418,6 +425,7 @@ def deposit(request):
     deposit = Deposit.objects.filter(user_idx=user.idx).all()
     card = Card.objects.filter(user_idx=user.idx)
     context = {
+        'user':user,
         'card':card,
         'dpo':deposit
     }
@@ -449,6 +457,7 @@ def depositCheck(request:HttpRequest):
         inter = int(limit)
 
     context = {
+        'user':user,
         'account' : ac,
         'dpo_num' : my.deposit_num,
         'kind' : my_dpo.kind,
@@ -517,6 +526,7 @@ def loss(request:HttpRequest):
     card_pct = CProduct.objects.all()
 
     context = {
+        'user':user,
         'id' : id,
         'card': card,
         'card_pct': card_pct,
@@ -538,6 +548,7 @@ def loss_detail(request:HttpRequest):
 
 
     context = {
+        'user':user,
         'idx': idx,
         'card': card,
         'card_pct': card_pct,
@@ -546,6 +557,10 @@ def loss_detail(request:HttpRequest):
 
 
 def loss_suc(request:HttpRequest):
+    try: 
+        user = User.objects.get(idx= int(request.session['login']))
+    except:
+        return redirect('/member/login')
     idx_c = request.GET.get('loss_c') # 선택한 카드 idx
     idx_p = request.GET.get('loss_p') # 선택한 카드상품의 idx
     card_pct = CProduct.objects.get(idx=idx_p)
@@ -563,6 +578,7 @@ def loss_suc(request:HttpRequest):
 
 
     context = {
+        'user':user,
         'idx_c': idx_c,
         'idx_p': idx_p,
         'card_pct': card_pct,

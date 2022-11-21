@@ -1,0 +1,200 @@
+.container {
+    position: relative;
+    width: 960px;
+    margin: 0 auto;
+    padding: 50px 0 50px;
+    text-align: left;
+    z-index: 11;
+}
+
+.cardBox {
+    width: 100%;
+}
+
+.cardBox .cardTit {
+    height: 100px;
+}
+.cardBox .cardCont .cardBoxInner .img {
+    flex: none;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    float: none;
+    font-size: 0;
+}
+
+.cardBox .cardCont .cardBoxInner .img img {
+    width: 250px;
+    height: 158px;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 {
+    flex-wrap: wrap;
+    height: auto;
+    margin-left: 40px;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: auto !important;
+    float: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 li:first-child {
+    width: 100%;
+    margin-top: 0;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 {
+    flex: auto;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 {
+    flex-wrap: wrap;
+    height: auto;
+    margin-left: 40px;
+}
+
+.cardBox .cardCont .cardBoxInner .cardList1 {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.cardBox .cardCont .cardBoxInner {
+    position: relative;
+    margin-top: 40px;
+    padding: 0 30px 50px;
+    border-bottom: 1px solid #fff;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cardBox .cardCont .cardBoxInner {
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 40px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.cardBox .cardTit .tit {
+    font: 600 36px NanumGothic, "나눔고딕", NG;
+    text-align: center;
+    color: #333;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.cardBox .cardTit .txt {
+    padding-top: 14px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.cardBox .cardCont {
+    height: auto;
+    padding: 20px 0 0;
+    text-align: center;
+    background: #f1f4f8;
+    border-radius: 8px;
+}
+
+.cardBox .cardCont .cardKind {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    z-index: 100;
+}
+
+.cardBox .cardCont .cardBoxInner.row {
+    padding: 40px;
+}
+
+.cardBox .cardCont .cardBoxInner {
+    z-index: 0;
+}
+
+.cardBox .cardCont .cardInfo {
+    display: block;
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 20px 0 7px 20px;
+    text-align: left;
+    background: none;
+}
+
+.cardInfo {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210px;
+    height: 119px;
+    padding-top: 14px;
+    background: url(https://img1.kbcard.com/LT/images_r/personal/myrounge/bg_card.gif) no-repeat 0 0;
+}
+
+.cardBox .cardCont .cardInfo dl.cardBrand {
+    height: 48px;
+}
+
+.cardBox .cardCont .cardInfo dl {
+    display: table-cell;
+    height: 69px;
+    padding-left: 30px;
+    vertical-align: middle;
+}
+
+.cardBox .cardCont .cardInfo dl dt {
+    width: 61px;
+    font-weight: 600;
+}
+
+.cardBox .cardCont .cardInfo dl dt, .cardBox .cardCont .cardInfo dl dd {
+    float: left;
+}
+
+.cardBox .cardCont .cardInfo dd {
+    width: 250px;
+    text-align: left;
+}
+
+.cardBox .cardCont .cardInfo .cardBrand dd img {
+    margin: 0 20px 8px 0;
+}
+
+.cardBox .cardCont .cardInfo dl.cardFee {
+    height: auto;
+}
+
+.cardBox .cardCont .cardInfo dl {
+    display: table-cell;
+    height: 69px;
+    padding-left: 30px;
+    vertical-align: middle;
+}
+
+ul, ol, dl {
+    list-style: none;
+}

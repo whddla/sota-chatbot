@@ -64,6 +64,7 @@ header {
 } 
 .headLogo a img{
     overflow: hidden;
+    border-radius: 18px;
     display: block;
     width: 180px;
     height: 45px;

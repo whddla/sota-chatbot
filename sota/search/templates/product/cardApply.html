@@ -1,0 +1,65 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/product/cardApply.css' %}">
+<div id="container" class="container">
+    <div class="cardBox">
+        <div class="cardTit">
+            <h1 class="tit">{{cpro.name}}</h1>
+            <p class="txt">{{cpro.name}}를 신청하세요~!</p>
+        </div>
+        <div class="cardCont">
+            <div class="cardKind">체크</div>
+            <div class="cardBoxInner row">
+                <p class="img"><img src="/static/img/sotacardimg.png" alt=""></p>
+                {% if cpro.benefit == 1 %}
+                <ul class="cardList1">
+                    <li>주유소 10% 할인</li>
+                    <li>음식점 5% 할인</li>
+                </ul>
+                {% elif cpro.benefit == 2 %}
+                <ul class="cardList1">
+                    <li>커피,모바일,문화 10% 할인</li>
+                    <li>뷰티,편의점 5% 할인</li>
+                    <li>SOB pay 2% 추가할인</li>
+                </ul>
+                {%else%}
+                <ul class="cardList1">
+                    <li>신세계 10% 할인</li>
+                    <li>항공권 5% 할인</li>
+                </ul>
+                {%endif%}
+                <div style="width: 100px;align-self: center;height: 40px;margin-right: 100px;"><button style="width: 100%;height: 100%;">가입신청</button></div>
+            </div>
+            <div class="cardInfo">
+                <dl class="cardBrand">
+                    <dt>브랜드</dt>
+                    <dd>
+                        <img src="https://img1.kbcard.com/LT/images_r/personal/product/img_onlylocal.png" alt="">
+                        <img src="https://img1.kbcard.com/LT/images_r/personal/product/img_master.png" alt="">
+                    </dd>
+                </dl>
+                <dl class="cardFee">
+                    <dt>연회비</dt>
+                    <dd>
+                        <span>연회비 없음</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div>
+            카드이용
+체크카드 이용제한 : 매월 세번째 일요일 00:00 ~ 06:00 중에는 은행 전산시스템 점검 관련으로 이용이 제한될 수 있습니다.
+체크카드 환급할인 : 체크카드 이용 후 해당 이용건이 당사에 접수 완료(카드이용일로부터 약2~3일 소요)된 후 할인금액을 카드출금 계좌로 환급하는 방식입니다.
+할인한도는 매월 1일 ~ 말일까지(승인시점 기준) 이용금액으로 적용됩니다.
+월간 통합할인한도는 체크카드 별로 월간 할인 받을 수 있는 최대 금액으로, 잔여한도는 다음달로 이월되지 않으며 전표가 매입되는 순서대로 월간 통합할인한도 내에서 차감됩니다.
+각 할인서비스는 월간 할인한도 내에서 적용되며, 잔여한도는 이월되지 않습니다.
+할인(적립) 받은 이용 건을 취소한 경우 취소 전표가 실시간 접수되지 않아 할인(적립) 한도가 즉시 복원되지 않을 수 있습니다. 또한 한도 복원 후에도 이전 이용건에 대해서는 소급하여 할인이 적용되지 않는 점 유의하시기 바랍니다.
+각 할인서비스는 해당 가맹점이 KB국민카드 가맹점 업종코드상 할인대상 가맹점 업종으로 등록된 경우에 한하여 제공됩니다. PG(결제대행) 업체 또는 할인서비스로 제공하지 않는 타 간편결제를 통한 결제 및 호텔, 백화점 대형마트, 철도/역사 등에 입점한 가맹점이나 상품권 구매 시 할인(적립)대상에서 제외될 수 있습니다.
+상품권 및 선불카드(선불전자지급수단 포함) 구입/충전 금액의 경우 할인에서 제외될 수 있습니다.
+각 할인(적립)서비스는 KB국민카드 업종 분류 기준, 지정 업종 및 가맹점에 한하여 제공됩니다.
+할인서비스는 제휴업체 정책에 따라 타 할인카드와 중복 할인이 제한될 수 있습니다.
+        </div>
+    </div>
+</div>
+{%endblock%}

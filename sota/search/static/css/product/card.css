@@ -40,8 +40,9 @@ img {
 .card-box__item {
     position: relative;
     float: left;
-    width: 344px;
+    width: 335px;
     margin-right: 24px;
+    margin-bottom: 15px;
 }
 
 .tit-dep4:first-child {
@@ -183,15 +184,15 @@ h3, p {
     line-height: 48px;
     padding: 0 16px;
     font-weight: 500;
-    color: #000;
-    background: #ffcc00;
+    color: #fff;
+    background: #a060f5;
     border-radius: 4px;
     font-size: 1.3rem;
     text-align: center;
 }
 
 .btn--primary {
-    background: #ffcc00;
+    background: #a060f5;
 }
 
 button, input {
