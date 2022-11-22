@@ -84,7 +84,7 @@ h1_title{
 }
 
 .confirm {
-    /* display: none; */
+    display: none;
     margin-top: 30px;
 }
 

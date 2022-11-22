@@ -93,52 +93,71 @@
                     </td>
                 </tr>
             </table>
-            <div class="main_content">
-                <table border="1" class="board">
-                    <tr>
-                        <td>
-                            출금계좌번호
-                        </td>
-                        <td>
-                            <select name="account1" id="account1" onchange="Change()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
-                                <option value="none">선택</option>
-                                {%for i in card%}
-                                <option value="{{i.account}}">{{i.account}}</option>
-                                {%endfor%}
-                            </select>
-                            <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
-                        </td>
-                    </tr>
-                        <tr>
-                            <form action="/service/sendDeposit" method="POST">
-                                {% csrf_token %}
-                            <td>
-                                카드비밀번호
-                            </td>
-                            <td>
-                                <input class="input_style" type="password" name="outPw">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                이체금액
-                            </td>
-                            <td>
-                                <input class="input_style" type="text" name="inter">원
-                                <p></p>
-                            </td>
-                        </tr>
-                </table>
-                <input style="display: none;" id="out" name="my_num">
-                <input style="display: none;" id="out" name="d_num">
-                <input type="submit" value="확인" style="float: right;margin-right: 10px;height: 30px;">
+            <div style="text-align: center;margin-top: 15px;">
+                <label for="next">
+                    <strong style="font-size: 19px;color: blueviolet;">적금하려는 정보가 맞습니까?</strong>
+                    <input type="checkbox" id="next">
+                </label>
             </div>
-            </form>
-        </div>
+            <div class="confirm">
+                <div class="toparea">
+                    <h1 class="h1_title">납입정보</h1>
+                </div>
+                <div class="main_content">
+                    <table border="1" class="board">
+                        <tr>
+                            <td>
+                                출금계좌번호
+                            </td>
+                            <td>
+                                <select name="account1" id="account1" onchange="Change()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
+                                    <option value="none">선택</option>
+                                    {%for i in card%}
+                                    <option value="{{i.account}}">{{i.account}}</option>
+                                    {%endfor%}
+                                </select>
+                                <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
+                            </td>
+                        </tr>
+                        <form action="/service/sendDeposit" method="POST">
+                        <tr>
+                                {% csrf_token %}
+                                <td>
+                                    카드비밀번호
+                                </td>
+                                <td>
+                                    <input class="input_style" type="password" name="outPw">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    이체금액
+                                </td>
+                                <td>
+                                    <input style="float: left;" class="input_style" type="text" name="inter">원
+                                    <input type="submit" value="납입" style="float: right;margin-right: 10px;height: 30px;">
+                                </td>
+                            </tr>
+                            <input style="display: none;" id="out" name="my_num">
+                            <input style="display: none;" id="out" name="d_num">
+                        </form>
+                    </table>
+                </div>
+            </div>
     </div>
+</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+$(document).ready(function(){
+    $("#next").change(function(){
+        if($("#next").is(":checked")){
+            $(".confirm").css('display','block')
+        }else{
+            $(".confirm").css('display','none')
+        }
+    });
+});
     function ChangeValue(){
         var account = document.getElementById('account');
         var value = (account.options[account.selectedIndex].value);

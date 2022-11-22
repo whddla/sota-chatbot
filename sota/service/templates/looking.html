@@ -22,7 +22,7 @@
         </form>
     </div>
 </section>
-<section class="contents" style="min-height: 159px;">
+<section class="contents" style="min-height: 450px;">
     <table class="list1">
         <thead>
             <tr>
@@ -69,8 +69,12 @@
                 <td>{{i.remain|intcomma}} 원</td>
                 </td>
             </tr>
-            {%endfor%}
         </tbody>
+        {%empty%}
+        <div style="position: absolute;top: 50%;left: 44%;">
+            <h3>거래내역이 없습니다.</h3>
+        </div>
+        {%endfor%}
     </table>
 </section>
 {%endblock%}

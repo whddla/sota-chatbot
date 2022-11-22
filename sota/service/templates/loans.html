@@ -94,55 +94,76 @@
                     </td>
                 </tr>
             </table>
-            <div class="toparea">
-                <h1 class="h1_title">납입정보</h1>
+            <div style="text-align: center;margin-top: 15px;">
+                <label for="next">
+                    <strong style="font-size: 19px;color: blueviolet;">납입하려는 대출 정보가 맞습니까?</strong>
+                    <input type="checkbox" id="next">
+                </label>
             </div>
-            <div class="main_content">
-                <table class="board" border="1">
-                    <tr>
-                        <td>
-                            출금계좌번호
-                        </td>
-                        <td>
-                            <select name="account1" id="account1" onchange="Change()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
-                                <option value="none">선택</option>
-                                {%for i in card%}
-                                <option value="{{i.account}}">{{i.account}}</option>
-                                {%endfor%}
-                            </select>
-                            <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
-                        </td>
-                    </tr>
-                        <tr>
-                            <form name="frm" action="/service/sendLoans" method="POST">
-                                {% csrf_token %}
-                            <td>
-                                카드비밀번호
-                            </td>
-                            <td>
-                                <input class="input_style" type="password" name="outPw">
-                            </td>
-                        </tr>
+            <div class="confirm">
+                <div class="toparea">
+                    <h1 class="h1_title">납입정보</h1>
+                </div>
+                <div class="main_content">
+                    <table class="board" border="1">
                         <tr>
                             <td>
-                                이체금액
+                                출금계좌번호
                             </td>
                             <td>
-                                <input class="input_style" type="text" name="inter">원
+                                <select name="account1" id="account1" onchange="Change()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" >
+                                    <option value="none">선택</option>
+                                    {%for i in card%}
+                                    <option value="{{i.account}}">{{i.account}}</option>
+                                    {%endfor%}
+                                </select>
+                                <button name="checkMoney" style="float: right;margin-right: 10px;height: 30px;">잔액확인</button>
                             </td>
                         </tr>
-                </table>
-                <input style="display: none;" id="out" name="my_num">
-                <input style="display: none;" id="out" name="l_num">
+                            <tr>
+                                <form name="frm" action="/service/sendLoans" method="POST">
+                                    {% csrf_token %}
+                                <td>
+                                    카드비밀번호
+                                </td>
+                                <td>
+                                    <input class="input_style" type="password" name="outPw">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    이체금액
+                                </td>
+                                <td>
+                                    <input class="input_style" type="text" name="inter">원
+                                    <input onclick="btnClick()" style="margin-right: 10px;" class="btn-style" type="button" value="납부">
+                                </td>
+                            </tr>
+                    </table>
+                    <input style="display: none;" id="out" name="my_num">
+                    <input style="display: none;" id="out" name="l_num">
+                </form>
+                </div>
             </div>
-        </form>
-        <input onclick="btnClick()" class="btn-style" type="button" value="확인">
         </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function(){
+        $("#next").change(function(){
+            if($("#next").is(":checked")){
+                $(".confirm").css('display','block')
+            }else{
+                $(".confirm").css('display','none')
+            }
+        });
+    });
     function ChangeValue(){
+        // let result = prompt('공인인증번호를 입력해주세요.')
+        // if(result){
+
+        // }
         var account = document.getElementById('account');
         var value = (account.options[account.selectedIndex].value);
         $("button[name='myLoans']").click(function(){
@@ -183,8 +204,8 @@
         dataType: 'json',
             success: function(response){
                 alert("남은 잔액은 " + response.result+'원 입니다.');
-                $("#out").html(value);
                 $('input[name=my_num]').attr('value',value);
+                $("#out").html(value);
                 if(response.error){
                     alert(response.error);
                 }

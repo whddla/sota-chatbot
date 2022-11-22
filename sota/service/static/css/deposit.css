@@ -117,3 +117,8 @@ table td:first-of-type,td:nth-child(3) {
     font-weight: bold;
     height: 50px;
 }
+
+.confirm {
+    display: none;
+    margin-top: 30px;
+}
