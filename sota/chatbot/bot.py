@@ -329,7 +329,8 @@ def to_client(conn, addr, params):
                 sent_json_data_str = {  
                     "answer": '이체 완료',
                     "url": result,
-                    "card":None
+                    "card":None,
+                    "NER":None
                 }
                 print('뭐가 문제야 섬띵')
 
