@@ -207,3 +207,12 @@ class FindAnswer:
             ben.append(a['benefit'])
 
         return (name,ben)
+    def findpw(self,user_idx):
+        sql="select * from sota.card where user_idx={}".format(user_idx)
+
+        answer=self.db.select_all(sql)
+        pw=[]
+        for a in answer:
+            pw.append(a['card_pw'])
+        
+        return pw

@@ -154,6 +154,7 @@ $.ajax({
     crossDomain: true,
     success: function(response){
         console.log(response)
+        
         // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
         // 답변 출력
@@ -161,10 +162,62 @@ $.ajax({
 
         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
+        if(response.url== "o")
+            {
+                    a=$("#1").val()
+                    text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                    $chatbox.append(text)
+                    send1="<input id='send1' placeholder='송금하실 돈',value=> </input>"
+                    send2="<input id='send2' placeholder='계좌번호 입력' value=> </input> "
+                    send="<button id='send'> 송금 </button>"
+                    $chatbox.append(send1)
+                    $chatbox.append(send2)
+                    s1=$("#send1")
+                    s2=$("#send2")
+                    $chatbox.append(send)
+                    
+                    $("#send").click(function(){
+                        var acode=/^[0-9]{6}-[0-9]{2}-[0-9]{6}/
+                        if(!acode.test(s2.val())){
+                            alert('계좌번호 양식 다름!')
+                        }
+                        const jsonData = { 
+                        query:['three',s1.val(),s2.val(),a],
+                        old:'이체',
+                        bottype: "WebClient",
+                                    };
+                    
+                        $.ajax({
+                           
+                            url: 'http://127.0.0.1:5000/TEST',
+                            type: "POST",
+                            data: JSON.stringify(jsonData),
+                            dataType: "JSON",  // 응답받을 데이터 타입
+                            contentType: "application/json; charset=utf-8",  
+                            crossDomain: true,
+                            success: function(response){
+
+                                $chatbox.append(response.answer)
+                                let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
+                                top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
+                                $show.append(top)
+           
+                            }
+                            
+                        
+                                 
+
+
+
+                        })
+
+                    })
+           
+
+                    }
         if(response.Intent=='인사'){
             
             $show=$("#show")
-            $show.append(response.Intent)
             bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ddd;border-radius:10px;color:#424242;display:inline-block'><b>" + "<br>질문 의도를 선택해주세요" + "</b></span></div>";
                 $chatbox.append(bottext)
                 intent_list=['계좌조회','상품조회','이체','상환및납부','분실신고']
@@ -239,6 +292,11 @@ $.ajax({
         else if(response.Intent =='이체'){
             $show=$("#show")
             $chatbox = $("#chatbox")
+            $balance=$(".my-account")
+            $b=$(".tb-ac")
+            $show.append($b)
+            console.log($b)
+            console.log($balance)
             let i=1
             button_str = "<div id='buttons'>"
             for(ca of response.card){
@@ -248,12 +306,75 @@ $.ajax({
             }
             button_str += "</div>"
             $chatbox.append(button_str)
+            // var pwcode=/^[0-9]{6}/
+            // if (pwcode.test($chatbox.val())){
+
+            // }
+            
 
             //url은 무조건 플라스크로 보내는거잔아 그럼 우리 url을 플라스크로 가게 하면 어떤가?
             $("#1").click(function(){
                     $show=$("#show")
+                    $chatbox = $("#chatbox")
+                    ac=$("#1").val()
+                    pass="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+ ac +"의 비밀번호를 알려주세요"+ "</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+
+                    $chatbox.append(pass)
+                    // var pwcode=/^[0-9]{6}/
+                    // if (!pwcode.test($chatbox.val())){
+                    //     pass="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+" 비밀번호양식이 달라요"+ "</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                        
+                    // }
                     
-                    a=$("#1").val()
+                    // a=$("#1").val()
+                    // text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                    // $chatbox.append(text)
+                    // send1="<input id='send1' value=> </input>"
+                    // send2="<input id='send2' value=> </input> "
+                    // send="<button id='send'> 송금 </button>"
+                    // $chatbox.append(send1)
+                    // $chatbox.append(send2)
+                    // s1=$("#send1")
+                    // s2=$("#send2")
+                    // $chatbox.append(send)
+                    
+                    // $("#send").click(function(){
+                    //     const jsonData = { 
+                    //     query:['3',s1.val(),s2.val(),a],
+                    //     old:'이체',
+                    //     bottype: "WebClient",
+                    //                 };
+                    
+                    //     $.ajax({
+                           
+                    //         url: 'http://127.0.0.1:5000/TEST',
+                    //         type: "POST",
+                    //         data: JSON.stringify(jsonData),
+                    //         dataType: "JSON",  // 응답받을 데이터 타입
+                    //         contentType: "application/json; charset=utf-8",  
+                    //         crossDomain: true,
+                    //         success: function(response){
+
+                    //             $chatbox.append(response.answer)
+                    //             let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
+                    //             top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
+                    //             $show.append(top)
+           
+                    //         }
+                            
+                        
+                                 
+
+
+
+                    //     })
+
+                    // })
+            });
+            $("#2").click(function(){
+                    $show=$("#show")
+                    
+                    a=$("#2").val()
                     text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     $chatbox.append(text)
                     send1="<input id='send1' value=> </input>"
@@ -264,10 +385,10 @@ $.ajax({
                     s1=$("#send1")
                     s2=$("#send2")
                     $chatbox.append(send)
-                    console.log(s1.val(),s2.val(),a)
+                    
                     $("#send").click(function(){
                         const jsonData = { 
-                        query:['3',s1.val(),s2.val(),a],
+                        query:['three',s1.val(),s2.val(),a],
                         old:'이체',
                         bottype: "WebClient",
                                     };
@@ -285,15 +406,8 @@ $.ajax({
                                 $chatbox.append(response.answer)
                                 let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
                                 top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
-
-                                // batable+="<td>  " + a + "  </td>";
-                                // batable+="<td>  " + response.url + "  </td>";
                                 $show.append(top)
-
-                                        
-                                                
-                                        
-                                        
+           
                             }
                             
                         
@@ -307,9 +421,9 @@ $.ajax({
                    
                                         
                                                 
-                          
+                })     
             
-                    });
+                   
         }
         else if(response.Intent =='분실'){
                 console.log('나등장')

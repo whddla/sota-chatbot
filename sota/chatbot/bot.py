@@ -4,7 +4,7 @@
 
 import threading
 import json
-
+import re
 from config.DatabaseConfig import *
 from utils.Database import Database
 from utils.BotServer import BotServer
@@ -271,11 +271,12 @@ def to_client(conn, addr, params):
             
         elif all_intent_name=='이체':# 이체 할래/ 얼마 이체할래 
             print('여긴 이체')
+            reg=r'^[0-9]{6}'
             card=''
             recv_json_data['old']=all_intent_name
             old=recv_json_data['old']
             print('여기까진 된거야')
-            if '3' in recv_json_data['Query']: #ner태그가 아무것도 안걸리면 
+            if 'three' in recv_json_data['Query']: #ner태그가 아무것도 안걸리면 
                 m=recv_json_data['Query'][1] 
                 t=recv_json_data['Query'][2]
                 a=recv_json_data['Query'][3]
@@ -290,6 +291,27 @@ def to_client(conn, addr, params):
 
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  # responses
+
+
+            if len(recv_json_data['Query'])==6:
+                print('정규식 쓰게?')
+                f=FindAnswer(db)
+                password=f.findpw(1)
+                print(password)
+                if int(recv_json_data['Query']) in password:
+                    answer='인증 성공 얼마를 어디로 보내시겠어용?'
+                    url='o'
+                else:
+                    answer='비밀번호 오류'
+                    url='x'
+                sent_json_data_str = {  
+                    "Answer": answer,
+                    "Intent":'이체',
+                    "url": url
+                }
+                message = json.dumps(sent_json_data_str)
+                conn.send(message.encode())  # responses
+
                 
             try:
             
