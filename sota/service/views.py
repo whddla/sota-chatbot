@@ -56,11 +56,11 @@ def looking(request):
     except:
         return redirect('/member/login')
     ac = request.GET.get('account')
-    trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
-
+    trans = Transation.objects.filter(account=ac).all()
+    
     for i in trans:
         remain = i
-        
+
     context={
         'trans':trans,
         'user':user,
@@ -87,14 +87,36 @@ def filter(request:HttpRequest):
         lday = request.GET.get('lastday')
 
         # 입/출금이 없다면
-        if inp == '':
+        if inp=='' and sday == '' and lday =='':
+            trans = Transation.objects.filter(account=ac,user_idx=user.idx)
+            try:
+                Card.objects.filter(account=ac, user_idx=user.idx)
+            except:
+                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+
+                return render(request, 'looking.html',context)
+            else:
+                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                print(remain)
+                context={
+                    'trans':trans,
+                    'user':user,
+                    'remain':remain
+                }
+                return render(request, 'looking.html',context)
+        elif inp == '':
             sday = request.GET.get('startday') 
             # 마지막일
             lday = request.GET.get('lastday') 
             trans = Transation.objects.filter(account=ac,user_idx=user.idx,date__range=[sday, lday])
             # 예금계좌라면
             try:
-                remain = Card.objects.filter(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac, user_idx=user.idx)
             # 예금이 아니면 적금계좌
             except:
                 remain = Deposit.objects.get(deposit_num=ac, user_idx=user.idx)
@@ -168,12 +190,13 @@ def loans_detail(request):
     trans = Transation.objects.filter(account=ac,user_idx=user.idx).all()
     # 만기일
     date = LProduct.objects.get(account=ac)
-
+    remain = trans.filter(account=ac).last().remain
     context={
         'user':user,
         'trans':trans,
         'user':user,
-        'date':date.date
+        'date':date.date,
+        'remain':remain
     }
 
     return render(request, 'loans_detail.html',context)
@@ -294,9 +317,9 @@ def sendMoney(request:HttpRequest):
         # 받는 사람 카드 이름
         take_card_name = CProduct.objects.get(card_idx = takeIdx)
         # 받는사람 입금 1   
-        Card.objects.filter(idx=takeIdx).update(remain= takeM)
+        Card.objects.filter(idx=takeIdx).update(remain= takeM,last_date=dt.datetime.now().date())
         # user_idx = 보낸사람
-        Transation.objects.create(kind=1,account=num,amount=mysm,remain=takeM,details=take_card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
+        Transation.objects.create(kind=1,account=num,amount=mysm,remain=takeM,details=take_card_name.name,date=dt.datetime.now().date(),user_idx=user)
         # 출금 0
         # 보낸이 출금기록  user_idx = 받는사람
         Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
@@ -505,7 +528,7 @@ def sendDeposit(request:HttpRequest):
             card_name=CProduct.objects.get(card_idx=myAc.idx)
             Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
             # 적금납입
-            Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain)
+            Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain,date=dt.datetime.now().date())
             dpo=DProduct.objects.get(idx=deposit.d_product_idx.idx)
             Transation.objects.create(kind=1,account=d_ac,amount=int(inter),remain=d_remain,details=dpo.name,date=dt.datetime.now().date(),user_idx=user)
         return redirect('/') 
