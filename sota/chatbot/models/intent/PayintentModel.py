@@ -8,7 +8,7 @@ class PayintentModel:
     def __init__(self, model_name, preprocess):
 
         # 의도 클래스 별 레이블
-        self.labels = {0: "대출", 1: "적금"}
+        self.labels = {0:"납부" ,1: "대출", 2: "적금"}
 
         # 의도 분류 모델 불러오기
         self.model = load_model(model_name)

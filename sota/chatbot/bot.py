@@ -21,19 +21,20 @@ import requests
 
 d_pro=''
 d_pro_p=[]
+l_pro=''
 
 # 전처리 객체 생성
-p = Preprocess(word2index_dic='train_tools/dict/sota2.bin',
+p = Preprocess(word2index_dic='train_tools/dict/sota3.bin',
                userdic='utils/ner.tsv')
-p1=Preprocess(word2index_dic='train_tools/dict/sota3.bin',userdic='utils/ner.tsv')
-
+p1=Preprocess(word2index_dic='train_tools/dict/sota11_17.bin',userdic='utils/ner.tsv')
+ph=Preprocess(word2index_dic='train_tools/dict/hyejji.bin',userdic='utils/user_dichye.tsv')
 # 의도 파악 모델
-allIntent = AllintentModel(model_name='models/intent/all_intent_model.h5', preprocess=p)
+allIntent = AllintentModel(model_name='models/intent/all_intent_modelyyy.h5', preprocess=p1)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
-payIntent = PayintentModel(model_name='models/intent/pay_intent_model_.h5', preprocess=p)
+payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=ph)
 
 # 개체명 인식 모델
-ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p1)
+ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p)
 
 # 클라리언트 요청을 수행하는 쓰레드 (에 담을) 함수
 def to_client(conn, addr, params):
@@ -361,8 +362,8 @@ def to_client(conn, addr, params):
             
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
-        if all_intent_name=='납부':   ## 자자자 해지야 내일 여기부터 건드리자!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            # pay_intent_name = 1
+        if all_intent_name=='납부':   
+            pay_intent=''
             pay_intent_name=payIntent.predict_class(query)
             recv_json_data['old'] = all_intent_name
             old = recv_json_data['old']
@@ -380,23 +381,23 @@ def to_client(conn, addr, params):
                     pay_intent = "적금"
 
                 
-                
+                l_pro=''
                 l_pro = p.search_loan(1)  #  대출 상품
                 d_pro = p.search_deposit(1) # 적금
                 # a = p.search_deposit_p(2)
                 
-                d_pro_pp={}
-                idx=0
-                d_pro_ppp=0
-                for idx in d_pro[4]:   # foreign key 연결 (tbqkf)
-                    d_pro_p.append(p.search_deposit_p(idx)) #idx에는 상품번호들 리턴값은 상품에 대ㅎ
-                    for a in d_pro_p:
-                        if a[0][0] == idx:
-                            d = a[0][0]
-                            mid = {d:a}
-                            d_pro_pp.update(mid)
-                pro_idx = p.search_deposit(1)[4] # (tlqkf)
-                # user = p.search_user(1)  # 유저
+                # d_pro_pp={}
+                # idx=0
+                # d_pro_ppp=0
+                # for idx in d_pro[4]:   # foreign key 연결 (tbqkf)
+                #     d_pro_p.append(p.search_deposit_p(idx)) #idx에는 상품번호들 리턴값은 상품에 대ㅎ
+                #     for a in d_pro_p:
+                #         if a[0][0] == idx:
+                #             d = a[0][0]
+                #             mid = {d:a}
+                #             d_pro_pp.update(mid)
+                # pro_idx = p.search_deposit(1)[4] # (tlqkf)
+                # # user = p.search_user(1)  # 유저
 
 
             except:
@@ -412,10 +413,10 @@ def to_client(conn, addr, params):
                 "l_pro": l_pro,
                 "d_pro": d_pro,
                 "d_pro_p": d_pro_p,
-                "d_pro_pp": d_pro_pp,
-                "d_pro_ppp": d_pro_ppp,
+                #"d_pro_pp": d_pro_pp,
+                #"d_pro_ppp": d_pro_ppp,
                 "a":a,
-                "pro_idx": pro_idx,
+                #"pro_idx": pro_idx,
                # "b":b,
             }
             
