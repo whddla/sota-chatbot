@@ -825,7 +825,7 @@ $.ajax({
                             crossDomain: true,
                             success: function(response){
                                         console.log(response)
-                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                         $chatbox.append(text)
                                         console.log(response.url)
                                         p=response.url
@@ -882,7 +882,7 @@ $.ajax({
                             crossDomain: true,
                             success: function(response){
                                         console.log(response)
-                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                         $chatbox.append(text)
                                         p=response.url
                                      for(i=0;i<p[0].length;i++){
@@ -939,7 +939,7 @@ $.ajax({
                             crossDomain: true,
                             success: function(response){
                                         console.log(response)
-                                        text ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                                         $chatbox.append(text)
                                         p=response.url
                                      for(i=0;i<p[0].length;i++){
