@@ -423,14 +423,20 @@ def sendLoans(request:HttpRequest):
             return redirect('/service/loans')
         else:
             # 납입자
-            Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
+            mycard = Card.objects.filter(account=ac,card_pw=pw).update(remain=c_remain,last_date=dt.datetime.now().date())
             card_name=CProduct.objects.get(card_idx=myAc.idx)
             Transation.objects.create(kind=0,account=ac,amount=int(inter),remain=c_remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=user)
             # 대출납입
             LProduct.objects.filter(account=l_ac,user_idx=user.idx).update(remain=l_remain)
             loan_name=LProduct.objects.get(account=l_ac,user_idx=user.idx)
             Transation.objects.create(kind=1,account=l_ac,amount=int(inter),remain=l_remain,details=loan_name.name,date=dt.datetime.now().date(),user_idx=user)
-        return redirect('/') 
+            context={
+                'user':user,
+                'mycard':mycard,
+                'loan_name':loan_name,
+                'inter':inter,
+            }
+        return render(request, 'loans_suc.html',context) 
 
 
 
@@ -531,7 +537,13 @@ def sendDeposit(request:HttpRequest):
             Deposit.objects.filter(deposit_num=d_ac,user_idx=user.idx).update(remain=d_remain,date=dt.datetime.now().date())
             dpo=DProduct.objects.get(idx=deposit.d_product_idx.idx)
             Transation.objects.create(kind=1,account=d_ac,amount=int(inter),remain=d_remain,details=dpo.name,date=dt.datetime.now().date(),user_idx=user)
-        return redirect('/') 
+            context = {
+                'deposit':deposit,
+                'user':user,
+                'dpo':dpo,
+                'inter':inter
+            }
+        return render(request, 'deposit_suc.html',context)
 
 
 def loss(request:HttpRequest):
