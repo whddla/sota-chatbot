@@ -2,7 +2,7 @@
 {%load static%}{% load humanize %}
 {%block content%}
 <link rel="stylesheet" href="{%static 'css/lookup.css' %}">
-<section class="contents" style="margin-bottom: 25px; font-size: 20px;">
+<section class="contents" style="margin-bottom: 25px; font-size: 25px;">
     <h2 class="tit">계좌조회</h2>
     <strong style="margin-left: 34px;">총잔액 : </strong>
     <span>{{remain|intcomma}} 원</span>
@@ -55,7 +55,7 @@
         </tbody>
     </table>
 </section>
-<section class="contents" style="margin-bottom: 25px; font-size: 20px;">
+<section class="contents" style="margin-bottom: 25px; font-size: 25px;">
     <h2 class="tit">한도대출</h2>
     <strong style="margin-left: 34px;">대출(마이너스)잔액 : </strong>
     <span>- {{l_remain|intcomma}} 원</span>
