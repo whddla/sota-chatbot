@@ -30,9 +30,11 @@ p = Preprocess(word2index_dic='train_tools/dict/sota3.bin',
 p1=Preprocess(word2index_dic='train_tools/dict/sota11_17.bin',userdic='utils/ner.tsv')
 ph=Preprocess(word2index_dic='train_tools/dict/hyejji.bin',userdic='utils/user_dichye.tsv')
 pner=Preprocess(word2index_dic='train_tools/dict/sota11_17.bin',userdic='utils/user_dicchan.tsv')
+pwe=Preprocess(word2index_dic='train_tools/dict/sota_we.bin',userdic='utils/user_we.tsv')
+
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_modelyyy.h5', preprocess=p1)
-proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
+proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=pwe)
 payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', preprocess=ph)
 
 # 개체명 인식 모델
@@ -271,20 +273,31 @@ def to_client(conn, addr, params):
             }
             message = json.dumps(sent_json_data_str)
             conn.send(message.encode())  # responses
-            
+          
         elif all_intent_name=='이체':# 이체 할래/ 얼마 이체할래 
+            
             if type(query) is list:
                  ner_predicts=''
                  ner_tags=''
             else:
                 ner_predicts = nerac.predict(query)
                 ner_tags = nerac.predict_tags(query)
+                
+            # if(len(ner_predicts)>1):
+            #     pre=ner_predicts
+            # print(pre ,'이거야')
+                    
+                
+
             print(ner_tags)
             print(ner_predicts)
             print('여긴 이체')
             if 'B_account' in ner_tags:
                 print('너 바이오태그 안썼잔아')
                 f=FindAnswer(db)
+                
+                card=f.card(1)
+                answer_image='송금'
                 answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
                 answer = f.tag_to_word2(ner_predicts, answer_text)
                 sent_json_data_str = {    # response 할 JSON 객체 준비
@@ -293,8 +306,8 @@ def to_client(conn, addr, params):
                 "Intent": all_intent_name,
                 "Intent2":second_intent_name,
                 "old":old,
-                "card":None,
-
+                "card":card,
+                "AnswerImageUrl" : answer_image,
                 "NER": ner_predicts,
                 
                 }
@@ -322,8 +335,8 @@ def to_client(conn, addr, params):
 
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  # responses
-
-            print(re.search(reg, recv_json_data['Query']))
+                   
+            
             if len(recv_json_data['Query'])==6 and re.search(reg, recv_json_data['Query']):
                 print('정규식 쓰게?')
                 f=FindAnswer(db)
@@ -335,10 +348,13 @@ def to_client(conn, addr, params):
                 else:
                     answer='비밀번호 오류'
                     url='x'
+                answer_image='송금'
                 sent_json_data_str = {  
                     "Answer": answer,
                     "Intent":'이체',
                     "url": url,
+                    "AnswerImageUrl" : answer_image,
+                    
                     "card":None
                 }
                 message = json.dumps(sent_json_data_str)
@@ -446,7 +462,7 @@ def to_client(conn, addr, params):
                 "d_pro_p": d_pro_p,
                 #"d_pro_pp": d_pro_pp,
                 #"d_pro_ppp": d_pro_ppp,
-                "a":a,
+                #"a":a,
                 #"pro_idx": pro_idx,
                # "b":b,
             }

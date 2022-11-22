@@ -88,10 +88,13 @@
         </div>
     </div>
 </div>
+<input id='account1' value='' style='display:none'> 
+<input id='account2' value='' style='display:none'> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     // document.getElementById('footer').hide()
- 
+
 $(document).ready(function(){    
     document.getElementById('footer').style.display='none'
 
@@ -176,9 +179,18 @@ $.ajax({
                     s1=$("#send1")
                     s2=$("#send2")
                     $chatbox.append(send)
+                    if(response.AnswerImageUrl=='송금'){
+                        
+                        re=response.NER
+                        console.log(re)
+                        s1.attr('value',$("#account2").val()) 
+                        s2.attr('value',$("#account1").val()) 
+                        
+                    
+                    }
                     
                     $("#send").click(function(){
-                        var acode=/^[0-9]{6}-[0-9]{2}-[0-9]{6}/
+                        var acode=/^[0-9]{14}/
                         if(!acode.test(s2.val())){
                             alert('계좌번호 양식 다름!')
                         }
@@ -291,12 +303,22 @@ $.ajax({
                         }
             }
         else if(response.Intent =='이체'){
-            
+            check=true
             $show=$("#show")
             $chatbox = $("#chatbox")
             $show.append(fi)
             $show.append(se)
             console.log(response.card)
+            re=response.NER
+            for(i=0;i<response.NER.length;i++){
+                            if(re[i][1] =='B_account'){
+                                $("#account1").attr('value',re[i][0])
+                            }
+                            if(re[i][1] =='B_money' && check==true){
+                            $("#account2").attr('value',re[i][0])
+                            check=false
+                            }
+            }
             if(response.card!= null){
                 let i=1
                 button_str = "<div id='buttons'>"
@@ -308,11 +330,28 @@ $.ajax({
                 button_str += "</div>"
                 $chatbox.append(button_str)
             }
-            
-            // var pwcode=/^[0-9]{6}/
-            // if (pwcode.test($chatbox.val())){
+            // if(response.card=='송금')
+            // {
+            //     let i=10
+            //     tn=['예', '아니오']
+            //     button_str="<div id='buttons'>"
+            //     for (y of tn){
+            //         button_str+=`<button class='button small primary' id=${i} style='margin: 3px;' value=${y}>${y}</button>`
+            //         i+=1
+            //     }
+            //     button_str += "</div>"
+            //     $chatbox.append(button_str)
+            //     check=true
+            //     for(i=0;i<response.NER.length;i++){
+            //         if(re[i][1] =='B_account'){
+          
+          
+                            
+                        
+    
 
-            // }
+            
+            
             
 
             //url은 무조건 플라스크로 보내는거잔아 그럼 우리 url을 플라스크로 가게 하면 어떤가?
@@ -362,7 +401,7 @@ $.ajax({
                                 top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
                                 $show.append(top)
            
-                            }
+                                }
                             
                         
                                  
@@ -375,10 +414,11 @@ $.ajax({
                    
                                         
                                                 
-                })     
+                }) 
+            }    
             
                    
-        }
+            
         else if(response.Intent =='분실'){
                 console.log('나등장')
                 console.log(response.Card)
