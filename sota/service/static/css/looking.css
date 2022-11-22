@@ -77,7 +77,7 @@ body{
     border-spacing: inherit;
     width: 100%;
     color:#666;
-    font-size: 16px;
+    font-size: 21px;
     table-layout: fixed;
 }
 
@@ -121,7 +121,7 @@ section {
 
 .contents {
     position: relative;
-    width: 1200px;
+    width: 1400px;
     padding: 0 60px;
     margin: 0 auto;
     box-sizing: border-box;

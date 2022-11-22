@@ -58,9 +58,10 @@ h1_title{
 
 
 .cp {
-    width: 720px;
+    width: 100%;
     float: right;
     position: relative;
+    font-size: 23px;
     display: inline;
     margin-right: 0;
     zoom: 1;
@@ -69,7 +70,6 @@ h1_title{
 
 .cp{
     padding: 0;
-    max-width: 980px;
     margin: 0 auto;
 }
 
@@ -77,4 +77,26 @@ h1_title{
     position: absolute;
     right: 14px;
     top: 170px;
+}
+
+.main_content table{
+    border-spacing: 0;
+}
+
+.main_content table tbody td{
+    border-top: 1px solid;
+}
+
+.btt{
+    width: 100px;
+    height: 43px;
+    font-size: 20px;
+    background: mediumseagreen;
+    border: none;
+    border-radius: 11px;
+    color: aliceblue;
+}
+
+.main_content det td{
+    border-top: none
 }

@@ -3,12 +3,6 @@
 {%block content%}
 <link rel="stylesheet" href="{% static 'css/deposit.css' %}">
 <div class="contentWrap">
-    <div class="lp">
-        <h2 class="l-title">적금납부</h2>
-        <ul class="l-menu">
-            <li class="on">조회/확인</li>
-        </ul>
-    </div>
     <div class="cp">
         <div class="toparea">
             <h1 class="h1_title">적금조회</h1>
@@ -120,13 +114,13 @@
                             </td>
                         </tr>
                         <form action="/service/sendDeposit" method="POST">
-                        <tr>
+                            <tr>
                                 {% csrf_token %}
                                 <td>
                                     카드비밀번호
                                 </td>
                                 <td>
-                                    <input class="input_style" type="password" name="outPw">
+                                    <input style="float: left;" class="input_style" type="password" name="outPw">
                                 </td>
                             </tr>
                             <tr>

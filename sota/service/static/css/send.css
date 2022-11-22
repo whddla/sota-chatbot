@@ -69,7 +69,8 @@ h1_title{
 }
 
 .cp {
-    width: 720px;
+    width: 100%;
+    font-size: 20px;
     float: right;
     position: relative;
     display: inline;

@@ -69,18 +69,18 @@ h1_title{
 }
 
 .cp {
-    width: 720px;
+    width: 100%;
     float: right;
     position: relative;
     display: inline;
     margin-right: 0;
+    font-size: 20px;
     zoom: 1;
     z-index: 0;
 }
 
 .cp{
     padding: 0;
-    max-width: 980px;
     margin: 0 auto;
 }
 
