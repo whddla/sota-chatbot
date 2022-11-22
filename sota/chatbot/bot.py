@@ -273,17 +273,40 @@ def to_client(conn, addr, params):
             conn.send(message.encode())  # responses
             
         elif all_intent_name=='이체':# 이체 할래/ 얼마 이체할래 
-            ner_predicts = nerac.predict(query)
-            ner_tags = nerac.predict_tags(query)
+            if type(query) is list:
+                 ner_predicts=''
+                 ner_tags=''
+            else:
+                ner_predicts = nerac.predict(query)
+                ner_tags = nerac.predict_tags(query)
             print(ner_tags)
             print(ner_predicts)
             print('여긴 이체')
+            if 'B_account' in ner_tags:
+                print('너 바이오태그 안썼잔아')
+                f=FindAnswer(db)
+                answer_text, answer_image = f.search(all_intent_name,second_intent_name, ner_tags)
+                answer = f.tag_to_word2(ner_predicts, answer_text)
+                sent_json_data_str = {    # response 할 JSON 객체 준비
+                "Query" : query,
+                "Answer": answer,
+                "Intent": all_intent_name,
+                "Intent2":second_intent_name,
+                "old":old,
+                "card":None,
+
+                "NER": ner_predicts,
+                
+                }
+                message = json.dumps(sent_json_data_str)
+                conn.send(message.encode())  # responses
+
             reg=r'^[0-9]{6}'
             card=''
             recv_json_data['old']=all_intent_name
             old=recv_json_data['old']
             print('여기까진 된거야')
-            if 'three' in recv_json_data['Query']: #ner태그가 아무것도 안걸리면 
+            if 'three' == recv_json_data['Query'][0]: #ner태그가 아무것도 안걸리면 
                 m=recv_json_data['Query'][1] 
                 t=recv_json_data['Query'][2]
                 a=recv_json_data['Query'][3]
@@ -292,14 +315,15 @@ def to_client(conn, addr, params):
                 print(result)
                 sent_json_data_str = {  
                     "answer": '이체 완료',
-                    "url": result
+                    "url": result,
+                    "card":None
                 }
                 print('뭐가 문제야 섬띵')
 
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  # responses
 
-
+            print(re.search(reg, recv_json_data['Query']))
             if len(recv_json_data['Query'])==6 and re.search(reg, recv_json_data['Query']):
                 print('정규식 쓰게?')
                 f=FindAnswer(db)
@@ -314,7 +338,8 @@ def to_client(conn, addr, params):
                 sent_json_data_str = {  
                     "Answer": answer,
                     "Intent":'이체',
-                    "url": url
+                    "url": url,
+                    "card":None
                 }
                 message = json.dumps(sent_json_data_str)
                 conn.send(message.encode())  # responses
@@ -331,7 +356,7 @@ def to_client(conn, addr, params):
             except:
                 answer = "죄송해요 무슨 말인지 모르겠어요. 조금 더 공부 할게요."
                 answer_image = None
-            
+            print(card)
             sent_json_data_str = {    # response 할 JSON 객체 준비
                 "Query" : query,
                 "Answer": answer,

@@ -59,6 +59,20 @@ class FindAnswer:
         answer = answer.replace('{', '')
         answer = answer.replace('}', '')
         return answer
+    def tag_to_word2(self, ner_predicts, answer):
+        if ner_predicts == None:
+            return answer
+
+        for word, tag in ner_predicts:
+            
+            # 변환해야하는 태그가 있는 경우 추가
+            if tag == 'B_account' or tag == 'B_money':
+                answer = answer.replace(tag, word)  # 태그를 입력된 단어로 변환
+                
+        answer = answer.replace('{', '')
+        answer = answer.replace('}', '')
+        return answer
+
 
     def findtran(self,day,user_idx):
         sql = "select * from sota.transation"+" where date='2022-11-{}'".format(day)+ " and user_idx={}".format(user_idx)
@@ -138,17 +152,6 @@ class FindAnswer:
     def selectdepoist(self):
         sql="select * from sota.d_product"
         answer=self.db.select_one(sql)
-
-        # result={
-        #     "name":answer['name']
-            
-        # }
-        # for a in answer:
-        #     result["name"]=a['name']
-        #     result["limited"]=a['limited']
-        #     result["time"]=a['time']
-        #     result["rate"]=a['rate']
-        #     result["kind"]=a['kind']
         result=answer['name']
         print(result)
         return result

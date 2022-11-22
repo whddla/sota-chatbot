@@ -56,6 +56,6 @@ class NerModelAc:
             if tag_idx == 1: continue
             tags.append(self.index_to_ner[tag_idx])
 
-        if len(tags) == 0: return None
+        #if len(tags) == 0: return None
         return tags
 

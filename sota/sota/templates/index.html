@@ -39,9 +39,9 @@
                         </thead>
                         <tbody>
                             {% for i in c %}
-                            <tr>
+                            <tr class="test-td">
                                 <td>입출금</td>
-                                <td class="test-td"><a href="/service/looking?account={{i.account}}">{{i.account}}</a></td>
+                                <td><a href="/service/looking?account={{i.account}}">{{i.account}}</a></td>
                                 <td>{{i.remain|intcomma}} 원</td>
                                 <td>{{i.last_date}}</td>
                             </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){
     bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
     $chatbox.append(bottext);
 });
-
+console.log($(".test-td"))
 // 채팅시간
 var day = new Date();
 
@@ -154,7 +154,8 @@ $.ajax({
     crossDomain: true,
     success: function(response){
         console.log(response)
-        
+        fi=$(".test-td")
+        se=$(".test-td")
         // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
         // 답변 출력
@@ -290,24 +291,24 @@ $.ajax({
                         }
             }
         else if(response.Intent =='이체'){
-            console.log($(".test-td")[0].innerText)
-            console.log($(".test-td")[1].innerText)
+            
             $show=$("#show")
             $chatbox = $("#chatbox")
-            $balance=$(".my-account")
-            $b=$(".tb-ac")
-            $show.append($b)
-            console.log($b)
-            console.log($balance)
-            let i=1
-            button_str = "<div id='buttons'>"
-            for(ca of response.card){
-                button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
+            $show.append(fi)
+            $show.append(se)
+            console.log(response.card)
+            if(response.card!= null){
+                let i=1
+                button_str = "<div id='buttons'>"
+                for(ca of response.card){
+                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
                 
-                i+=1
+                    i+=1
+                }
+                button_str += "</div>"
+                $chatbox.append(button_str)
             }
-            button_str += "</div>"
-            $chatbox.append(button_str)
+            
             // var pwcode=/^[0-9]{6}/
             // if (pwcode.test($chatbox.val())){
 
@@ -322,56 +323,6 @@ $.ajax({
                     pass="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+ ac +"의 비밀번호를 알려주세요"+ "</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
 
                     $chatbox.append(pass)
-                    // var pwcode=/^[0-9]{6}/
-                    // if (!pwcode.test($chatbox.val())){
-                    //     pass="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+" 비밀번호양식이 달라요"+ "</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                        
-                    // }
-                    
-                    // a=$("#1").val()
-                    // text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                    // $chatbox.append(text)
-                    // send1="<input id='send1' value=> </input>"
-                    // send2="<input id='send2' value=> </input> "
-                    // send="<button id='send'> 송금 </button>"
-                    // $chatbox.append(send1)
-                    // $chatbox.append(send2)
-                    // s1=$("#send1")
-                    // s2=$("#send2")
-                    // $chatbox.append(send)
-                    
-                    // $("#send").click(function(){
-                    //     const jsonData = { 
-                    //     query:['3',s1.val(),s2.val(),a],
-                    //     old:'이체',
-                    //     bottype: "WebClient",
-                    //                 };
-                    
-                    //     $.ajax({
-                           
-                    //         url: 'http://127.0.0.1:5000/TEST',
-                    //         type: "POST",
-                    //         data: JSON.stringify(jsonData),
-                    //         dataType: "JSON",  // 응답받을 데이터 타입
-                    //         contentType: "application/json; charset=utf-8",  
-                    //         crossDomain: true,
-                    //         success: function(response){
-
-                    //             $chatbox.append(response.answer)
-                    //             let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
-                    //             top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
-                    //             $show.append(top)
-           
-                    //         }
-                            
-                        
-                                 
-
-
-
-                    //     })
-
-                    // })
             });
             $("#2").click(function(){
                     $show=$("#show")
@@ -389,6 +340,7 @@ $.ajax({
                     $chatbox.append(send)
                     
                     $("#send").click(function(){
+                        console.log('asdlfjasdg')
                         const jsonData = { 
                         query:['three',s1.val(),s2.val(),a],
                         old:'이체',
