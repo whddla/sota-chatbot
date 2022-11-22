@@ -9,7 +9,7 @@ class NerModelAc:
     def __init__(self, model_name, preprocess):
 
         # BIO 태그 클래스 별 레이블
-        self.index_to_ner = {0: "O", 1: "B_account", 2: "B_money"}
+        self.index_to_ner = {1: "O", 2: "B_account", 3: "B_money"}
         # 의도 분류 모델 불러오기
         self.model = load_model(model_name)
 
@@ -17,7 +17,7 @@ class NerModelAc:
         self.p = preprocess
 
 
-    # 개체명 클래스 예측
+    # 개체명 클래스 예측 
     def predict(self, query):
         # 형태소 분석
         pos = self.p.pos(query)

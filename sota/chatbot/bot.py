@@ -13,6 +13,7 @@ from models.intent.ProintentModel import ProintentModel
 from models.intent.AllintentModel import AllintentModel
 from models.intent.PayintentModel import PayintentModel
 from models.ner.NerModel import NerModel
+from models.ner.Nermodelchan import NerModelAc
 from utils.FindAnswer import FindAnswer
 from utils.LossAnswer import LossAnswer
 from utils.PayAnswer import PayAnswer
@@ -28,6 +29,7 @@ p = Preprocess(word2index_dic='train_tools/dict/sota3.bin',
                userdic='utils/ner.tsv')
 p1=Preprocess(word2index_dic='train_tools/dict/sota11_17.bin',userdic='utils/ner.tsv')
 ph=Preprocess(word2index_dic='train_tools/dict/hyejji.bin',userdic='utils/user_dichye.tsv')
+pner=Preprocess(word2index_dic='train_tools/dict/sota11_17.bin',userdic='utils/user_dicchan.tsv')
 # 의도 파악 모델
 allIntent = AllintentModel(model_name='models/intent/all_intent_modelyyy.h5', preprocess=p1)
 proIntent = ProintentModel(model_name='models/intent/intent_product_model.h5', preprocess=p)
@@ -35,7 +37,7 @@ payIntent = PayintentModel(model_name='models/intent/pay_intent_model.h5', prepr
 
 # 개체명 인식 모델
 ner = NerModel(model_name='models/ner/ner_when.h5', preprocess=p)
-
+nerac=NerModelAc(model_name='models/ner/ner_chan.h5',preprocess=pner)
 # 클라리언트 요청을 수행하는 쓰레드 (에 담을) 함수
 def to_client(conn, addr, params):
     db = params['db']
@@ -271,6 +273,10 @@ def to_client(conn, addr, params):
             conn.send(message.encode())  # responses
             
         elif all_intent_name=='이체':# 이체 할래/ 얼마 이체할래 
+            ner_predicts = nerac.predict(query)
+            ner_tags = nerac.predict_tags(query)
+            print(ner_tags)
+            print(ner_predicts)
             print('여긴 이체')
             reg=r'^[0-9]{6}'
             card=''
@@ -294,7 +300,7 @@ def to_client(conn, addr, params):
                 conn.send(message.encode())  # responses
 
 
-            if len(recv_json_data['Query'])==6:
+            if len(recv_json_data['Query'])==6 and re.search(reg, recv_json_data['Query']):
                 print('정규식 쓰게?')
                 f=FindAnswer(db)
                 password=f.findpw(1)
@@ -375,9 +381,9 @@ def to_client(conn, addr, params):
                 answer, answer_image = p.search_ans(all_intent_name, pay_intent_name)
                 if pay_intent_name == 0:
                     pay_intent = "납부"
-                elif pay_intent_name == 1 or recv_json_data['old2']=='대출':
+                elif pay_intent_name == 1:
                     pay_intent = "대출"
-                elif pay_intent_name == 2 or recv_json_data['old2']=='적금':
+                elif pay_intent_name == 2:
                     pay_intent = "적금"
 
                 
