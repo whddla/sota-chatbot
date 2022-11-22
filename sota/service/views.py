@@ -302,6 +302,7 @@ def sendMoney(request:HttpRequest):
         Transation.objects.create(kind=0,account=myNum,amount=mysm,remain=remain,details=card_name.name,date=dt.datetime.now().date(),user_idx=takeUser)
         # 받는이----------------------
         context={
+            'user':user,
             'name':takeUser.name,
             'mycard':mycard,
             'card_name':card_name,
