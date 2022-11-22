@@ -283,12 +283,12 @@ $.ajax({
             else if(response.Intent == '조회'){
                         console.log(response.result)
                         $show=$("#show")
-                        let top = "<div><table class='tb-ac' style='margin-top:20px;height:650px;'><thead><tr><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
+                        let top = "<div><table class='tb-ac' style='margin-top:20px;height:650px;'><thead><tr style='height:40px;'><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
                         // for(i of response.result){
                         var data1 =''
                         console.log(response.result.length)
                         for (i=0; i<response.result.length-1;i++){
-                            data1 += "<tr><td>" +response.result[0][i]+"</td><td>" +response.result[1][i] +"</td><td>" +response.result[2][i] +"원</td><td>" +response.result[3][i] +"원</td><td>"+response.result[4][i] +"</td></tr>"
+                            data1 += "<tr style='height:40px;'><td>" +response.result[0][i]+"</td><td>" +response.result[1][i] +"</td><td>" +response.result[2][i] +"원</td><td>" +response.result[3][i] +"원</td><td>"+response.result[4][i] +"</td></tr>"
                         }
                         // }
                         let last = "</tbody></table></div>"
@@ -554,12 +554,12 @@ $.ajax({
                                     $show=$("#show")
                                     $("#loans").remove()
                                     $("#deposit").remove()
-                                    let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                    let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:40px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                     // for(i of response.result){
                                     console.log(response.l_pro.length)
                                     var data1 = ""
                                     for (i=0; i<response.l_pro[0].length;i++){
-                                        data1 += "<tr><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
+                                        data1 += "<tr style='height:40px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
                                     }
                                     // }
                                     let last = "</tbody></table></div>"
@@ -595,11 +595,11 @@ $.ajax({
                                 $show=$("#show")
                                 $("#loans").remove()
                                 $("#deposit").remove()
-                                let top = "<div id='deposit'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th></thead><tbody>"
+                                let top = "<div id='deposit'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:40px;'><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th></thead><tbody>"
                                 console.log(response.d_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.d_pro[0].length;i++){
-                                    data1 += "<tr><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" + response.d_pro[0][i] + "</td><td>"+response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td>"
+                                    data1 += "<tr style='height:40px;'><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" + response.d_pro[0][i] + "</td><td>"+response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td>"
                                 }
                                 let last = "</tbody></table></div>"
                                 $show.append(top+data1+last)
@@ -634,11 +634,11 @@ $.ajax({
                             console.log(response.l_pro[0])
                                 $show=$("#show")
                                 $("#loans").remove()
-                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:40px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                 console.log(response.l_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.l_pro[0].length;i++){
-                                    data1 += "<tr><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td>"
+                                    data1 += "<tr style='height:40px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td>"
                                 }
                                 let last = "</tbody></table></div>"
                                 $show.append(top+data1+last)
@@ -668,14 +668,14 @@ $.ajax({
                             console.log(response.d_pro[0])
                             $show=$("#show")
                             $("#deposit").remove()
-                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th></thead><tbody>"
+                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr style='height:40px;'><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th></thead><tbody>"
                             console.log(response.d_pro.length)
                             var data1 = ""
                             // for (i=0; i<response.d_pro[0].length;i++){
                             //     data1 += "<tr><td onclick=test()>" +response.d_pro[0][i]+"</td><td>" +response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td><td>"
                             // }// 혹시모를 백업
                             for (i=0; i<response.d_pro[0].length;i++){
-                                data1 += "<tr><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" +response.d_pro[0][i]+"</td><td>" +response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td><td>" + response.d_pro[2][i] + "</td>"
+                                data1 += "<tr style='height:40px;'><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" +response.d_pro[0][i]+"</td><td>" +response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td><td>" + response.d_pro[2][i] + "</td>"
                             }
                             function test(){
                                 $.ajax({
