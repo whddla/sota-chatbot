@@ -283,7 +283,7 @@ $.ajax({
             else if(response.Intent == '조회'){
                         console.log(response.result)
                         $show=$("#show")
-                        let top = "<div><table style='margin:0 auto; width:100%; height:750px; text-align:center; font-size:20px;'><thead><tr><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
+                        let top = "<div><table class='tb-ac'><thead><tr><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
                         // for(i of response.result){
                         var data1 =''
                         console.log(response.result.length)
@@ -554,7 +554,7 @@ $.ajax({
                                     $show=$("#show")
                                     $("#loans").remove()
                                     $("#deposit").remove()
-                                    let top = "<div id='loans'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                    let top = "<div id='loans'><table class='tb-ac'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                     // for(i of response.result){
                                     console.log(response.l_pro.length)
                                     var data1 = ""
@@ -595,7 +595,7 @@ $.ajax({
                                 $show=$("#show")
                                 $("#loans").remove()
                                 $("#deposit").remove()
-                                let top = "<div id='deposit'><table style='margin:0 auto; width:100%;min-height: 250px; text-align:center; font-size:20px;'><thead><tr><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th>"
+                                let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th>"
                                 console.log(response.d_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.d_pro[0].length;i++){
@@ -634,7 +634,7 @@ $.ajax({
                             console.log(response.l_pro[0])
                                 $show=$("#show")
                                 $("#loans").remove()
-                                let top = "<div id='loans'><table border=1 style='border:thick;margin:0 auto; width:100%;min-height: 250px; text-align:center; font-size:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                let top = "<div id='loans'><table class='tb-ac'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                 console.log(response.l_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.l_pro[0].length;i++){
@@ -668,7 +668,7 @@ $.ajax({
                             console.log(response.d_pro[0])
                             $show=$("#show")
                             $("#deposit").remove()
-                            let top = "<div id='deposit'><table border=1 style='border:thick;margin:0 auto; width:100%;min-height: 250px; text-align:center; font-size:20px;'><thead><tr><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th>"
+                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th>"
                             console.log(response.d_pro.length)
                             var data1 = ""
                             // for (i=0; i<response.d_pro[0].length;i++){
