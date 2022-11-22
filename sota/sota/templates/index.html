@@ -283,7 +283,7 @@ $.ajax({
             else if(response.Intent == '조회'){
                         console.log(response.result)
                         $show=$("#show")
-                        let top = "<div><table class='tb-ac'><thead><tr><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
+                        let top = "<div><table class='tb-ac' style='margin-top:20px;height:650px;'><thead><tr><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
                         // for(i of response.result){
                         var data1 =''
                         console.log(response.result.length)
@@ -554,7 +554,7 @@ $.ajax({
                                     $show=$("#show")
                                     $("#loans").remove()
                                     $("#deposit").remove()
-                                    let top = "<div id='loans'><table class='tb-ac'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                    let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                     // for(i of response.result){
                                     console.log(response.l_pro.length)
                                     var data1 = ""
@@ -595,7 +595,7 @@ $.ajax({
                                 $show=$("#show")
                                 $("#loans").remove()
                                 $("#deposit").remove()
-                                let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th>"
+                                let top = "<div id='deposit'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th></thead><tbody>"
                                 console.log(response.d_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.d_pro[0].length;i++){
@@ -634,7 +634,7 @@ $.ajax({
                             console.log(response.l_pro[0])
                                 $show=$("#show")
                                 $("#loans").remove()
-                                let top = "<div id='loans'><table class='tb-ac'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
                                 console.log(response.l_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.l_pro[0].length;i++){
@@ -668,7 +668,7 @@ $.ajax({
                             console.log(response.d_pro[0])
                             $show=$("#show")
                             $("#deposit").remove()
-                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th>"
+                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th></thead><tbody>"
                             console.log(response.d_pro.length)
                             var data1 = ""
                             // for (i=0; i<response.d_pro[0].length;i++){
@@ -742,8 +742,8 @@ $.ajax({
                     p=response.AnswerImageUrl
         
                     for(i=0;i<p[0].length;i++){
-                            recommend_text = `
-                            <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
                             <tr>
                                 <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
@@ -757,7 +757,7 @@ $.ajax({
                                 <td style='vertical-align:middle' >${p[3][i]}</td>
                             </tr>
                             <tr>
-                                <td style='vertical-align:middle' ><button>신청하기</button></td>
+                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
                             </tr>
                             </table>`
                             $show.append(recommend_text) 
@@ -770,8 +770,8 @@ $.ajax({
                 p=response.AnswerImageUrl
         
                 for(i=0;i<p[0].length;i++){
-                            recommend_text = `
-                            <table style="border-radius:10px;margin-bottom:3%;color:white;padding:3%;background:#424242;text-align:center;display:table;table-layout:fixed;">
+                            recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
                             <tr>
                                 <td style='vertical-align:middle' >${p[0][i]}</td> 
                             </tr>
@@ -779,7 +779,7 @@ $.ajax({
                                 <td style='vertical-align:middle' >${p[1][i]}</td>
                             </tr>
                             <tr>
-                                <td style='vertical-align:middle' ><button>신청하기</button></td>
+                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
                             </tr>
                            
                             </table>`
