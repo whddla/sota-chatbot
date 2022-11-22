@@ -15,7 +15,7 @@
                     </td>
                     <td>
                         <select name="" id="account" onchange="ChangeValue()" style="width :75%;border:none;font-size: 22px;outline: none;margin-top: 3px;" > 
-                            <option value="">선택</option>
+                            <option value="none">선택</option>
                             {%for i in loans%}
                             <option value="{{i.account}}">{{i.account}}</option>
                             {%endfor%}
@@ -88,7 +88,7 @@
                     </td>
                 </tr>
             </table>
-            <div style="text-align: center;margin-top: 15px;">
+            <div style="text-align: center;margin-top: 50px;">
                 <label for="next">
                     <strong style="font-size: 19px;color: blueviolet;">납입하려는 대출 정보가 맞습니까?</strong>
                     <input type="checkbox" id="next">
@@ -152,12 +152,37 @@
                 $(".confirm").css('display','none')
             }
         });
+        const urlParams = new URL(location.href).searchParams;
+        const ac = urlParams.get('account');
+        let account = document.getElementById('account');
+        let value = ac
+        $("#account").val(ac).prop('selected',true)
+        $.ajax({
+            type: "GET",
+            url: "/service/checkLoans",
+            data: {
+                'account':value
+            },
+            dataType: 'json',
+            success: function(response){
+                console.log(response.account)
+                $('input[name=name]').attr('value',response.name);
+                $('input[name=account]').attr('value',response.account);
+                $('input[name=rate]').attr('value',response.rate);
+                $('input[name=time]').attr('value',response.time);
+                $('input[name=kind]').attr('value',response.kind);
+                $('input[name=date]').attr('value',response.date);
+                $('input[name=remain]').attr('value',response.remain.toLocaleString()+'원');
+                $('input[name=inter]').attr('value',response.inter);
+                $('input[name=limited]').attr('value',response.limited);
+                $('input[name=l_num]').attr('value',response.account);
+            },
+            error: function(){
+                $("#account").val("none").prop('selected',true)
+            }
+        });
     });
     function ChangeValue(){
-        // let result = prompt('공인인증번호를 입력해주세요.')
-        // if(result){
-
-        // }
         var account = document.getElementById('account');
         var value = (account.options[account.selectedIndex].value);
         $("button[name='myLoans']").click(function(){
@@ -176,7 +201,8 @@
                 $('input[name=time]').attr('value',response.time);
                 $('input[name=kind]').attr('value',response.kind);
                 $('input[name=date]').attr('value',response.date);
-                $('input[name=remain]').attr('value',response.remain);
+                $('input[name=remain]').attr('value',response.remain.toLocaleString()+'원');
+                $('input[name=inter]').attr('value',response.inter);
                 $('input[name=limited]').attr('value',response.limited);
                 $('input[name=inter]').attr('value',response.inter);
                 $('input[name=l_num]').attr('value',response.account);
@@ -197,7 +223,7 @@
             },
         dataType: 'json',
             success: function(response){
-                alert("남은 잔액은 " + response.result+'원 입니다.');
+                alert("남은 잔액은 " + response.result.toLocaleString()+'원 입니다.');
                 $('input[name=my_num]').attr('value',value);
                 $("#out").html(value);
                 if(response.error){

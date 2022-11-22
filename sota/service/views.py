@@ -88,11 +88,11 @@ def filter(request:HttpRequest):
 
         # 입/출금이 없다면
         if inp=='' and sday == '' and lday =='':
-            trans = Transation.objects.filter(account=ac,user_idx=user.idx)
+            trans = Transation.objects.filter(account=ac)
             try:
-                Card.objects.filter(account=ac, user_idx=user.idx)
+                Card.objects.filter(account=ac)
             except:
-                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                remain = Deposit.objects.get(account=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -101,7 +101,7 @@ def filter(request:HttpRequest):
 
                 return render(request, 'looking.html',context)
             else:
-                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac)
                 print(remain)
                 context={
                     'trans':trans,
@@ -113,13 +113,13 @@ def filter(request:HttpRequest):
             sday = request.GET.get('startday') 
             # 마지막일
             lday = request.GET.get('lastday') 
-            trans = Transation.objects.filter(account=ac,user_idx=user.idx,date__range=[sday, lday])
+            trans = Transation.objects.filter(account=ac,date__range=[sday, lday])
             # 예금계좌라면
             try:
-                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac)
             # 예금이 아니면 적금계좌
             except:
-                remain = Deposit.objects.get(deposit_num=ac, user_idx=user.idx)
+                remain = Deposit.objects.get(deposit_num=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -127,7 +127,7 @@ def filter(request:HttpRequest):
                 }
                 return render(request, 'looking.html',context)
             else:
-                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac)
                 print(remain)
                 context={
                     'trans':trans,
@@ -136,11 +136,11 @@ def filter(request:HttpRequest):
                 }
                 return render(request, 'looking.html',context)
         elif sday == '' or lday =='':
-            trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp))
+            trans = Transation.objects.filter(account=ac,kind=int(inp))
             try:
-                Card.objects.filter(account=ac, user_idx=user.idx)
+                Card.objects.filter(account=ac)
             except:
-                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                remain = Deposit.objects.get(account=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -149,7 +149,7 @@ def filter(request:HttpRequest):
 
                 return render(request, 'looking.html',context)
             else:
-                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -158,12 +158,12 @@ def filter(request:HttpRequest):
 
                 return render(request, 'looking.html',context)
         else:
-            trans = Transation.objects.filter(account=ac,user_idx=user.idx,kind=int(inp),date__range=[sday, lday])
+            trans = Transation.objects.filter(account=ac,kind=int(inp),date__range=[sday, lday])
 
             try:
-                Card.objects.filter(account=ac, user_idx=user.idx)
+                Card.objects.filter(account=ac)
             except:
-                remain = Deposit.objects.get(account=ac, user_idx=user.idx)
+                remain = Deposit.objects.get(account=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -172,7 +172,7 @@ def filter(request:HttpRequest):
 
                 return render(request, 'looking.html',context)
             else:
-                remain = Card.objects.get(account=ac, user_idx=user.idx)
+                remain = Card.objects.get(account=ac)
                 context={
                     'trans':trans,
                     'user':user,
@@ -250,7 +250,7 @@ def check(request:HttpRequest):
         try: 
             take = Card.objects.get(account=num)
         except:
-            error = '입금 정보가 일치하지 않습니다.'
+            error = None
             context ={
                 'error':error
             }
@@ -477,9 +477,10 @@ def depositCheck(request:HttpRequest):
         limit = my_dpo.limited
         only_num = limit[-3::-1]
         if limit[-2] == '만':
-            limit = only_num + '000000'
+            limit = only_num[::-1] + '0000'
+            print(limit)
         else:
-            pass
+            limit = 0
         inter = int(limit)
 
     context = {

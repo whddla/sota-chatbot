@@ -36,7 +36,7 @@
                             이체금액
                         </td>
                         <td>
-                            <input type="text" class="input_style" style="background-color: transparent;" name="myMoney" placeholder="금액을 입력해주세요.">
+                            <input type="text" class="input_style" style="background-color: transparent;" name="myMoney" placeholder="금액을 입력해주세요.">원
                         </td>
                     </tr>
             </table>
@@ -80,6 +80,9 @@
                     <input onclick="btnClick()" type="submit" value="이체">
                 </div>
             </div>
+            <div class="none-show" style="display: none;margin-top: 50px;">
+                <p style="text-align: center;">일치하는 정보가 없습니다.</p>
+            </div>
         </div>
     </div>
 </div>
@@ -97,7 +100,7 @@ function ChangeValue(){
         },
         dataType: 'json',
         success: function(response){
-            alert("남은 잔액은 " + response.result+'원 입니다.');
+            alert("남은 잔액은 " + response.result.toLocaleString()+'원 입니다.');
             $("#out").html(value);
             $('input[name=my_num]').attr('value',value);
         }
@@ -116,13 +119,20 @@ function check(){
     },
         dataType: 'json',
         success: function(response){
-            $('.confirm').css('display','block');
-            $('input[name=name]').attr('value',response.name);
-            $('input[name=num]').attr('value',response.num);
-            $('input[name=money]').attr('value',response.money);
-            $("#name").html('<span>'+response.name+'</span>');
-            $("#num").html('<span>'+response.num+'</span>');
-            $("#money").html('<span>'+response.money+'</span>');
+            console.log(response)
+            if(response.num != null){
+                $('.confirm').css('display','block');
+                $(".none-show").css('display','none')
+                $('input[name=name]').attr('value',response.name);
+                $('input[name=num]').attr('value',response.num);
+                $('input[name=money]').attr('value',response.money);
+                $("#name").html('<span>'+response.name+'</span>');
+                $("#num").html('<span>'+response.num+'</span>');
+                $("#money").html('<span>'+response.money+'</span>');
+            }else if(response.error == null){
+                $('.confirm').css('display','none');
+                $(".none-show").css('display','block')
+            }
         }
     });
 }

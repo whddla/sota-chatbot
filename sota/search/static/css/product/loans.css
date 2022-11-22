@@ -44,7 +44,7 @@
 }
 
 .cp {
-    width: 720px;
+    width: 100%;
     float: right;
     position: relative;
     display: inline;
@@ -99,7 +99,7 @@ h1_title{
 
 .list-product1 .title {
     display: inline-block;
-    font-size: 19px;
+    font-size: 27px;
     color: #222;
 }
 .list-product1 .title strong {
@@ -108,7 +108,8 @@ h1_title{
 
 .list-product1 .msg {
     display: block;
-    max-height: 19px;
+    font-size: 21px;
+    max-height: 29px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -117,7 +118,7 @@ h1_title{
 
 .list-product1 .info-data2 {
     margin-top: 4px;
-    font-size: inherit;
+    font-size: 20px;
 }
 .on {
     font-weight: bold;
