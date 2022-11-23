@@ -16,11 +16,12 @@ def loginCheck(request:HttpRequest):
     if request.method =='POST':
         id = request.POST.get('id')
         pw = request.POST.get('pw')
+        ppw = request.POST.get('ppw')
         try:
-            user = User.objects.get(id=id,pw=pw)
+            user = User.objects.get(id=id,pw=pw,p_pw=ppw)
         except:
             context = {
-                'error' : '아이디 또는 비밀번호가 틀렸습니다.',
+                'error' : '입력된 정보가 틀렸습니다.',
             }
             return render(request, 'login.html',context)
     if user is not None:

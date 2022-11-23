@@ -5,9 +5,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 <div class="somelogin_box">
-    <a class="main_icon">
-        <img src="/static/img/logo.PNG" style="height: 51px;">
-    </a>
     <div class="somelogin">
         <form action="/member/loginCheck" name="login" method="POST">
             {% csrf_token %}
@@ -16,7 +13,6 @@
                     <label class="label" for="id" >아이디</label>
                     <div class="somelogin_id_input">
                         <input name="id" placeholder="아이디" type="text" max-length="20" id="id" class="" value="">
-                        <p id ="idBox"class="error-msg">{{error}}</p>
                     </div>
                 </div>
             </div>
@@ -25,6 +21,14 @@
                     <label class="label" for="pw" >비밀번호</label>
                     <div class="somelogin_pw_input">
                         <input name="pw" placeholder="비밀번호"  type="password" max-length="20" id="pw" class="" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="somelogin_pw">
+                <div class="somelogin_pw_box">
+                    <label class="label" for="ppw" >공인인증번호</label>
+                    <div class="somelogin_pw_input">
+                        <input name="ppw" placeholder="공인인증번호"  type="password" max-length="20" id="ppw" class="" value="">
                         <p id ="pwBox"class="error-msg">{{error}}</p>
                     </div>
                 </div>
