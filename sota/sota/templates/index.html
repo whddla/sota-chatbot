@@ -221,13 +221,11 @@
             // 인사 의도 분류
             if(response.Intent=='인사'){
                 $show=$("#show")
-                bottext = "<div style='margin-left: 110px;margin-top: 30px;width: 400px;margin:2% 0%;text-align:left;'><span style='height: 80px;background-color:#ddd;border-radius:10px;color:#424242;display:inline-block'><b><br>질문 의도를 선택해주세요</b></span>";
-                $chatbox.append(bottext)
                 intent_list=['계좌조회','상품조회','이체','상환및납부','분실신고']
-                button_str = "<div id='buttons' style='display: flex;margin-top: 10px;'>"
+                button_str = "<div id='buttons' style='display: flex;margin-top: 10px;margin-left:30px;width: 475px;'>"
                 let i = 0
                 for(inte of intent_list){
-                    button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                    button_str += `<button style="font-size: 15px;width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
                     i += 1;
                 }
                 button_str += "</div></div>"
@@ -381,8 +379,8 @@
                 check=true
                 $show=$("#show")
                 $chatbox = $("#chatbox")
-                $show.append(fi)
-                $show.append(se)
+                // $show.append(fi)
+                // $show.append(se)
                 re=response.NER
                 for(i=0;i<response.NER.length;i++){
                     if(re[i][1] =='B_account'){
@@ -397,7 +395,7 @@
                     let i=1
                     button_str = "<div id='buttons' style='display:flex;margin-top:10px;'>"
                     for(ca of response.card){
-                        button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
+                        button_str += `<button style="font-size: 21px;width: 45%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
                         i+=1
                     }
                     button_str += "</div>"
@@ -417,9 +415,9 @@
                     a=$("#2").val()
                     text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     $chatbox.append(text)
-                    send1="<input style='height:40px;font-size:20px;' id='send1' value=> </input>"
-                    send2="<input style='height:40px;font-size:20px;' id='send2' value=> </input> "
-                    send="<button style='height:40px;font-size:20px;' id='send'> 송금 </button>"
+                    send1="<input style='display:block;font-size:20px;' id='send1'> </input>"
+                    send2="<input style='display:block;font-size:20px;' id='send2'> </input> "
+                    send="<button style='display:block;font-size:20px;' id='send'> 송금 </button>"
                     $chatbox.append(send1)
                     $chatbox.append(send2)
                     s1=$("#send1")
@@ -540,12 +538,12 @@
                 response.Payintent == '적금'
                 if(response.Payintent == "납부"){   // second intent가 납부일때
                     intent_list = [ "대출 상환", "적금 납부"]
-                    bottext = "<div style='margin:2% 0%;text-align:left;'><span style='background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
+                    bottext = "<div style='margin:2% 0%;text-align:left;margin-left:-35px;'><span style='background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
                         + "<br>" + "</b></span></div>";
-                    button_str = "<div id='buttons'>"
+                    button_str = "<div id='buttons' style='text-align:center;'>"
                     let i = 0
                     for(inte of intent_list){
-                        button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                        button_str += `<button style="width: 25%;font-size:20px;;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
                         i += 1;
                     }
                     button_str += "</div>"
@@ -577,11 +575,11 @@
                                 $show=$("#show")
                                 $("#loans").remove()
                                 $("#deposit").remove()
-                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th style='    width: 105px;'>"+ "이율" +"</th></tr></thead><tbody>"
                                 console.log(response.l_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.l_pro[0].length;i++){
-                                    data1 += "<tr style='height:80px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
+                                    data1 += "<tr style='height:80px;'><td><a href='/service/loans/?account="+response.l_pro[4][i]+"'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
                                 }
                                 let last = "</tbody></table></div>"
                                 $show.append(top+data1+last)
@@ -613,11 +611,11 @@
                                 $show=$("#show")
                                 $("#loans").remove()
                                 $("#deposit").remove()
-                                let top = "<div id='deposit'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th></thead><tbody>"
+                                let top = "<div id='deposit'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+"적금상품명"+"</th><th>"+ "적금 계좌명" +"</th><th>"+ "가입날짜" +"</th><th style='width: 105px;'>"+ "적금 만기" +"</th></thead><tbody>"
                                 console.log(response.d_pro.length)
                                 var data1 = ""
                                 for (i=0; i<response.d_pro[0].length;i++){
-                                    data1 += "<tr style='height:80px;'><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" + response.d_pro[0][i] + "</td><td>"+response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td>"
+                                    data1 += "<tr style='height:80px;'><td><a href='/service/deposit/?account="+response.d_pro[0][i]+"'>" +response.d_pro[5][i]+"</a></td><td>" + response.d_pro[0][i] + "</td><td>"+response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td>"
                                 }
                                 let last = "</tbody></table></div>"
                                 $show.append(top+data1+last)
@@ -648,7 +646,7 @@
                             console.log(response.l_pro[0])
                             $show=$("#show")
                             $("#loans").remove()
-                            let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                            let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th style='width:150px;'>"+ "이율" +"</th></tr></thead><tbody>"
                             console.log(response.l_pro.length)
                             var data1 = ""
                             for (i=0; i<response.l_pro[0].length;i++){
@@ -662,8 +660,8 @@
 
                 else{           // second intent가 적금일때
                     $chatbox = $("#chatbox");
-                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
-                    $chatbox.append(bottext);
+                    // bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
+                    // $chatbox.append(bottext);
                     const jsonData = {
                         query: "돈낼게",
                         old: "납부",
@@ -681,7 +679,7 @@
                             console.log(response.d_pro[0])
                             $show=$("#show")
                             $("#deposit").remove()
-                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr style='height:60px;'><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th></thead><tbody>"
+                            let top = "<div id='deposit'><table class='tb-ac'><thead><tr style='height:60px;'><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th style='width:120px;'>" + "적금액" + "</th></thead><tbody>"
                             console.log(response.d_pro.length)
                             var data1 = ""
                             for (i=0; i<response.d_pro[0].length;i++){
@@ -793,10 +791,10 @@
                 intent_list = [ "대출상품", "적금상품", "카드상품"]
                 bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
                     + "<br>" + "</b></span></div>";
-                button_str = "<div id='buttons' > "
+                button_str = "<div id='buttons' style='text-align:center;'> "
                 let i = 0
                 for(inte of intent_list){
-                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${inte}12>${inte}</button>`
+                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;width: 30%;font-size: 20px;' value=${inte}12>${inte}</button>`
                     i += 1;
                 }
                 button_str += "<br>💜💙💛</div>"

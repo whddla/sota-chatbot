@@ -106,7 +106,7 @@ def to_client(conn, addr, params):
                 
                 
                 sent_json_data_str={
-                    'answer': '아~{}을 원해?'.format(pd),
+                    'answer': '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -125,7 +125,7 @@ def to_client(conn, addr, params):
                 pd='대출상품'
                 print(pd)
                 sent_json_data_str={
-                    "answer": '아~{}을 원해?'.format(pd),
+                    "answer": '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -145,7 +145,7 @@ def to_client(conn, addr, params):
 
                 
                 sent_json_data_str={
-                    'answer': '아~{}을 원해?'.format(pd),
+                    'answer': '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -344,7 +344,7 @@ def to_client(conn, addr, params):
                 password=f.findpw(1)
                 print(password)
                 if int(recv_json_data['Query']) in password:
-                    answer='인증 성공 얼마를 어디로 보내시겠어용?'
+                    answer='인증 성공!'
                     url='o'
                 else:
                     answer='비밀번호 오류'
