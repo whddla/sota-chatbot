@@ -321,11 +321,13 @@ def to_client(conn, addr, params):
             print('여기까진 된거야')
             if 'three' == recv_json_data['Query'][0]: #ner태그가 아무것도 안걸리면 
                 m=recv_json_data['Query'][1] 
+                print('난된다니꼐')
                 t=recv_json_data['Query'][2]
                 a=recv_json_data['Query'][3]
                 f=FindAnswer(db)
                 result=f.substract(m,t,a,1)
-                print(result)
+                
+                print('난됨')
                 sent_json_data_str = {  
                     "answer": '이체 완료',
                     "url": result,
@@ -352,7 +354,7 @@ def to_client(conn, addr, params):
                 answer_image='송금'
                 sent_json_data_str = {  
                     "Answer": answer,
-                    "Intent":'이체',
+                    
                     "url": url,
                     "AnswerImageUrl" : answer_image,
                     

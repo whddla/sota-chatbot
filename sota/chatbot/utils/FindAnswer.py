@@ -1,3 +1,6 @@
+import datetime
+
+dt_now = datetime.datetime.now()
 class FindAnswer:
     
     # Database 인스턴스 객체로 생성
@@ -131,14 +134,15 @@ class FindAnswer:
         balance=int(answer['remain'])-m
         sql= "select * from sota.transation"+" where account='{}'".format(t)+" ORDER BY idx DESC LIMIT 1"
         answer1=self.db.select_one(sql)
+        print(sql)
         print(answer1,answer)
         t_idx=answer1['user_idx']
         earn=answer1['remain']+m
         print(earn)
         #add1="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values (%d,%s,%d,%d,%s,%s,%d)"
-        add1="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(0,a,m,balance,t,'2022-11-19',user_idx)
+        add1="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(0,a,m,balance,t,dt_now.date(),user_idx)
         print(add1)
-        add2="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(1,t,m,earn,a,'2022-11-19',user_idx)
+        add2="insert into sota.transation (kind,account,amount,remain,details,date,user_idx)"+" values ({},'{}',{},{},'{}','{}',{})".format(1,t,m,earn,a,dt_now.date(),user_idx)
         #add1_w=(0,a,m,balance,t,'2022-11-19',user_idx)
         print('여긴되겠지 그럼')
         ex=self.db.execute(add1)
