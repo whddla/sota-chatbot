@@ -106,7 +106,7 @@ def to_client(conn, addr, params):
                 
                 
                 sent_json_data_str={
-                    'answer': '아~{}을 원해?'.format(pd),
+                    'answer': '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -125,7 +125,7 @@ def to_client(conn, addr, params):
                 pd='대출상품'
                 print(pd)
                 sent_json_data_str={
-                    "answer": '아~{}을 원해?'.format(pd),
+                    "answer": '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -145,7 +145,7 @@ def to_client(conn, addr, params):
 
                 
                 sent_json_data_str={
-                    'answer': '아~{}을 원해?'.format(pd),
+                    'answer': '{}을 보여드릴께요!'.format(pd),
                     "url":result,
                     "old":"{}".format(pd)
                     
@@ -321,11 +321,13 @@ def to_client(conn, addr, params):
             print('여기까진 된거야')
             if 'three' == recv_json_data['Query'][0]: #ner태그가 아무것도 안걸리면 
                 m=recv_json_data['Query'][1] 
+                print('난된다니꼐')
                 t=recv_json_data['Query'][2]
                 a=recv_json_data['Query'][3]
                 f=FindAnswer(db)
                 result=f.substract(m,t,a,1)
-                print(result)
+                
+                print('난됨')
                 sent_json_data_str = {  
                     "answer": '이체 완료',
                     "url": result,
@@ -344,7 +346,7 @@ def to_client(conn, addr, params):
                 password=f.findpw(1)
                 print(password)
                 if int(recv_json_data['Query']) in password:
-                    answer='인증 성공 얼마를 어디로 보내시겠어용?'
+                    answer='인증 성공!'
                     url='o'
                 else:
                     answer='비밀번호 오류'
@@ -352,7 +354,7 @@ def to_client(conn, addr, params):
                 answer_image='송금'
                 sent_json_data_str = {  
                     "Answer": answer,
-                    "Intent":'이체',
+                    
                     "url": url,
                     "AnswerImageUrl" : answer_image,
                     
