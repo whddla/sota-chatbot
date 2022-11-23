@@ -95,79 +95,79 @@
 <script>
     // document.getElementById('footer').hide()
 
-$(document).ready(function(){    
-    document.getElementById('footer').style.display='none'
+    $(document).ready(function(){    
+        document.getElementById('footer').style.display='none'
 
-    $chatbox = $("#chatbox");
-    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-    $chatbox.append(bottext);
-});
-console.log($(".test-td"))
-// 채팅시간
-var day = new Date();
-
-    $(function(){
-
-    // SEND 버튼을 누르거나
-    $("#sendbtn").click(function(){
-        send_message();
-    });
-
-    // ENTER key 가 눌리면
-    $("#chattext").keyup(function(event){
-        if(event.keyCode == 13){
-            send_message();
-        }
-    });
-});
-
-function send_message(){
-const chattext = $("#chattext").val().trim();
-const show=$("#show")
-
-// 입력한 메세지가 없으면 리턴
-if(chattext == ""){
-    $("#chattext").focus();
-    return;
-}
-
-// 입력한 채팅 출력
-
-addtext = "<div class=customer><div class=customer-wrap><div class=txt><div>"+chattext+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-$("#chatbox").append(addtext);    
-var old1 = $("#old").val()
-
-// API 서버에 보낼 데이터 준비
-const jsonData = { 
-    query: chattext,
-    old:old1,
-    bottype: "WebClient",
-};
-if(chattext=='처음으로'){
-    $('input[name=old]').attr('value',"None")
-
-}
-
-$.ajax({
-    url: 'http://127.0.0.1:5000/TEST',
-    type: "POST",
-    data: JSON.stringify(jsonData),
-    dataType: "JSON",  // 응답받을 데이터 타입
-    contentType: "application/json; charset=utf-8",  
-    crossDomain: true,
-    success: function(response){
-        console.log(response)
-        fi=$(".test-td")
-        se=$(".test-td")
-        // response.Answer 에 챗봇의 응답메세지가 담겨 있다
         $chatbox = $("#chatbox");
-        // 답변 출력
-        $("#show").empty();
-
-        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+        bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"안녕하세요 어떤 업무를 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
         $chatbox.append(bottext);
-        if(response.url== "o")
-            {
+    });
+    console.log($(".test-td"))
+    // 채팅시간
+    var day = new Date();
+
+        $(function(){
+
+        // SEND 버튼을 누르거나
+        $("#sendbtn").click(function(){
+            send_message();
+        });
+
+        // ENTER key 가 눌리면
+        $("#chattext").keyup(function(event){
+            if(event.keyCode == 13){
+                send_message();
+            }
+        });
+    });
+
+    function send_message(){
+    const chattext = $("#chattext").val().trim();
+    const show=$("#show")
+
+    // 입력한 메세지가 없으면 리턴
+    if(chattext == ""){
+        $("#chattext").focus();
+        return;
+    }
+
+    // 입력한 채팅 출력
+
+    addtext = "<div class=customer><div class=customer-wrap><div class=txt><div>"+chattext+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+    $("#chatbox").append(addtext);    
+    var old1 = $("#old").val()
+
+    // API 서버에 보낼 데이터 준비
+    const jsonData = { 
+        query: chattext,
+        old:old1,
+        bottype: "WebClient",
+    };
+    if(chattext=='처음으로'){
+        $('input[name=old]').attr('value',"None")
+
+    }
+
+    $.ajax({
+        url: 'http://127.0.0.1:5000/TEST',
+        type: "POST",
+        data: JSON.stringify(jsonData),
+        dataType: "JSON",  // 응답받을 데이터 타입
+        contentType: "application/json; charset=utf-8",  
+        crossDomain: true,
+        success: function(response){
+            console.log(response)
+            fi=$(".test-td")
+            se=$(".test-td")
+            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+            $chatbox = $("#chatbox");
+            // 답변 출력
+            $("#show").empty();
+
+            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+            $chatbox.append(bottext);
+            if(response.url== "o")
+                {
                     a=$("#1").val()
                     text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     $chatbox.append(text)
@@ -179,29 +179,29 @@ $.ajax({
                     s1=$("#send1")
                     s2=$("#send2")
                     $chatbox.append(send)
+
                     if(response.AnswerImageUrl=='송금'){
-                        
                         re=response.NER
                         console.log(re)
                         s1.attr('value',$("#account2").val()) 
                         s2.attr('value',$("#account1").val()) 
-                        
-                    
                     }
                     
                     $("#send").click(function(){
+
                         var acode=/^[0-9]{14}/
+
                         if(!acode.test(s2.val())){
                             alert('계좌번호 양식 다름!')
                         }
+
                         const jsonData = { 
                         query:['three',s1.val(),s2.val(),a],
                         old:'이체',
                         bottype: "WebClient",
-                                    };
+                        };
                     
                         $.ajax({
-                           
                             url: 'http://127.0.0.1:5000/TEST',
                             type: "POST",
                             data: JSON.stringify(jsonData),
@@ -209,169 +209,217 @@ $.ajax({
                             contentType: "application/json; charset=utf-8",  
                             crossDomain: true,
                             success: function(response){
-
                                 $chatbox.append(response.answer)
                                 let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
                                 top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
                                 $show.append(top)
-           
                             }
-                            
-                        
-                                 
-
-
-
                         })
-
                     })
-           
+                }
 
-                    }
-        if(response.Intent=='인사'){
-            
-            $show=$("#show")
-            bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ddd;border-radius:10px;color:#424242;display:inline-block'><b>" + "<br>질문 의도를 선택해주세요" + "</b></span></div>";
+            // 인사 의도 분류
+            if(response.Intent=='인사'){
+                $show=$("#show")
+                bottext = "<div style='margin-left: 110px;margin-top: 30px;width: 400px;margin:2% 0%;text-align:left;'><span style='height: 80px;background-color:#ddd;border-radius:10px;color:#424242;display:inline-block'><b><br>질문 의도를 선택해주세요</b></span>";
                 $chatbox.append(bottext)
                 intent_list=['계좌조회','상품조회','이체','상환및납부','분실신고']
-                button_str = "<div id='buttons'>"
+                button_str = "<div id='buttons' style='display: flex;margin-top: 10px;'>"
                 let i = 0
                 for(inte of intent_list){
-                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                    button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
                     i += 1;
                 }
-                button_str += "</div>"
+                button_str += "</div></div>"
                 $chatbox.append(button_str)
+
+                // 카드 버튼 클릭
                 $("#0").click(function(){
                     const jsonData = {
                         query: '카드',
                         bottype: "WebClient",
                     };
+
                     $.ajax({
-                                url: 'http://127.0.0.1:5000/chatbot/TEST',
-                                type: "POST",
-                                data: JSON.stringify(jsonData),
-                                dataType: "JSON",  // 응답받을 데이터 타입
-                                contentType: "application/json; charset=utf-8",  
-                                crossDomain: true,
-                                success: function(response){
-                                    
-                                    // response.Answer 에 챗봇의 응답메세지가 담겨 있다
-                                    $chatbox = $("#chatbox");
-                                    // 답변 출력
-                        
-                                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                    $chatbox.append(bottext);
-                                    
-                       
-                                }
-                   
-                 });
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                            $chatbox = $("#chatbox");
+                            // 답변 출력
+                            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(bottext);
+                        }
+                    });
                 })
-                 $("#1").click(function(){
-                    console.log('didi')
+
+                // 상품 버튼 클릭
+                $("#1").click(function(){
+                    const jsonData = {
+                        query: '상품',
+                        bottype: "WebClient",
+                    };
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                            $chatbox = $("#chatbox");
+                            // 답변 출력
+                            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(bottext);
+                        }
+                    });
+                });
+
+                // 이체 버튼 클릭
+                $("#2").click(function(){
+                    const jsonData = {
+                        query: '이체',
+                        bottype: "WebClient",
+                    };
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                            $chatbox = $("#chatbox");
+                            // 답변 출력
+                            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(bottext);
+                        }
+                    });
+                });
+
+                // 납부 버튼 클릭
+                $("#3").click(function(){
+                    const jsonData = {
+                        query: '납부',
+                        bottype: "WebClient",
+                    };
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                            $chatbox = $("#chatbox");
+                            // 답변 출력
+                            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(bottext);
+                        }
+                    });
+                });
+
+                // 분실 버튼 클릭
+                $("#3").click(function(){
+                    const jsonData = {
+                        query: '분실',
+                        bottype: "WebClient",
+                    };
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            // response.Answer 에 챗봇의 응답메세지가 담겨 있다
+                            $chatbox = $("#chatbox");
+                            // 답변 출력
+                            bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background: none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(bottext);
+                        }
+                    });
                  });
-                 $("#2").click(function(){
-                    console.log('didi')
-                 });
-                 $("#3").click(function(){
-                    console.log('didi')
-                 });
-                // $chatbox.attr('src', 'http://127.0.0.1:5000/chatbot/TEST')
             }
             
+            // 조회 의도 분류
             else if(response.Intent == '조회'){
-                        console.log(response.result)
-                        $show=$("#show")
-                        let top = "<div><table class='tb-ac' style='margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"+ "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"+ "상품명" +"</th></tr></thead><tbody>"
-                        // for(i of response.result){
-                        var data1 =''
-                        console.log(response.result.length)
-                        for (i=0; i<response.result.length-1;i++){
-                            data1 += "<tr style='height:80px;'><td>" +response.result[0][i]+"</td><td>" +response.result[1][i] +"</td><td>" +response.result[2][i] +"원</td><td>" +response.result[3][i] +"원</td><td>"+response.result[4][i] +"</td></tr>"
-                        }
-                        // }
-                        let last = "</tbody></table></div>"
-                        $show.append(top+data1+last)
-                            
-
-                        //$show.append(JSON.parse(a))
-                        if(response.old='조회'){    
-                            console.log('wefwef')
-                            $('input[name=old]').attr('value',response.old)
-
-                        }
-            }
-        else if(response.Intent =='이체'){
-            check=true
-            $show=$("#show")
-            $chatbox = $("#chatbox")
-            $show.append(fi)
-            $show.append(se)
-            console.log(response.card)
-            re=response.NER
-            for(i=0;i<response.NER.length;i++){
-                            if(re[i][1] =='B_account'){
-                                $("#account1").attr('value',re[i][0])
-                            }
-                            if(re[i][1] =='B_money' && check==true){
-                            $("#account2").attr('value',re[i][0])
-                            check=false
-                            }
-            }
-            if(response.card!= null){
-                let i=1
-                button_str = "<div id='buttons'>"
-                for(ca of response.card){
-                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
-                
-                    i+=1
+                $show=$("#show")
+                let top = "<div><table class='tb-ac' style='margin-top:20px;'><thead><tr style='height:60px;'><th>"
+                    + "입/출금" +"</th><th>"+ "계좌번호" +"</th><th>"
+                    + "거래금액" +"</th><th>"+ "남은금액" +"</th><th>"
+                    + "상품명" +"</th></tr></thead><tbody>"
+                var data1 =''
+                for (i=0; i<response.result.length-1;i++){
+                    data1 += "<tr style='height:80px;'><td>" +response.result[0][i]+"</td><td>" 
+                        +response.result[1][i] +"</td><td>" +response.result[2][i] +"원</td><td>" 
+                        +response.result[3][i] +"원</td><td>"+response.result[4][i] +"</td></tr>"
                 }
-                button_str += "</div>"
-                $chatbox.append(button_str)
+
+                let last = "</tbody></table></div>"
+                $show.append(top+data1+last)
+
+                if(response.old='조회'){    
+                    $('input[name=old]').attr('value',response.old)
+                }
             }
-            // if(response.card=='송금')
-            // {
-            //     let i=10
-            //     tn=['예', '아니오']
-            //     button_str="<div id='buttons'>"
-            //     for (y of tn){
-            //         button_str+=`<button class='button small primary' id=${i} style='margin: 3px;' value=${y}>${y}</button>`
-            //         i+=1
-            //     }
-            //     button_str += "</div>"
-            //     $chatbox.append(button_str)
-            //     check=true
-            //     for(i=0;i<response.NER.length;i++){
-            //         if(re[i][1] =='B_account'){
-          
-          
-                            
-                        
-    
 
-            
-            
-            
+            // 이체 의도 분류
+            else if(response.Intent =='이체'){
+                check=true
+                $show=$("#show")
+                $chatbox = $("#chatbox")
+                $show.append(fi)
+                $show.append(se)
+                re=response.NER
+                for(i=0;i<response.NER.length;i++){
+                    if(re[i][1] =='B_account'){
+                        $("#account1").attr('value',re[i][0])
+                    }
+                    if(re[i][1] =='B_money' && check==true){
+                    $("#account2").attr('value',re[i][0])
+                    check=false
+                    }
+                }
+                if(response.card!= null){
+                    let i=1
+                    button_str = "<div id='buttons' style='display:flex;margin-top:10px;'>"
+                    for(ca of response.card){
+                        button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' value=${ca}>${ca}</button>`
+                        i+=1
+                    }
+                    button_str += "</div>"
+                    $chatbox.append(button_str)
+                }
 
-            //url은 무조건 플라스크로 보내는거잔아 그럼 우리 url을 플라스크로 가게 하면 어떤가?
-            $("#1").click(function(){
+                $("#1").click(function(){
                     $show=$("#show")
                     $chatbox = $("#chatbox")
                     ac=$("#1").val()
                     pass="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+ ac +"의 비밀번호를 알려주세요"+ "</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-
                     $chatbox.append(pass)
-            });
-            $("#2").click(function(){
+                });
+
+                $("#2").click(function(){
                     $show=$("#show")
-                    
                     a=$("#2").val()
                     text ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+a+"에서 얼마를 어디로 보내고 싶으세요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     $chatbox.append(text)
-                    send1="<input id='send1' value=> </input>"
-                    send2="<input id='send2' value=> </input> "
-                    send="<button id='send'> 송금 </button>"
+                    send1="<input style='height:40px;font-size:20px;' id='send1' value=> </input>"
+                    send2="<input style='height:40px;font-size:20px;' id='send2' value=> </input> "
+                    send="<button style='height:40px;font-size:20px;' id='send'> 송금 </button>"
                     $chatbox.append(send1)
                     $chatbox.append(send2)
                     s1=$("#send1")
@@ -381,13 +429,12 @@ $.ajax({
                     $("#send").click(function(){
                         console.log('asdlfjasdg')
                         const jsonData = { 
-                        query:['three',s1.val(),s2.val(),a],
-                        old:'이체',
-                        bottype: "WebClient",
-                                    };
+                            query:['three',s1.val(),s2.val(),a],
+                            old:'이체',
+                            bottype: "WebClient",
+                        };
                     
                         $.ajax({
-                           
                             url: 'http://127.0.0.1:5000/TEST',
                             type: "POST",
                             data: JSON.stringify(jsonData),
@@ -395,33 +442,17 @@ $.ajax({
                             contentType: "application/json; charset=utf-8",  
                             crossDomain: true,
                             success: function(response){
-
                                 $chatbox.append(response.answer)
                                 let top = "<div id='myaccount'><table style=' width:100%;min-height: 250px;margin-top: 21px;margin-left: -29px; text-align:center; font-size:20px;'><thead><tr><th>"+ "계좌번호 " +"</th><th>"+ "잔액" +"</th><th>"+ "마지막 거래일" +"</th><th>"+ "</thead><tbody>"
                                 top+= "<tr><td>" + a + "</td><td>" + response.url +"</td><td>" + getToday() +"</td></tr>"
                                 $show.append(top)
-           
-                                }
-                            
-                        
-                                 
-
-
-
+                            }
                         })
-
                     })
-                   
-                                        
-                                                
                 }) 
             }    
             
-                   
-            
-        else if(response.Intent =='분실'){
-                console.log('나등장')
-                console.log(response.Card)
+            else if(response.Intent =='분실'){
                 $show=$("#show")
                 $("#loss").remove('#loss')
                 $("#loss").remove('#loss')
@@ -447,7 +478,6 @@ $.ajax({
                     }
                 }
                 $("#0").click(function(){
-                    console.log($('input[name=0]').val())
                     if($('input[name=0]').val()=='정상'){
                         let result = confirm('분실신고하시겠습니까?')
                         if(result==true){
@@ -505,21 +535,17 @@ $.ajax({
                     }
                 });
             }
+
             else if(response.Intent =='납부'){   // intent == 4
                 response.Payintent == '적금'
                 if(response.Payintent == "납부"){   // second intent가 납부일때
-
-                    // $chatbox = $("#chatbox");
-                    // bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background-image:none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.Answer+"납부를 원하시는게 아니라면 '처음으로'를 입력해주세요."+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
-                    // $chatbox.append(bottext);
-
                     intent_list = [ "대출 상환", "적금 납부"]
-                    bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
+                    bottext = "<div style='margin:2% 0%;text-align:left;'><span style='background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
                         + "<br>" + "</b></span></div>";
                     button_str = "<div id='buttons'>"
                     let i = 0
                     for(inte of intent_list){
-                        button_str += `<button class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
+                        button_str += `<button style="width: 25%;margin-right:10px;margin-left: 10px;" class='button small primary' id=${i} style='margin: 3px;' onclick=' "${chattext}"'>${inte}</button>`
                         i += 1;
                     }
                     button_str += "</div>"
@@ -527,12 +553,9 @@ $.ajax({
 
                     // 3개 버튼 기능 구현하기..
                     $("#0").click(function(){    // "대출상환" 버튼
-
                         $chatbox = $("#chatbox");
                         bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"대출 상환 안내입니다. 상환가능한 대출 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                        // $chatbox.append(bottext);
                         $chatbox.append(bottext);
-
                         const jsonData = {
                             query: "돈낼게",
                             old: '납부',
@@ -551,29 +574,24 @@ $.ajax({
                                 $show=$("#show")
                                 // 가입한 대출상품명
                                 console.log(response.l_pro[0])
-                                    $show=$("#show")
-                                    $("#loans").remove()
-                                    $("#deposit").remove()
-                                    let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
-                                    // for(i of response.result){
-                                    console.log(response.l_pro.length)
-                                    var data1 = ""
-                                    for (i=0; i<response.l_pro[0].length;i++){
-                                        data1 += "<tr style='height:80px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
-                                    }
-                                    // }
-                                    let last = "</tbody></table></div>"
-                                    $show.append(top+data1+last)
-
-                                // 내역 눌렀을때, 하나 누르면 !
-                                
+                                $show=$("#show")
+                                $("#loans").remove()
+                                $("#deposit").remove()
+                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                                console.log(response.l_pro.length)
+                                var data1 = ""
+                                for (i=0; i<response.l_pro[0].length;i++){
+                                    data1 += "<tr style='height:80px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td></tr>"
+                                }
+                                let last = "</tbody></table></div>"
+                                $show.append(top+data1+last)
                             }
                         });
                     })
 
                     $("#1").click(function(){      // "적금납부" 버튼
                     $chatbox = $("#chatbox");
-                    bottext ="                <div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     $chatbox.append(bottext);
                     const jsonData = {
                             query: "돈낼게",
@@ -609,18 +627,14 @@ $.ajax({
                         });
                     });
                 }
-                else if(response.Payintent == "대출"){   // second intent가 대출일때
-                // $chatbox = $("#chatbox");
-                // bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"대출 상환 안내입니다. 상환가능한 대출 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
-                // $chatbox.append(bottext);
 
-                const jsonData = {
-                        query: "돈낼게",
-                        old: "납부",
-                        bottype: "WebClient",
-                };
-                console.log("여기 들어오신거 맞죵?")
-                $.ajax({
+                else if(response.Payintent == "대출"){   // second intent가 대출일때
+                    const jsonData = {
+                            query: "돈낼게",
+                            old: "납부",
+                            bottype: "WebClient",
+                    };
+                    $.ajax({
                         url: 'http://127.0.0.1:5000/TEST',
                         type: "POST",
                         data: JSON.stringify(jsonData),
@@ -632,31 +646,30 @@ $.ajax({
                             $show=$("#show")
                             // 가입한 대출상품명
                             console.log(response.l_pro[0])
-                                $show=$("#show")
-                                $("#loans").remove()
-                                let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
-                                console.log(response.l_pro.length)
-                                var data1 = ""
-                                for (i=0; i<response.l_pro[0].length;i++){
-                                    data1 += "<tr style='height:80px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td>"
-                                }
-                                let last = "</tbody></table></div>"
-                                $show.append(top+data1+last)
+                            $show=$("#show")
+                            $("#loans").remove()
+                            let top = "<div id='loans'><table class='tb-ac' style='heigth:650px;margin-top:20px;'><thead><tr style='height:60px;'><th>"+ "대출상품명" +"</th><th>"+ "한도" +"</th><th>"+ "만기" +"</th><th>"+ "이율" +"</th></tr></thead><tbody>"
+                            console.log(response.l_pro.length)
+                            var data1 = ""
+                            for (i=0; i<response.l_pro[0].length;i++){
+                                data1 += "<tr style='height:80px;'><td><a href='/service/loans'>" +response.l_pro[0][i]+"</a></td><td>" +response.l_pro[1][i] +"</td><td>" +response.l_pro[2][i] +"</td><td>" +response.l_pro[3][i] +"</td>"
+                            }
+                            let last = "</tbody></table></div>"
+                            $show.append(top+data1+last)
                         }
                     });
+                }
 
-            }
-
-            else{           // second intent가 적금일때
-                $chatbox = $("#chatbox");
-                bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
-                $chatbox.append(bottext);
-                const jsonData = {
+                else{           // second intent가 적금일때
+                    $chatbox = $("#chatbox");
+                    bottext ="<div class=chat-bot><div class=bot-profile><div class=img style=background: none;><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+"적금 납입 안내입니다. 가입하신 적금 상품이 있네요! 어떤 상품으로 도와드릴까요?"+"</div></div><div class=time><div>오후5:10</div></div></div></div>";
+                    $chatbox.append(bottext);
+                    const jsonData = {
                         query: "돈낼게",
                         old: "납부",
                         bottype: "WebClient",
-                };
-                $.ajax({
+                    };
+                    $.ajax({
                         url: 'http://127.0.0.1:5000/TEST',
                         type: "POST",
                         data: JSON.stringify(jsonData),
@@ -671,9 +684,6 @@ $.ajax({
                             let top = "<div id='deposit'><table class='tb-ac'><thead><tr style='height:60px;'><th>"+ "적금 계좌명" +"</th><th>"+ "적금 계좌번호" +"</th><th>"+ "가입날짜" +"</th><th>"+ "적금 만기" +"</th><th>" + "적금액" + "</th></thead><tbody>"
                             console.log(response.d_pro.length)
                             var data1 = ""
-                            // for (i=0; i<response.d_pro[0].length;i++){
-                            //     data1 += "<tr><td onclick=test()>" +response.d_pro[0][i]+"</td><td>" +response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td><td>"
-                            // }// 혹시모를 백업
                             for (i=0; i<response.d_pro[0].length;i++){
                                 data1 += "<tr style='height:60px;'><td><a href='/service/deposit'>" +response.d_pro[5][i]+"</a></td><td>" +response.d_pro[0][i]+"</td><td>" +response.d_pro[1][i] +"</td><td>" +response.d_pro[3][i] +"</td><td>" + response.d_pro[2][i] + "</td>"
                             }
@@ -693,23 +703,17 @@ $.ajax({
                             let last = "</tbody></table></div>"
                             let b = "<table></table>"
                             $show.append(top+data1+last)
-                            console.log("여기에요!")
-                            console.log(response.d_pro_p)
-                            console.log(response.d_pro_p[0][0][0])
-                            console.log(response.pro_idx)
                         }
                     });
-
-
-                    }
                 }
-        else if(response.Intent =='상품'){
-            // === === === 챗봇 동작 === === ===
-            if (response.Intent2 == '대출상품')   
-                {
+            }
+
+
+            else if(response.Intent =='상품'){
+                // === === === 챗봇 동작 === === ===
+                if (response.Intent2 == '대출상품'){
                     $show=$("#show")
-                    text ="                <div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                    //$chatbox.append(text)
+                    text ="<div class=chat-bot><div class=bot-profile><div class=img style='background-image:none;margin-top:14px;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
                     p=response.AnswerImageUrl
                     console.log(p)
                     for(i=0;i<p[0].length;i++){
@@ -731,243 +735,214 @@ $.ajax({
                                 <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
                             </tr>
                             </table></div>`
-                            $show.append(recommend_text) 
-                        }
-
-                }
-                        
-            else if (response.Intent2 == '적금상품')   
-                {
-                    $show=$("#show")
-                    p=response.AnswerImageUrl
-        
-                    for(i=0;i<p[0].length;i++){
-                            recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
-                            <tr>
-                                <td style='vertical-align:middle' >${p[0][i]}</td> 
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[1][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[2][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[3][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
-                            </tr>
-                            </table>`
-                            $show.append(recommend_text) 
+                        $show.append(recommend_text) 
                     }
-
-                            }
-            else if(response.Intent2 == '카드상품'){
-
+                }
+                      
+                
+            else if (response.Intent2 == '적금상품'){
                 $show=$("#show")
                 p=response.AnswerImageUrl
-        
                 for(i=0;i<p[0].length;i++){
-                            recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
-                            <tr>
-                                <td style='vertical-align:middle' >${p[0][i]}</td> 
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[1][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
-                            </tr>
-                           
-                            </table>`
-                            $show.append(recommend_text) 
-                    }
+                    recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                    <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
+                    <tr>
+                        <td style='vertical-align:middle' >${p[0][i]}</td> 
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' >${p[1][i]}</td>
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' >${p[2][i]}</td>
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' >${p[3][i]}</td>
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
+                    </tr>
+                    </table>`
+                    $show.append(recommend_text) 
+                }
+            }
 
 
-
-
+            else if(response.Intent2 == '카드상품'){
+                $show=$("#show")
+                p=response.AnswerImageUrl
+                for(i=0;i<p[0].length;i++){
+                    recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                    <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
+                    <tr>
+                        <td style='vertical-align:middle' >${p[0][i]}</td> 
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' >${p[1][i]}</td>
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
+                    </tr>
+                    
+                    </table>`
+                    $show.append(recommend_text) 
+                }
             }      
                 
-            else if (response.Intent2 == '상품조회'){
-                    intent_list = [ "대출상품", "적금상품", "카드상품"]
-                    bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
-                       + "<br>" + "</b></span></div>";
-                    button_str = "<div id='buttons' > "
-                    let i = 0
-                    for(inte of intent_list){
-                        button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${inte}12>${inte}</button>`
-                        i += 1;
-                    }
-                    button_str += "<br>💜💙💛</div>"
-                    $chatbox.append(button_str)
-                    $("#0").click(function(){
-                        $show=$("#show")
-                        $("#show").empty();
-                        b=$("#0").val()
-                        console.log(b)
-                      
-                        const jsonData = { 
-                                step:2,
-                                query:b,
-                                old:'상품',
-                                bottype: "WebClient",
-                                    };
-                        $.ajax({
-                           
-                            url: 'http://127.0.0.1:5000/TEST',
-                            type: "POST",
-                            data: JSON.stringify(jsonData),
-                            dataType: "JSON",  // 응답받을 데이터 타입
-                            contentType: "application/json; charset=utf-8",  
-                            crossDomain: true,
-                            success: function(response){
-                                        console.log(response)
-                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                        $chatbox.append(text)
-                                        console.log(response.url)
-                                        p=response.url
-                                     for(i=0;i<p[0].length;i++){
-                                        recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
-                            <tr>
-                                <td style='vertical-align:middle' >${p[0][i]}</td> 
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[1][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[2][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[3][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
-                            </tr>
-                        </table>`
-                            $show.append(recommend_text) 
-                    }
-
-                            }
-
-
-                        })
-
-
-
-                    
-                 });
-                    $("#1").click(function(){
-                        $show=$("#show")
-                        $("#show").empty();
-                        b=$("#1").val()
-                        console.log(b)
-                      
-                        const jsonData = { 
-                                step:2,
-                                query:b,
-                                old:'상품',
-                                bottype: "WebClient",
-                                    };
-                        $.ajax({
-                           
-                            url: 'http://127.0.0.1:5000/TEST',
-                            type: "POST",
-                            data: JSON.stringify(jsonData),
-                            dataType: "JSON",  // 응답받을 데이터 타입
-                            contentType: "application/json; charset=utf-8",  
-                            crossDomain: true,
-                            success: function(response){
-                                        console.log(response)
-                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                        $chatbox.append(text)
-                                        p=response.url
-                                     for(i=0;i<p[0].length;i++){
-                                        recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
-                            <tr>
-                                <td style='vertical-align:middle' >${p[0][i]}</td> 
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[1][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[2][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[3][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
-                            </tr>
-                        </table>`
-                            $show.append(recommend_text) 
-                    }
-                
-
-                
-                }
-                
-             
-
-                    
-             });
-                    
-            })
-            $("#2").click(function(){
-                        $show=$("#show")
-                        $("#show").empty();
-                        b=$("#2").val()
-                        console.log(b)
-                      
-                        const jsonData = { 
-                                step:2,
-                                query:b,
-                                old:'상품',
-                                bottype: "WebClient",
-                                    };
-                        $.ajax({
-                           
-                            url: 'http://127.0.0.1:5000/TEST',
-                            type: "POST",
-                            data: JSON.stringify(jsonData),
-                            dataType: "JSON",  // 응답받을 데이터 타입
-                            contentType: "application/json; charset=utf-8",  
-                            crossDomain: true,
-                            success: function(response){
-                                        console.log(response)
-                                        text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
-                                        $chatbox.append(text)
-                                        p=response.url
-                                     for(i=0;i<p[0].length;i++){
-                                        recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
-                            <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
-                            <tr>
-                                <td style='vertical-align:middle' >${p[0][i]}</td> 
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' >${p[1][i]}</td>
-                            </tr>
-                            <tr>
-                                <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
-                            </tr>
-                        </table>`
-                            $show.append(recommend_text) 
-                    }
-                
-
-                
-                }
-            })
-        })
             
-         
+            else if (response.Intent2 == '상품조회'){
+                intent_list = [ "대출상품", "적금상품", "카드상품"]
+                bottext = "<div style='margin:2% 0%;text-align:left;'><span style='padding:1% 2%;background-color:#ffcd48;border-radius:10px;color:#424242;display:inline-block'><b>" + 
+                    + "<br>" + "</b></span></div>";
+                button_str = "<div id='buttons' > "
+                let i = 0
+                for(inte of intent_list){
+                    button_str += `<button class='button small primary' id=${i} style='margin: 3px;' value=${inte}12>${inte}</button>`
+                    i += 1;
+                }
+                button_str += "<br>💜💙💛</div>"
+                $chatbox.append(button_str)
 
+                $("#0").click(function(){
+                    $show=$("#show")
+                    $("#show").empty();
+                    b=$("#0").val()
+                    
+                    const jsonData = { 
+                        step:2,
+                        query:b,
+                        old:'상품',
+                        bottype: "WebClient",
+                    };
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            console.log(response)
+                            text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(text)
+                            console.log(response.url)
+                            p=response.url
+                            for(i=0;i<p[0].length;i++){
+                                recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                                <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
+                                <tr>
+                                    <td style='vertical-align:middle' >${p[0][i]}</td> 
+                                </tr>
+                                <tr>
+                                    <td style='vertical-align:middle' >${p[1][i]}</td>
+                                </tr>
+                                <tr>
+                                    <td style='vertical-align:middle' >${p[2][i]}</td>
+                                </tr>
+                                <tr>
+                                    <td style='vertical-align:middle' >${p[3][i]}</td>
+                                </tr>
+                                <tr>
+                                    <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
+                                </tr>
+                                </table>`
+                                $show.append(recommend_text) 
+                            }
+                        }
+                    })
+                });
+
+                $("#1").click(function(){
+                    $show=$("#show")
+                    $("#show").empty();
+                    b=$("#1").val()
+                    
+                    const jsonData = { 
+                        step:2,
+                        query:b,
+                        old:'상품',
+                        bottype: "WebClient",
+                    };
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            console.log(response)
+                            text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(text)
+                            p=response.url
+                            for(i=0;i<p[0].length;i++){
+                            recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                                <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[0][i]}</td> 
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[1][i]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[2][i]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[3][i]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
+                                    </tr>
+                                </table>`
+                                $show.append(recommend_text) 
+                            }
+                        }
+                    });
+                })
+
+                $("#2").click(function(){
+                    $show=$("#show")
+                    $("#show").empty();
+                    b=$("#2").val()
+                    
+                    const jsonData = { 
+                        step:2,
+                        query:b,
+                        old:'상품',
+                        bottype: "WebClient",
+                    };
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/TEST',
+                        type: "POST",
+                        data: JSON.stringify(jsonData),
+                        dataType: "JSON",  // 응답받을 데이터 타입
+                        contentType: "application/json; charset=utf-8",  
+                        crossDomain: true,
+                        success: function(response){
+                            console.log(response)
+                            text ="<div class=chat-bot style='display:block'><div class=bot-profile><div class=img style='background-image:none;background-color: #ffffff;box-shadow: 0px 3px 5px 2px #e0d6ff;'><img src=https://openclipart.org/image/800px/262355 alt=챗봇></div><div class=name>챗봇</div></div><div class=bot-talk><div class=txt style='min-width:150px;'><div>"+response.answer+"</div></div><div class=time><div>"+day.getHours()+"시 "+day.getMinutes()+"분"+"</div></div></div></div>";
+                            $chatbox.append(text)
+                            p=response.url
+                            for(i=0;i<p[0].length;i++){
+                                recommend_text = `<div style='width:375px;display: inline-block;margin-top: 30px;'>
+                                <table style="background: #7f4fac;font-weight: bolder;border-radius:10px;margin-bottom:3%;margin: 0 auto;color:white;padding:3%;text-align:center;height: 170px;width: 300px;">
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[0][i]}</td> 
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' >${p[1][i]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='vertical-align:middle' ><button style='width: 85px;height: 34px;background: #fde8ff;border: none; font-size: 16px;border-radius: 5px;font-weight: 800;'>신청하기</button></td>
+                                    </tr>
+                                </table>`
+                                $show.append(recommend_text) 
+                            }
+                        }
+                    })
+                })
+            }
         }
-    }
         // 스크롤 조정하기
     $("#wrap").animate({scrollTop: $("#wrap").prop('scrollHeight')});
     $("#show").animate({scrollTop: $("#show").prop('scrollHeight')});
