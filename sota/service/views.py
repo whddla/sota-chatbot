@@ -16,13 +16,15 @@ def lookup(request:HttpRequest):
     trans = Transation.objects.select_related('user_idx').filter(user_idx=user_idx).order_by('-date')
     card = Card.objects.filter(user_idx=user_idx)
     cpro = CProduct.objects.all()
-
     # 내가 가진 입출금, 적금 총액
     total = 0
     for i in card:
         total += i.remain
-
+    first_remain = []
     loans = LProduct.objects.select_related('user_idx').filter(user_idx=user_idx) 
+    for i in loans:
+        first_remain.append(Transation.objects.select_related('user_idx').filter(user_idx=user_idx,account=i.account).first())
+
     deposit = Deposit.objects.select_related('user_idx').filter(user_idx=user_idx) 
     deposit_name = DProduct.objects.all()
 
@@ -43,6 +45,7 @@ def lookup(request:HttpRequest):
         'l_remain':l_remain,
         'remain':total,
         'trans':trans,
+        'first_remain':first_remain,
     }
 
     return render(request, 'lookup.html',context)

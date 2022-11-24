@@ -58,7 +58,7 @@
 <section class="contents" style="margin-bottom: 25px; font-size: 25px;">
     <h2 class="tit">한도대출</h2>
     <strong style="margin-left: 34px;">대출(마이너스)잔액 : </strong>
-    <span>- {{l_remain|intcomma}} 원</span>
+    <span style="color:red;"><strong>- {{l_remain|intcomma}}</strong> 원</span>
 </section>
 <section class="contents" style="min-height: 291px;">
     <table class="list">
@@ -79,7 +79,11 @@
                 <td>{{i.date}}</td>
                 <td style="color: red; font-family: bold;text-align: right;">
                     {{i.remain|intcomma}} 원
-                    <span style="font-size: 14px;display: block; color: #333;">(대출한도 : {{i.remain}} 원)</span>
+                    {%for j in first_remain%}
+                    {% if j.account == i.account %}
+                    <span style="font-size: 14px;display: block; color: #333;">(대출한도 : {{j.remain|intcomma}} 원)</span>
+                    {%endif%}
+                    {%endfor%}
                 </td>
                 <td>
                     <a href="" class="loans">조회</a>
